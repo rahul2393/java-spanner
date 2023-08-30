@@ -44,6 +44,7 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.Empty;
 import com.google.protobuf.FieldMask;
 import com.google.protobuf.Timestamp;
+import com.google.spanner.admin.instance.v1.AutoscalingConfig;
 import com.google.spanner.admin.instance.v1.CreateInstanceConfigRequest;
 import com.google.spanner.admin.instance.v1.CreateInstanceRequest;
 import com.google.spanner.admin.instance.v1.DeleteInstanceConfigRequest;
@@ -744,6 +745,7 @@ public class InstanceAdminClientTest {
             .addAllEndpointUris(new ArrayList<String>())
             .setCreateTime(Timestamp.newBuilder().build())
             .setUpdateTime(Timestamp.newBuilder().build())
+            .setAutoscalingConfig(AutoscalingConfig.newBuilder().build())
             .build();
     mockInstanceAdmin.addResponse(expectedResponse);
 
@@ -790,6 +792,7 @@ public class InstanceAdminClientTest {
             .addAllEndpointUris(new ArrayList<String>())
             .setCreateTime(Timestamp.newBuilder().build())
             .setUpdateTime(Timestamp.newBuilder().build())
+            .setAutoscalingConfig(AutoscalingConfig.newBuilder().build())
             .build();
     mockInstanceAdmin.addResponse(expectedResponse);
 
@@ -836,6 +839,7 @@ public class InstanceAdminClientTest {
             .addAllEndpointUris(new ArrayList<String>())
             .setCreateTime(Timestamp.newBuilder().build())
             .setUpdateTime(Timestamp.newBuilder().build())
+            .setAutoscalingConfig(AutoscalingConfig.newBuilder().build())
             .build();
     Operation resultOperation =
         Operation.newBuilder()
@@ -896,6 +900,7 @@ public class InstanceAdminClientTest {
             .addAllEndpointUris(new ArrayList<String>())
             .setCreateTime(Timestamp.newBuilder().build())
             .setUpdateTime(Timestamp.newBuilder().build())
+            .setAutoscalingConfig(AutoscalingConfig.newBuilder().build())
             .build();
     Operation resultOperation =
         Operation.newBuilder()
@@ -956,6 +961,7 @@ public class InstanceAdminClientTest {
             .addAllEndpointUris(new ArrayList<String>())
             .setCreateTime(Timestamp.newBuilder().build())
             .setUpdateTime(Timestamp.newBuilder().build())
+            .setAutoscalingConfig(AutoscalingConfig.newBuilder().build())
             .build();
     Operation resultOperation =
         Operation.newBuilder()

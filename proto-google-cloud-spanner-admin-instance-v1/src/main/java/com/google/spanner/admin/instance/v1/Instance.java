@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -810,7 +810,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
    *
    *
    * <pre>
-   * Output only. The time at which the instance was most recently updated.
+   * Output only. The time at which the instance was most recaently updated.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp update_time = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];
@@ -826,7 +826,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
    *
    *
    * <pre>
-   * Output only. The time at which the instance was most recently updated.
+   * Output only. The time at which the instance was most recaently updated.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp update_time = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];
@@ -842,7 +842,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
    *
    *
    * <pre>
-   * Output only. The time at which the instance was most recently updated.
+   * Output only. The time at which the instance was most recaently updated.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp update_time = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];
@@ -851,6 +851,69 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
   @java.lang.Override
   public com.google.protobuf.TimestampOrBuilder getUpdateTimeOrBuilder() {
     return updateTime_ == null ? com.google.protobuf.Timestamp.getDefaultInstance() : updateTime_;
+  }
+
+  public static final int AUTOSCALING_CONFIG_FIELD_NUMBER = 17;
+  private com.google.spanner.admin.instance.v1.AutoscalingConfig autoscalingConfig_;
+  /**
+   *
+   *
+   * <pre>
+   * The autoscaling configuration. Autoscaling is enabled if this field is set.
+   * When autoscaling is enabled, node_count and processing_units are treated as
+   * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+   * the instance.
+   * (-- api-linter: core::0203::output-only=disabled --)
+   * </pre>
+   *
+   * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+   *
+   * @return Whether the autoscalingConfig field is set.
+   */
+  @java.lang.Override
+  public boolean hasAutoscalingConfig() {
+    return autoscalingConfig_ != null;
+  }
+  /**
+   *
+   *
+   * <pre>
+   * The autoscaling configuration. Autoscaling is enabled if this field is set.
+   * When autoscaling is enabled, node_count and processing_units are treated as
+   * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+   * the instance.
+   * (-- api-linter: core::0203::output-only=disabled --)
+   * </pre>
+   *
+   * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+   *
+   * @return The autoscalingConfig.
+   */
+  @java.lang.Override
+  public com.google.spanner.admin.instance.v1.AutoscalingConfig getAutoscalingConfig() {
+    return autoscalingConfig_ == null
+        ? com.google.spanner.admin.instance.v1.AutoscalingConfig.getDefaultInstance()
+        : autoscalingConfig_;
+  }
+  /**
+   *
+   *
+   * <pre>
+   * The autoscaling configuration. Autoscaling is enabled if this field is set.
+   * When autoscaling is enabled, node_count and processing_units are treated as
+   * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+   * the instance.
+   * (-- api-linter: core::0203::output-only=disabled --)
+   * </pre>
+   *
+   * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+   */
+  @java.lang.Override
+  public com.google.spanner.admin.instance.v1.AutoscalingConfigOrBuilder
+      getAutoscalingConfigOrBuilder() {
+    return autoscalingConfig_ == null
+        ? com.google.spanner.admin.instance.v1.AutoscalingConfig.getDefaultInstance()
+        : autoscalingConfig_;
   }
 
   private byte memoizedIsInitialized = -1;
@@ -896,6 +959,9 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
     }
     if (updateTime_ != null) {
       output.writeMessage(12, getUpdateTime());
+    }
+    if (autoscalingConfig_ != null) {
+      output.writeMessage(17, getAutoscalingConfig());
     }
     getUnknownFields().writeTo(output);
   }
@@ -949,6 +1015,9 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
     if (updateTime_ != null) {
       size += com.google.protobuf.CodedOutputStream.computeMessageSize(12, getUpdateTime());
     }
+    if (autoscalingConfig_ != null) {
+      size += com.google.protobuf.CodedOutputStream.computeMessageSize(17, getAutoscalingConfig());
+    }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
     return size;
@@ -980,6 +1049,10 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
     if (hasUpdateTime() != other.hasUpdateTime()) return false;
     if (hasUpdateTime()) {
       if (!getUpdateTime().equals(other.getUpdateTime())) return false;
+    }
+    if (hasAutoscalingConfig() != other.hasAutoscalingConfig()) return false;
+    if (hasAutoscalingConfig()) {
+      if (!getAutoscalingConfig().equals(other.getAutoscalingConfig())) return false;
     }
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
@@ -1019,6 +1092,10 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
     if (hasUpdateTime()) {
       hash = (37 * hash) + UPDATE_TIME_FIELD_NUMBER;
       hash = (53 * hash) + getUpdateTime().hashCode();
+    }
+    if (hasAutoscalingConfig()) {
+      hash = (37 * hash) + AUTOSCALING_CONFIG_FIELD_NUMBER;
+      hash = (53 * hash) + getAutoscalingConfig().hashCode();
     }
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
@@ -1197,6 +1274,11 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
         updateTimeBuilder_.dispose();
         updateTimeBuilder_ = null;
       }
+      autoscalingConfig_ = null;
+      if (autoscalingConfigBuilder_ != null) {
+        autoscalingConfigBuilder_.dispose();
+        autoscalingConfigBuilder_ = null;
+      }
       return this;
     }
 
@@ -1264,6 +1346,12 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
       }
       if (((from_bitField0_ & 0x00000200) != 0)) {
         result.updateTime_ = updateTimeBuilder_ == null ? updateTime_ : updateTimeBuilder_.build();
+      }
+      if (((from_bitField0_ & 0x00000400) != 0)) {
+        result.autoscalingConfig_ =
+            autoscalingConfigBuilder_ == null
+                ? autoscalingConfig_
+                : autoscalingConfigBuilder_.build();
       }
     }
 
@@ -1353,6 +1441,9 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
       }
       if (other.hasUpdateTime()) {
         mergeUpdateTime(other.getUpdateTime());
+      }
+      if (other.hasAutoscalingConfig()) {
+        mergeAutoscalingConfig(other.getAutoscalingConfig());
       }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
@@ -1447,6 +1538,13 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
                 bitField0_ |= 0x00000200;
                 break;
               } // case 98
+            case 138:
+              {
+                input.readMessage(
+                    getAutoscalingConfigFieldBuilder().getBuilder(), extensionRegistry);
+                bitField0_ |= 0x00000400;
+                break;
+              } // case 138
             default:
               {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
@@ -2784,7 +2882,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Output only. The time at which the instance was most recently updated.
+     * Output only. The time at which the instance was most recaently updated.
      * </pre>
      *
      * <code>
@@ -2800,7 +2898,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Output only. The time at which the instance was most recently updated.
+     * Output only. The time at which the instance was most recaently updated.
      * </pre>
      *
      * <code>
@@ -2822,7 +2920,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Output only. The time at which the instance was most recently updated.
+     * Output only. The time at which the instance was most recaently updated.
      * </pre>
      *
      * <code>
@@ -2846,7 +2944,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Output only. The time at which the instance was most recently updated.
+     * Output only. The time at which the instance was most recaently updated.
      * </pre>
      *
      * <code>
@@ -2867,7 +2965,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Output only. The time at which the instance was most recently updated.
+     * Output only. The time at which the instance was most recaently updated.
      * </pre>
      *
      * <code>
@@ -2894,7 +2992,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Output only. The time at which the instance was most recently updated.
+     * Output only. The time at which the instance was most recaently updated.
      * </pre>
      *
      * <code>
@@ -2915,7 +3013,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Output only. The time at which the instance was most recently updated.
+     * Output only. The time at which the instance was most recaently updated.
      * </pre>
      *
      * <code>
@@ -2931,7 +3029,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Output only. The time at which the instance was most recently updated.
+     * Output only. The time at which the instance was most recaently updated.
      * </pre>
      *
      * <code>
@@ -2951,7 +3049,7 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
      *
      *
      * <pre>
-     * Output only. The time at which the instance was most recently updated.
+     * Output only. The time at which the instance was most recaently updated.
      * </pre>
      *
      * <code>
@@ -2973,6 +3071,231 @@ public final class Instance extends com.google.protobuf.GeneratedMessageV3
         updateTime_ = null;
       }
       return updateTimeBuilder_;
+    }
+
+    private com.google.spanner.admin.instance.v1.AutoscalingConfig autoscalingConfig_;
+    private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.spanner.admin.instance.v1.AutoscalingConfig,
+            com.google.spanner.admin.instance.v1.AutoscalingConfig.Builder,
+            com.google.spanner.admin.instance.v1.AutoscalingConfigOrBuilder>
+        autoscalingConfigBuilder_;
+    /**
+     *
+     *
+     * <pre>
+     * The autoscaling configuration. Autoscaling is enabled if this field is set.
+     * When autoscaling is enabled, node_count and processing_units are treated as
+     * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+     * the instance.
+     * (-- api-linter: core::0203::output-only=disabled --)
+     * </pre>
+     *
+     * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+     *
+     * @return Whether the autoscalingConfig field is set.
+     */
+    public boolean hasAutoscalingConfig() {
+      return ((bitField0_ & 0x00000400) != 0);
+    }
+    /**
+     *
+     *
+     * <pre>
+     * The autoscaling configuration. Autoscaling is enabled if this field is set.
+     * When autoscaling is enabled, node_count and processing_units are treated as
+     * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+     * the instance.
+     * (-- api-linter: core::0203::output-only=disabled --)
+     * </pre>
+     *
+     * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+     *
+     * @return The autoscalingConfig.
+     */
+    public com.google.spanner.admin.instance.v1.AutoscalingConfig getAutoscalingConfig() {
+      if (autoscalingConfigBuilder_ == null) {
+        return autoscalingConfig_ == null
+            ? com.google.spanner.admin.instance.v1.AutoscalingConfig.getDefaultInstance()
+            : autoscalingConfig_;
+      } else {
+        return autoscalingConfigBuilder_.getMessage();
+      }
+    }
+    /**
+     *
+     *
+     * <pre>
+     * The autoscaling configuration. Autoscaling is enabled if this field is set.
+     * When autoscaling is enabled, node_count and processing_units are treated as
+     * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+     * the instance.
+     * (-- api-linter: core::0203::output-only=disabled --)
+     * </pre>
+     *
+     * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+     */
+    public Builder setAutoscalingConfig(
+        com.google.spanner.admin.instance.v1.AutoscalingConfig value) {
+      if (autoscalingConfigBuilder_ == null) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        autoscalingConfig_ = value;
+      } else {
+        autoscalingConfigBuilder_.setMessage(value);
+      }
+      bitField0_ |= 0x00000400;
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * The autoscaling configuration. Autoscaling is enabled if this field is set.
+     * When autoscaling is enabled, node_count and processing_units are treated as
+     * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+     * the instance.
+     * (-- api-linter: core::0203::output-only=disabled --)
+     * </pre>
+     *
+     * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+     */
+    public Builder setAutoscalingConfig(
+        com.google.spanner.admin.instance.v1.AutoscalingConfig.Builder builderForValue) {
+      if (autoscalingConfigBuilder_ == null) {
+        autoscalingConfig_ = builderForValue.build();
+      } else {
+        autoscalingConfigBuilder_.setMessage(builderForValue.build());
+      }
+      bitField0_ |= 0x00000400;
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * The autoscaling configuration. Autoscaling is enabled if this field is set.
+     * When autoscaling is enabled, node_count and processing_units are treated as
+     * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+     * the instance.
+     * (-- api-linter: core::0203::output-only=disabled --)
+     * </pre>
+     *
+     * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+     */
+    public Builder mergeAutoscalingConfig(
+        com.google.spanner.admin.instance.v1.AutoscalingConfig value) {
+      if (autoscalingConfigBuilder_ == null) {
+        if (((bitField0_ & 0x00000400) != 0)
+            && autoscalingConfig_ != null
+            && autoscalingConfig_
+                != com.google.spanner.admin.instance.v1.AutoscalingConfig.getDefaultInstance()) {
+          getAutoscalingConfigBuilder().mergeFrom(value);
+        } else {
+          autoscalingConfig_ = value;
+        }
+      } else {
+        autoscalingConfigBuilder_.mergeFrom(value);
+      }
+      bitField0_ |= 0x00000400;
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * The autoscaling configuration. Autoscaling is enabled if this field is set.
+     * When autoscaling is enabled, node_count and processing_units are treated as
+     * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+     * the instance.
+     * (-- api-linter: core::0203::output-only=disabled --)
+     * </pre>
+     *
+     * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+     */
+    public Builder clearAutoscalingConfig() {
+      bitField0_ = (bitField0_ & ~0x00000400);
+      autoscalingConfig_ = null;
+      if (autoscalingConfigBuilder_ != null) {
+        autoscalingConfigBuilder_.dispose();
+        autoscalingConfigBuilder_ = null;
+      }
+      onChanged();
+      return this;
+    }
+    /**
+     *
+     *
+     * <pre>
+     * The autoscaling configuration. Autoscaling is enabled if this field is set.
+     * When autoscaling is enabled, node_count and processing_units are treated as
+     * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+     * the instance.
+     * (-- api-linter: core::0203::output-only=disabled --)
+     * </pre>
+     *
+     * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+     */
+    public com.google.spanner.admin.instance.v1.AutoscalingConfig.Builder
+        getAutoscalingConfigBuilder() {
+      bitField0_ |= 0x00000400;
+      onChanged();
+      return getAutoscalingConfigFieldBuilder().getBuilder();
+    }
+    /**
+     *
+     *
+     * <pre>
+     * The autoscaling configuration. Autoscaling is enabled if this field is set.
+     * When autoscaling is enabled, node_count and processing_units are treated as
+     * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+     * the instance.
+     * (-- api-linter: core::0203::output-only=disabled --)
+     * </pre>
+     *
+     * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+     */
+    public com.google.spanner.admin.instance.v1.AutoscalingConfigOrBuilder
+        getAutoscalingConfigOrBuilder() {
+      if (autoscalingConfigBuilder_ != null) {
+        return autoscalingConfigBuilder_.getMessageOrBuilder();
+      } else {
+        return autoscalingConfig_ == null
+            ? com.google.spanner.admin.instance.v1.AutoscalingConfig.getDefaultInstance()
+            : autoscalingConfig_;
+      }
+    }
+    /**
+     *
+     *
+     * <pre>
+     * The autoscaling configuration. Autoscaling is enabled if this field is set.
+     * When autoscaling is enabled, node_count and processing_units are treated as
+     * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+     * the instance.
+     * (-- api-linter: core::0203::output-only=disabled --)
+     * </pre>
+     *
+     * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+     */
+    private com.google.protobuf.SingleFieldBuilderV3<
+            com.google.spanner.admin.instance.v1.AutoscalingConfig,
+            com.google.spanner.admin.instance.v1.AutoscalingConfig.Builder,
+            com.google.spanner.admin.instance.v1.AutoscalingConfigOrBuilder>
+        getAutoscalingConfigFieldBuilder() {
+      if (autoscalingConfigBuilder_ == null) {
+        autoscalingConfigBuilder_ =
+            new com.google.protobuf.SingleFieldBuilderV3<
+                com.google.spanner.admin.instance.v1.AutoscalingConfig,
+                com.google.spanner.admin.instance.v1.AutoscalingConfig.Builder,
+                com.google.spanner.admin.instance.v1.AutoscalingConfigOrBuilder>(
+                getAutoscalingConfig(), getParentForChildren(), isClean());
+        autoscalingConfig_ = null;
+      }
+      return autoscalingConfigBuilder_;
     }
 
     @java.lang.Override

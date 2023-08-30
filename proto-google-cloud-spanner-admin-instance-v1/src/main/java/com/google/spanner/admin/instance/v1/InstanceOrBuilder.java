@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -443,7 +443,7 @@ public interface InstanceOrBuilder
    *
    *
    * <pre>
-   * Output only. The time at which the instance was most recently updated.
+   * Output only. The time at which the instance was most recaently updated.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp update_time = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];
@@ -456,7 +456,7 @@ public interface InstanceOrBuilder
    *
    *
    * <pre>
-   * Output only. The time at which the instance was most recently updated.
+   * Output only. The time at which the instance was most recaently updated.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp update_time = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];
@@ -469,11 +469,58 @@ public interface InstanceOrBuilder
    *
    *
    * <pre>
-   * Output only. The time at which the instance was most recently updated.
+   * Output only. The time at which the instance was most recaently updated.
    * </pre>
    *
    * <code>.google.protobuf.Timestamp update_time = 12 [(.google.api.field_behavior) = OUTPUT_ONLY];
    * </code>
    */
   com.google.protobuf.TimestampOrBuilder getUpdateTimeOrBuilder();
+
+  /**
+   *
+   *
+   * <pre>
+   * The autoscaling configuration. Autoscaling is enabled if this field is set.
+   * When autoscaling is enabled, node_count and processing_units are treated as
+   * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+   * the instance.
+   * (-- api-linter: core::0203::output-only=disabled --)
+   * </pre>
+   *
+   * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+   *
+   * @return Whether the autoscalingConfig field is set.
+   */
+  boolean hasAutoscalingConfig();
+  /**
+   *
+   *
+   * <pre>
+   * The autoscaling configuration. Autoscaling is enabled if this field is set.
+   * When autoscaling is enabled, node_count and processing_units are treated as
+   * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+   * the instance.
+   * (-- api-linter: core::0203::output-only=disabled --)
+   * </pre>
+   *
+   * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+   *
+   * @return The autoscalingConfig.
+   */
+  com.google.spanner.admin.instance.v1.AutoscalingConfig getAutoscalingConfig();
+  /**
+   *
+   *
+   * <pre>
+   * The autoscaling configuration. Autoscaling is enabled if this field is set.
+   * When autoscaling is enabled, node_count and processing_units are treated as
+   * OUTPUT_ONLY fields and reflect the current compute capacity allocated to
+   * the instance.
+   * (-- api-linter: core::0203::output-only=disabled --)
+   * </pre>
+   *
+   * <code>.google.spanner.admin.instance.v1.AutoscalingConfig autoscaling_config = 17;</code>
+   */
+  com.google.spanner.admin.instance.v1.AutoscalingConfigOrBuilder getAutoscalingConfigOrBuilder();
 }

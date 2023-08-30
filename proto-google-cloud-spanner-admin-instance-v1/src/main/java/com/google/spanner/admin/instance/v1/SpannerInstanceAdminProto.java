@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Google LLC
+ * Copyright 2023 Google LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -39,6 +39,18 @@ public final class SpannerInstanceAdminProto {
       internal_static_google_spanner_admin_instance_v1_InstanceConfig_LabelsEntry_descriptor;
   static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
       internal_static_google_spanner_admin_instance_v1_InstanceConfig_LabelsEntry_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+      internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_descriptor;
+  static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+      internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_AutoscalingLimits_descriptor;
+  static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_AutoscalingLimits_fieldAccessorTable;
+  static final com.google.protobuf.Descriptors.Descriptor
+      internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_AutoscalingTargets_descriptor;
+  static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
+      internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_AutoscalingTargets_fieldAccessorTable;
   static final com.google.protobuf.Descriptors.Descriptor
       internal_static_google_spanner_admin_instance_v1_Instance_descriptor;
   static final com.google.protobuf.GeneratedMessageV3.FieldAccessorTable
@@ -165,183 +177,197 @@ public final class SpannerInstanceAdminProto {
           + "tate\022\025\n\021STATE_UNSPECIFIED\020\000\022\014\n\010CREATING\020"
           + "\001\022\t\n\005READY\020\002:`\352A]\n%spanner.googleapis.co"
           + "m/InstanceConfig\0224projects/{project}/ins"
-          + "tanceConfigs/{instance_config}\"\363\004\n\010Insta"
-          + "nce\022\022\n\004name\030\001 \001(\tB\004\342A\001\002\022>\n\006config\030\002 \001(\tB"
-          + ".\342A\001\002\372A\'\n%spanner.googleapis.com/Instanc"
-          + "eConfig\022\032\n\014display_name\030\003 \001(\tB\004\342A\001\002\022\022\n\nn"
-          + "ode_count\030\005 \001(\005\022\030\n\020processing_units\030\t \001("
-          + "\005\022E\n\005state\030\006 \001(\01620.google.spanner.admin."
-          + "instance.v1.Instance.StateB\004\342A\001\003\022F\n\006labe"
-          + "ls\030\007 \003(\01326.google.spanner.admin.instance"
-          + ".v1.Instance.LabelsEntry\022\025\n\rendpoint_uri"
-          + "s\030\010 \003(\t\0225\n\013create_time\030\013 \001(\0132\032.google.pr"
-          + "otobuf.TimestampB\004\342A\001\003\0225\n\013update_time\030\014 "
-          + "\001(\0132\032.google.protobuf.TimestampB\004\342A\001\003\032-\n"
-          + "\013LabelsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 \001(\t"
-          + ":\0028\001\"7\n\005State\022\025\n\021STATE_UNSPECIFIED\020\000\022\014\n\010"
-          + "CREATING\020\001\022\t\n\005READY\020\002:M\352AJ\n\037spanner.goog"
-          + "leapis.com/Instance\022\'projects/{project}/"
-          + "instances/{instance}\"\211\001\n\032ListInstanceCon"
-          + "figsRequest\022D\n\006parent\030\001 \001(\tB4\342A\001\002\372A-\n+cl"
+          + "tanceConfigs/{instance_config}\"\337\003\n\021Autos"
+          + "calingConfig\022a\n\022autoscaling_limits\030\001 \001(\013"
+          + "2E.google.spanner.admin.instance.v1.Auto"
+          + "scalingConfig.AutoscalingLimits\022c\n\023autos"
+          + "caling_targets\030\002 \001(\0132F.google.spanner.ad"
+          + "min.instance.v1.AutoscalingConfig.Autosc"
+          + "alingTargets\032\227\001\n\021AutoscalingLimits\022\023\n\tmi"
+          + "n_nodes\030\001 \001(\005H\000\022\036\n\024min_processing_units\030"
+          + "\002 \001(\005H\000\022\023\n\tmax_nodes\030\003 \001(\005H\001\022\036\n\024max_proc"
+          + "essing_units\030\004 \001(\005H\001B\013\n\tmin_limitB\013\n\tmax"
+          + "_limit\032h\n\022AutoscalingTargets\022-\n%high_pri"
+          + "ority_cpu_utilization_percent\030\001 \001(\005\022#\n\033s"
+          + "torage_utilization_percent\030\002 \001(\005\"\304\005\n\010Ins"
+          + "tance\022\022\n\004name\030\001 \001(\tB\004\342A\001\002\022>\n\006config\030\002 \001("
+          + "\tB.\342A\001\002\372A\'\n%spanner.googleapis.com/Insta"
+          + "nceConfig\022\032\n\014display_name\030\003 \001(\tB\004\342A\001\002\022\022\n"
+          + "\nnode_count\030\005 \001(\005\022\030\n\020processing_units\030\t "
+          + "\001(\005\022E\n\005state\030\006 \001(\01620.google.spanner.admi"
+          + "n.instance.v1.Instance.StateB\004\342A\001\003\022F\n\006la"
+          + "bels\030\007 \003(\01326.google.spanner.admin.instan"
+          + "ce.v1.Instance.LabelsEntry\022\025\n\rendpoint_u"
+          + "ris\030\010 \003(\t\0225\n\013create_time\030\013 \001(\0132\032.google."
+          + "protobuf.TimestampB\004\342A\001\003\0225\n\013update_time\030"
+          + "\014 \001(\0132\032.google.protobuf.TimestampB\004\342A\001\003\022"
+          + "O\n\022autoscaling_config\030\021 \001(\01323.google.spa"
+          + "nner.admin.instance.v1.AutoscalingConfig"
+          + "\032-\n\013LabelsEntry\022\013\n\003key\030\001 \001(\t\022\r\n\005value\030\002 "
+          + "\001(\t:\0028\001\"7\n\005State\022\025\n\021STATE_UNSPECIFIED\020\000\022"
+          + "\014\n\010CREATING\020\001\022\t\n\005READY\020\002:M\352AJ\n\037spanner.g"
+          + "oogleapis.com/Instance\022\'projects/{projec"
+          + "t}/instances/{instance}\"\211\001\n\032ListInstance"
+          + "ConfigsRequest\022D\n\006parent\030\001 \001(\tB4\342A\001\002\372A-\n"
+          + "+cloudresourcemanager.googleapis.com/Pro"
+          + "ject\022\021\n\tpage_size\030\002 \001(\005\022\022\n\npage_token\030\003 "
+          + "\001(\t\"\202\001\n\033ListInstanceConfigsResponse\022J\n\020i"
+          + "nstance_configs\030\001 \003(\01320.google.spanner.a"
+          + "dmin.instance.v1.InstanceConfig\022\027\n\017next_"
+          + "page_token\030\002 \001(\t\"X\n\030GetInstanceConfigReq"
+          + "uest\022<\n\004name\030\001 \001(\tB.\342A\001\002\372A\'\n%spanner.goo"
+          + "gleapis.com/InstanceConfig\"\355\001\n\033CreateIns"
+          + "tanceConfigRequest\022D\n\006parent\030\001 \001(\tB4\342A\001\002"
+          + "\372A-\n+cloudresourcemanager.googleapis.com"
+          + "/Project\022 \n\022instance_config_id\030\002 \001(\tB\004\342A"
+          + "\001\002\022O\n\017instance_config\030\003 \001(\01320.google.spa"
+          + "nner.admin.instance.v1.InstanceConfigB\004\342"
+          + "A\001\002\022\025\n\rvalidate_only\030\004 \001(\010\"\274\001\n\033UpdateIns"
+          + "tanceConfigRequest\022O\n\017instance_config\030\001 "
+          + "\001(\01320.google.spanner.admin.instance.v1.I"
+          + "nstanceConfigB\004\342A\001\002\0225\n\013update_mask\030\002 \001(\013"
+          + "2\032.google.protobuf.FieldMaskB\004\342A\001\002\022\025\n\rva"
+          + "lidate_only\030\003 \001(\010\"\200\001\n\033DeleteInstanceConf"
+          + "igRequest\022<\n\004name\030\001 \001(\tB.\342A\001\002\372A\'\n%spanne"
+          + "r.googleapis.com/InstanceConfig\022\014\n\004etag\030"
+          + "\002 \001(\t\022\025\n\rvalidate_only\030\003 \001(\010\"\242\001\n#ListIns"
+          + "tanceConfigOperationsRequest\022D\n\006parent\030\001"
+          + " \001(\tB4\342A\001\002\372A-\n+cloudresourcemanager.goog"
+          + "leapis.com/Project\022\016\n\006filter\030\002 \001(\t\022\021\n\tpa"
+          + "ge_size\030\003 \001(\005\022\022\n\npage_token\030\004 \001(\t\"r\n$Lis"
+          + "tInstanceConfigOperationsResponse\0221\n\nope"
+          + "rations\030\001 \003(\0132\035.google.longrunning.Opera"
+          + "tion\022\027\n\017next_page_token\030\002 \001(\t\"|\n\022GetInst"
+          + "anceRequest\0226\n\004name\030\001 \001(\tB(\342A\001\002\372A!\n\037span"
+          + "ner.googleapis.com/Instance\022.\n\nfield_mas"
+          + "k\030\002 \001(\0132\032.google.protobuf.FieldMask\"\274\001\n\025"
+          + "CreateInstanceRequest\022D\n\006parent\030\001 \001(\tB4\342"
+          + "A\001\002\372A-\n+cloudresourcemanager.googleapis."
+          + "com/Project\022\031\n\013instance_id\030\002 \001(\tB\004\342A\001\002\022B"
+          + "\n\010instance\030\003 \001(\0132*.google.spanner.admin."
+          + "instance.v1.InstanceB\004\342A\001\002\"\223\001\n\024ListInsta"
+          + "ncesRequest\022D\n\006parent\030\001 \001(\tB4\342A\001\002\372A-\n+cl"
           + "oudresourcemanager.googleapis.com/Projec"
           + "t\022\021\n\tpage_size\030\002 \001(\005\022\022\n\npage_token\030\003 \001(\t"
-          + "\"\202\001\n\033ListInstanceConfigsResponse\022J\n\020inst"
-          + "ance_configs\030\001 \003(\01320.google.spanner.admi"
-          + "n.instance.v1.InstanceConfig\022\027\n\017next_pag"
-          + "e_token\030\002 \001(\t\"X\n\030GetInstanceConfigReques"
-          + "t\022<\n\004name\030\001 \001(\tB.\342A\001\002\372A\'\n%spanner.google"
-          + "apis.com/InstanceConfig\"\355\001\n\033CreateInstan"
-          + "ceConfigRequest\022D\n\006parent\030\001 \001(\tB4\342A\001\002\372A-"
-          + "\n+cloudresourcemanager.googleapis.com/Pr"
-          + "oject\022 \n\022instance_config_id\030\002 \001(\tB\004\342A\001\002\022"
-          + "O\n\017instance_config\030\003 \001(\01320.google.spanne"
-          + "r.admin.instance.v1.InstanceConfigB\004\342A\001\002"
-          + "\022\025\n\rvalidate_only\030\004 \001(\010\"\274\001\n\033UpdateInstan"
-          + "ceConfigRequest\022O\n\017instance_config\030\001 \001(\013"
+          + "\022\016\n\006filter\030\004 \001(\t\"o\n\025ListInstancesRespons"
+          + "e\022=\n\tinstances\030\001 \003(\0132*.google.spanner.ad"
+          + "min.instance.v1.Instance\022\027\n\017next_page_to"
+          + "ken\030\002 \001(\t\"\221\001\n\025UpdateInstanceRequest\022B\n\010i"
+          + "nstance\030\001 \001(\0132*.google.spanner.admin.ins"
+          + "tance.v1.InstanceB\004\342A\001\002\0224\n\nfield_mask\030\002 "
+          + "\001(\0132\032.google.protobuf.FieldMaskB\004\342A\001\002\"O\n"
+          + "\025DeleteInstanceRequest\0226\n\004name\030\001 \001(\tB(\342A"
+          + "\001\002\372A!\n\037spanner.googleapis.com/Instance\"\345"
+          + "\001\n\026CreateInstanceMetadata\022<\n\010instance\030\001 "
+          + "\001(\0132*.google.spanner.admin.instance.v1.I"
+          + "nstance\022.\n\nstart_time\030\002 \001(\0132\032.google.pro"
+          + "tobuf.Timestamp\022/\n\013cancel_time\030\003 \001(\0132\032.g"
+          + "oogle.protobuf.Timestamp\022,\n\010end_time\030\004 \001"
+          + "(\0132\032.google.protobuf.Timestamp\"\345\001\n\026Updat"
+          + "eInstanceMetadata\022<\n\010instance\030\001 \001(\0132*.go"
+          + "ogle.spanner.admin.instance.v1.Instance\022"
+          + ".\n\nstart_time\030\002 \001(\0132\032.google.protobuf.Ti"
+          + "mestamp\022/\n\013cancel_time\030\003 \001(\0132\032.google.pr"
+          + "otobuf.Timestamp\022,\n\010end_time\030\004 \001(\0132\032.goo"
+          + "gle.protobuf.Timestamp\"\341\001\n\034CreateInstanc"
+          + "eConfigMetadata\022I\n\017instance_config\030\001 \001(\013"
           + "20.google.spanner.admin.instance.v1.Inst"
-          + "anceConfigB\004\342A\001\002\0225\n\013update_mask\030\002 \001(\0132\032."
-          + "google.protobuf.FieldMaskB\004\342A\001\002\022\025\n\rvalid"
-          + "ate_only\030\003 \001(\010\"\200\001\n\033DeleteInstanceConfigR"
-          + "equest\022<\n\004name\030\001 \001(\tB.\342A\001\002\372A\'\n%spanner.g"
-          + "oogleapis.com/InstanceConfig\022\014\n\004etag\030\002 \001"
-          + "(\t\022\025\n\rvalidate_only\030\003 \001(\010\"\242\001\n#ListInstan"
-          + "ceConfigOperationsRequest\022D\n\006parent\030\001 \001("
-          + "\tB4\342A\001\002\372A-\n+cloudresourcemanager.googlea"
-          + "pis.com/Project\022\016\n\006filter\030\002 \001(\t\022\021\n\tpage_"
-          + "size\030\003 \001(\005\022\022\n\npage_token\030\004 \001(\t\"r\n$ListIn"
-          + "stanceConfigOperationsResponse\0221\n\noperat"
-          + "ions\030\001 \003(\0132\035.google.longrunning.Operatio"
-          + "n\022\027\n\017next_page_token\030\002 \001(\t\"|\n\022GetInstanc"
-          + "eRequest\0226\n\004name\030\001 \001(\tB(\342A\001\002\372A!\n\037spanner"
-          + ".googleapis.com/Instance\022.\n\nfield_mask\030\002"
-          + " \001(\0132\032.google.protobuf.FieldMask\"\274\001\n\025Cre"
-          + "ateInstanceRequest\022D\n\006parent\030\001 \001(\tB4\342A\001\002"
-          + "\372A-\n+cloudresourcemanager.googleapis.com"
-          + "/Project\022\031\n\013instance_id\030\002 \001(\tB\004\342A\001\002\022B\n\010i"
-          + "nstance\030\003 \001(\0132*.google.spanner.admin.ins"
-          + "tance.v1.InstanceB\004\342A\001\002\"\223\001\n\024ListInstance"
-          + "sRequest\022D\n\006parent\030\001 \001(\tB4\342A\001\002\372A-\n+cloud"
-          + "resourcemanager.googleapis.com/Project\022\021"
-          + "\n\tpage_size\030\002 \001(\005\022\022\n\npage_token\030\003 \001(\t\022\016\n"
-          + "\006filter\030\004 \001(\t\"o\n\025ListInstancesResponse\022="
-          + "\n\tinstances\030\001 \003(\0132*.google.spanner.admin"
-          + ".instance.v1.Instance\022\027\n\017next_page_token"
-          + "\030\002 \001(\t\"\221\001\n\025UpdateInstanceRequest\022B\n\010inst"
-          + "ance\030\001 \001(\0132*.google.spanner.admin.instan"
-          + "ce.v1.InstanceB\004\342A\001\002\0224\n\nfield_mask\030\002 \001(\013"
-          + "2\032.google.protobuf.FieldMaskB\004\342A\001\002\"O\n\025De"
-          + "leteInstanceRequest\0226\n\004name\030\001 \001(\tB(\342A\001\002\372"
-          + "A!\n\037spanner.googleapis.com/Instance\"\345\001\n\026"
-          + "CreateInstanceMetadata\022<\n\010instance\030\001 \001(\013"
-          + "2*.google.spanner.admin.instance.v1.Inst"
-          + "ance\022.\n\nstart_time\030\002 \001(\0132\032.google.protob"
-          + "uf.Timestamp\022/\n\013cancel_time\030\003 \001(\0132\032.goog"
-          + "le.protobuf.Timestamp\022,\n\010end_time\030\004 \001(\0132"
-          + "\032.google.protobuf.Timestamp\"\345\001\n\026UpdateIn"
-          + "stanceMetadata\022<\n\010instance\030\001 \001(\0132*.googl"
-          + "e.spanner.admin.instance.v1.Instance\022.\n\n"
-          + "start_time\030\002 \001(\0132\032.google.protobuf.Times"
-          + "tamp\022/\n\013cancel_time\030\003 \001(\0132\032.google.proto"
-          + "buf.Timestamp\022,\n\010end_time\030\004 \001(\0132\032.google"
-          + ".protobuf.Timestamp\"\341\001\n\034CreateInstanceCo"
-          + "nfigMetadata\022I\n\017instance_config\030\001 \001(\01320."
-          + "google.spanner.admin.instance.v1.Instanc"
-          + "eConfig\022E\n\010progress\030\002 \001(\01323.google.spann"
-          + "er.admin.instance.v1.OperationProgress\022/"
-          + "\n\013cancel_time\030\003 \001(\0132\032.google.protobuf.Ti"
-          + "mestamp\"\341\001\n\034UpdateInstanceConfigMetadata"
-          + "\022I\n\017instance_config\030\001 \001(\01320.google.spann"
-          + "er.admin.instance.v1.InstanceConfig\022E\n\010p"
-          + "rogress\030\002 \001(\01323.google.spanner.admin.ins"
-          + "tance.v1.OperationProgress\022/\n\013cancel_tim"
-          + "e\030\003 \001(\0132\032.google.protobuf.Timestamp2\362\030\n\r"
-          + "InstanceAdmin\022\314\001\n\023ListInstanceConfigs\022<."
-          + "google.spanner.admin.instance.v1.ListIns"
-          + "tanceConfigsRequest\032=.google.spanner.adm"
-          + "in.instance.v1.ListInstanceConfigsRespon"
-          + "se\"8\332A\006parent\202\323\344\223\002)\022\'/v1/{parent=project"
-          + "s/*}/instanceConfigs\022\271\001\n\021GetInstanceConf"
-          + "ig\022:.google.spanner.admin.instance.v1.Ge"
-          + "tInstanceConfigRequest\0320.google.spanner."
-          + "admin.instance.v1.InstanceConfig\"6\332A\004nam"
-          + "e\202\323\344\223\002)\022\'/v1/{name=projects/*/instanceCo"
-          + "nfigs/*}\022\310\002\n\024CreateInstanceConfig\022=.goog"
-          + "le.spanner.admin.instance.v1.CreateInsta"
-          + "nceConfigRequest\032\035.google.longrunning.Op"
-          + "eration\"\321\001\312Ap\n/google.spanner.admin.inst"
-          + "ance.v1.InstanceConfig\022=google.spanner.a"
-          + "dmin.instance.v1.CreateInstanceConfigMet"
-          + "adata\332A)parent,instance_config,instance_"
-          + "config_id\202\323\344\223\002,\"\'/v1/{parent=projects/*}"
-          + "/instanceConfigs:\001*\022\312\002\n\024UpdateInstanceCo"
-          + "nfig\022=.google.spanner.admin.instance.v1."
-          + "UpdateInstanceConfigRequest\032\035.google.lon"
-          + "grunning.Operation\"\323\001\312Ap\n/google.spanner"
-          + ".admin.instance.v1.InstanceConfig\022=googl"
-          + "e.spanner.admin.instance.v1.UpdateInstan"
-          + "ceConfigMetadata\332A\033instance_config,updat"
-          + "e_mask\202\323\344\223\002<27/v1/{instance_config.name="
-          + "projects/*/instanceConfigs/*}:\001*\022\245\001\n\024Del"
-          + "eteInstanceConfig\022=.google.spanner.admin"
-          + ".instance.v1.DeleteInstanceConfigRequest"
-          + "\032\026.google.protobuf.Empty\"6\332A\004name\202\323\344\223\002)*"
-          + "\'/v1/{name=projects/*/instanceConfigs/*}"
-          + "\022\360\001\n\034ListInstanceConfigOperations\022E.goog"
-          + "le.spanner.admin.instance.v1.ListInstanc"
-          + "eConfigOperationsRequest\032F.google.spanne"
-          + "r.admin.instance.v1.ListInstanceConfigOp"
-          + "erationsResponse\"A\332A\006parent\202\323\344\223\0022\0220/v1/{"
-          + "parent=projects/*}/instanceConfigOperati"
-          + "ons\022\264\001\n\rListInstances\0226.google.spanner.a"
-          + "dmin.instance.v1.ListInstancesRequest\0327."
-          + "google.spanner.admin.instance.v1.ListIns"
-          + "tancesResponse\"2\332A\006parent\202\323\344\223\002#\022!/v1/{pa"
-          + "rent=projects/*}/instances\022\241\001\n\013GetInstan"
-          + "ce\0224.google.spanner.admin.instance.v1.Ge"
-          + "tInstanceRequest\032*.google.spanner.admin."
-          + "instance.v1.Instance\"0\332A\004name\202\323\344\223\002#\022!/v1"
-          + "/{name=projects/*/instances/*}\022\234\002\n\016Creat"
-          + "eInstance\0227.google.spanner.admin.instanc"
-          + "e.v1.CreateInstanceRequest\032\035.google.long"
-          + "running.Operation\"\261\001\312Ad\n)google.spanner."
-          + "admin.instance.v1.Instance\0227google.spann"
-          + "er.admin.instance.v1.CreateInstanceMetad"
-          + "ata\332A\033parent,instance_id,instance\202\323\344\223\002&\""
-          + "!/v1/{parent=projects/*}/instances:\001*\022\235\002"
-          + "\n\016UpdateInstance\0227.google.spanner.admin."
-          + "instance.v1.UpdateInstanceRequest\032\035.goog"
-          + "le.longrunning.Operation\"\262\001\312Ad\n)google.s"
-          + "panner.admin.instance.v1.Instance\0227googl"
-          + "e.spanner.admin.instance.v1.UpdateInstan"
-          + "ceMetadata\332A\023instance,field_mask\202\323\344\223\002/2*"
-          + "/v1/{instance.name=projects/*/instances/"
-          + "*}:\001*\022\223\001\n\016DeleteInstance\0227.google.spanne"
-          + "r.admin.instance.v1.DeleteInstanceReques"
-          + "t\032\026.google.protobuf.Empty\"0\332A\004name\202\323\344\223\002#"
-          + "*!/v1/{name=projects/*/instances/*}\022\232\001\n\014"
-          + "SetIamPolicy\022\".google.iam.v1.SetIamPolic"
-          + "yRequest\032\025.google.iam.v1.Policy\"O\332A\017reso"
-          + "urce,policy\202\323\344\223\0027\"2/v1/{resource=project"
-          + "s/*/instances/*}:setIamPolicy:\001*\022\223\001\n\014Get"
-          + "IamPolicy\022\".google.iam.v1.GetIamPolicyRe"
-          + "quest\032\025.google.iam.v1.Policy\"H\332A\010resourc"
-          + "e\202\323\344\223\0027\"2/v1/{resource=projects/*/instan"
-          + "ces/*}:getIamPolicy:\001*\022\305\001\n\022TestIamPermis"
-          + "sions\022(.google.iam.v1.TestIamPermissions"
-          + "Request\032).google.iam.v1.TestIamPermissio"
-          + "nsResponse\"Z\332A\024resource,permissions\202\323\344\223\002"
-          + "=\"8/v1/{resource=projects/*/instances/*}"
-          + ":testIamPermissions:\001*\032x\312A\026spanner.googl"
-          + "eapis.com\322A\\https://www.googleapis.com/a"
-          + "uth/cloud-platform,https://www.googleapi"
-          + "s.com/auth/spanner.adminB\213\002\n$com.google."
-          + "spanner.admin.instance.v1B\031SpannerInstan"
-          + "ceAdminProtoP\001ZFcloud.google.com/go/span"
-          + "ner/admin/instance/apiv1/instancepb;inst"
-          + "ancepb\252\002&Google.Cloud.Spanner.Admin.Inst"
-          + "ance.V1\312\002&Google\\Cloud\\Spanner\\Admin\\Ins"
-          + "tance\\V1\352\002+Google::Cloud::Spanner::Admin"
-          + "::Instance::V1b\006proto3"
+          + "anceConfig\022E\n\010progress\030\002 \001(\01323.google.sp"
+          + "anner.admin.instance.v1.OperationProgres"
+          + "s\022/\n\013cancel_time\030\003 \001(\0132\032.google.protobuf"
+          + ".Timestamp\"\341\001\n\034UpdateInstanceConfigMetad"
+          + "ata\022I\n\017instance_config\030\001 \001(\01320.google.sp"
+          + "anner.admin.instance.v1.InstanceConfig\022E"
+          + "\n\010progress\030\002 \001(\01323.google.spanner.admin."
+          + "instance.v1.OperationProgress\022/\n\013cancel_"
+          + "time\030\003 \001(\0132\032.google.protobuf.Timestamp2\362"
+          + "\030\n\rInstanceAdmin\022\314\001\n\023ListInstanceConfigs"
+          + "\022<.google.spanner.admin.instance.v1.List"
+          + "InstanceConfigsRequest\032=.google.spanner."
+          + "admin.instance.v1.ListInstanceConfigsRes"
+          + "ponse\"8\332A\006parent\202\323\344\223\002)\022\'/v1/{parent=proj"
+          + "ects/*}/instanceConfigs\022\271\001\n\021GetInstanceC"
+          + "onfig\022:.google.spanner.admin.instance.v1"
+          + ".GetInstanceConfigRequest\0320.google.spann"
+          + "er.admin.instance.v1.InstanceConfig\"6\332A\004"
+          + "name\202\323\344\223\002)\022\'/v1/{name=projects/*/instanc"
+          + "eConfigs/*}\022\310\002\n\024CreateInstanceConfig\022=.g"
+          + "oogle.spanner.admin.instance.v1.CreateIn"
+          + "stanceConfigRequest\032\035.google.longrunning"
+          + ".Operation\"\321\001\312Ap\n/google.spanner.admin.i"
+          + "nstance.v1.InstanceConfig\022=google.spanne"
+          + "r.admin.instance.v1.CreateInstanceConfig"
+          + "Metadata\332A)parent,instance_config,instan"
+          + "ce_config_id\202\323\344\223\002,\"\'/v1/{parent=projects"
+          + "/*}/instanceConfigs:\001*\022\312\002\n\024UpdateInstanc"
+          + "eConfig\022=.google.spanner.admin.instance."
+          + "v1.UpdateInstanceConfigRequest\032\035.google."
+          + "longrunning.Operation\"\323\001\312Ap\n/google.span"
+          + "ner.admin.instance.v1.InstanceConfig\022=go"
+          + "ogle.spanner.admin.instance.v1.UpdateIns"
+          + "tanceConfigMetadata\332A\033instance_config,up"
+          + "date_mask\202\323\344\223\002<27/v1/{instance_config.na"
+          + "me=projects/*/instanceConfigs/*}:\001*\022\245\001\n\024"
+          + "DeleteInstanceConfig\022=.google.spanner.ad"
+          + "min.instance.v1.DeleteInstanceConfigRequ"
+          + "est\032\026.google.protobuf.Empty\"6\332A\004name\202\323\344\223"
+          + "\002)*\'/v1/{name=projects/*/instanceConfigs"
+          + "/*}\022\360\001\n\034ListInstanceConfigOperations\022E.g"
+          + "oogle.spanner.admin.instance.v1.ListInst"
+          + "anceConfigOperationsRequest\032F.google.spa"
+          + "nner.admin.instance.v1.ListInstanceConfi"
+          + "gOperationsResponse\"A\332A\006parent\202\323\344\223\0022\0220/v"
+          + "1/{parent=projects/*}/instanceConfigOper"
+          + "ations\022\264\001\n\rListInstances\0226.google.spanne"
+          + "r.admin.instance.v1.ListInstancesRequest"
+          + "\0327.google.spanner.admin.instance.v1.List"
+          + "InstancesResponse\"2\332A\006parent\202\323\344\223\002#\022!/v1/"
+          + "{parent=projects/*}/instances\022\241\001\n\013GetIns"
+          + "tance\0224.google.spanner.admin.instance.v1"
+          + ".GetInstanceRequest\032*.google.spanner.adm"
+          + "in.instance.v1.Instance\"0\332A\004name\202\323\344\223\002#\022!"
+          + "/v1/{name=projects/*/instances/*}\022\234\002\n\016Cr"
+          + "eateInstance\0227.google.spanner.admin.inst"
+          + "ance.v1.CreateInstanceRequest\032\035.google.l"
+          + "ongrunning.Operation\"\261\001\312Ad\n)google.spann"
+          + "er.admin.instance.v1.Instance\0227google.sp"
+          + "anner.admin.instance.v1.CreateInstanceMe"
+          + "tadata\332A\033parent,instance_id,instance\202\323\344\223"
+          + "\002&\"!/v1/{parent=projects/*}/instances:\001*"
+          + "\022\235\002\n\016UpdateInstance\0227.google.spanner.adm"
+          + "in.instance.v1.UpdateInstanceRequest\032\035.g"
+          + "oogle.longrunning.Operation\"\262\001\312Ad\n)googl"
+          + "e.spanner.admin.instance.v1.Instance\0227go"
+          + "ogle.spanner.admin.instance.v1.UpdateIns"
+          + "tanceMetadata\332A\023instance,field_mask\202\323\344\223\002"
+          + "/2*/v1/{instance.name=projects/*/instanc"
+          + "es/*}:\001*\022\223\001\n\016DeleteInstance\0227.google.spa"
+          + "nner.admin.instance.v1.DeleteInstanceReq"
+          + "uest\032\026.google.protobuf.Empty\"0\332A\004name\202\323\344"
+          + "\223\002#*!/v1/{name=projects/*/instances/*}\022\232"
+          + "\001\n\014SetIamPolicy\022\".google.iam.v1.SetIamPo"
+          + "licyRequest\032\025.google.iam.v1.Policy\"O\332A\017r"
+          + "esource,policy\202\323\344\223\0027\"2/v1/{resource=proj"
+          + "ects/*/instances/*}:setIamPolicy:\001*\022\223\001\n\014"
+          + "GetIamPolicy\022\".google.iam.v1.GetIamPolic"
+          + "yRequest\032\025.google.iam.v1.Policy\"H\332A\010reso"
+          + "urce\202\323\344\223\0027\"2/v1/{resource=projects/*/ins"
+          + "tances/*}:getIamPolicy:\001*\022\305\001\n\022TestIamPer"
+          + "missions\022(.google.iam.v1.TestIamPermissi"
+          + "onsRequest\032).google.iam.v1.TestIamPermis"
+          + "sionsResponse\"Z\332A\024resource,permissions\202\323"
+          + "\344\223\002=\"8/v1/{resource=projects/*/instances"
+          + "/*}:testIamPermissions:\001*\032x\312A\026spanner.go"
+          + "ogleapis.com\322A\\https://www.googleapis.co"
+          + "m/auth/cloud-platform,https://www.google"
+          + "apis.com/auth/spanner.adminB\213\002\n$com.goog"
+          + "le.spanner.admin.instance.v1B\031SpannerIns"
+          + "tanceAdminProtoP\001ZFcloud.google.com/go/s"
+          + "panner/admin/instance/apiv1/instancepb;i"
+          + "nstancepb\252\002&Google.Cloud.Spanner.Admin.I"
+          + "nstance.V1\312\002&Google\\Cloud\\Spanner\\Admin\\"
+          + "Instance\\V1\352\002+Google::Cloud::Spanner::Ad"
+          + "min::Instance::V1b\006proto3"
     };
     descriptor =
         com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(
@@ -395,8 +421,41 @@ public final class SpannerInstanceAdminProto {
             new java.lang.String[] {
               "Key", "Value",
             });
-    internal_static_google_spanner_admin_instance_v1_Instance_descriptor =
+    internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_descriptor =
         getDescriptor().getMessageTypes().get(2);
+    internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_fieldAccessorTable =
+        new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_descriptor,
+            new java.lang.String[] {
+              "AutoscalingLimits", "AutoscalingTargets",
+            });
+    internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_AutoscalingLimits_descriptor =
+        internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_descriptor
+            .getNestedTypes()
+            .get(0);
+    internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_AutoscalingLimits_fieldAccessorTable =
+        new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_AutoscalingLimits_descriptor,
+            new java.lang.String[] {
+              "MinNodes",
+              "MinProcessingUnits",
+              "MaxNodes",
+              "MaxProcessingUnits",
+              "MinLimit",
+              "MaxLimit",
+            });
+    internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_AutoscalingTargets_descriptor =
+        internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_descriptor
+            .getNestedTypes()
+            .get(1);
+    internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_AutoscalingTargets_fieldAccessorTable =
+        new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
+            internal_static_google_spanner_admin_instance_v1_AutoscalingConfig_AutoscalingTargets_descriptor,
+            new java.lang.String[] {
+              "HighPriorityCpuUtilizationPercent", "StorageUtilizationPercent",
+            });
+    internal_static_google_spanner_admin_instance_v1_Instance_descriptor =
+        getDescriptor().getMessageTypes().get(3);
     internal_static_google_spanner_admin_instance_v1_Instance_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_Instance_descriptor,
@@ -411,6 +470,7 @@ public final class SpannerInstanceAdminProto {
               "EndpointUris",
               "CreateTime",
               "UpdateTime",
+              "AutoscalingConfig",
             });
     internal_static_google_spanner_admin_instance_v1_Instance_LabelsEntry_descriptor =
         internal_static_google_spanner_admin_instance_v1_Instance_descriptor
@@ -423,7 +483,7 @@ public final class SpannerInstanceAdminProto {
               "Key", "Value",
             });
     internal_static_google_spanner_admin_instance_v1_ListInstanceConfigsRequest_descriptor =
-        getDescriptor().getMessageTypes().get(3);
+        getDescriptor().getMessageTypes().get(4);
     internal_static_google_spanner_admin_instance_v1_ListInstanceConfigsRequest_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_ListInstanceConfigsRequest_descriptor,
@@ -431,7 +491,7 @@ public final class SpannerInstanceAdminProto {
               "Parent", "PageSize", "PageToken",
             });
     internal_static_google_spanner_admin_instance_v1_ListInstanceConfigsResponse_descriptor =
-        getDescriptor().getMessageTypes().get(4);
+        getDescriptor().getMessageTypes().get(5);
     internal_static_google_spanner_admin_instance_v1_ListInstanceConfigsResponse_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_ListInstanceConfigsResponse_descriptor,
@@ -439,7 +499,7 @@ public final class SpannerInstanceAdminProto {
               "InstanceConfigs", "NextPageToken",
             });
     internal_static_google_spanner_admin_instance_v1_GetInstanceConfigRequest_descriptor =
-        getDescriptor().getMessageTypes().get(5);
+        getDescriptor().getMessageTypes().get(6);
     internal_static_google_spanner_admin_instance_v1_GetInstanceConfigRequest_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_GetInstanceConfigRequest_descriptor,
@@ -447,7 +507,7 @@ public final class SpannerInstanceAdminProto {
               "Name",
             });
     internal_static_google_spanner_admin_instance_v1_CreateInstanceConfigRequest_descriptor =
-        getDescriptor().getMessageTypes().get(6);
+        getDescriptor().getMessageTypes().get(7);
     internal_static_google_spanner_admin_instance_v1_CreateInstanceConfigRequest_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_CreateInstanceConfigRequest_descriptor,
@@ -455,7 +515,7 @@ public final class SpannerInstanceAdminProto {
               "Parent", "InstanceConfigId", "InstanceConfig", "ValidateOnly",
             });
     internal_static_google_spanner_admin_instance_v1_UpdateInstanceConfigRequest_descriptor =
-        getDescriptor().getMessageTypes().get(7);
+        getDescriptor().getMessageTypes().get(8);
     internal_static_google_spanner_admin_instance_v1_UpdateInstanceConfigRequest_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_UpdateInstanceConfigRequest_descriptor,
@@ -463,7 +523,7 @@ public final class SpannerInstanceAdminProto {
               "InstanceConfig", "UpdateMask", "ValidateOnly",
             });
     internal_static_google_spanner_admin_instance_v1_DeleteInstanceConfigRequest_descriptor =
-        getDescriptor().getMessageTypes().get(8);
+        getDescriptor().getMessageTypes().get(9);
     internal_static_google_spanner_admin_instance_v1_DeleteInstanceConfigRequest_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_DeleteInstanceConfigRequest_descriptor,
@@ -471,7 +531,7 @@ public final class SpannerInstanceAdminProto {
               "Name", "Etag", "ValidateOnly",
             });
     internal_static_google_spanner_admin_instance_v1_ListInstanceConfigOperationsRequest_descriptor =
-        getDescriptor().getMessageTypes().get(9);
+        getDescriptor().getMessageTypes().get(10);
     internal_static_google_spanner_admin_instance_v1_ListInstanceConfigOperationsRequest_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_ListInstanceConfigOperationsRequest_descriptor,
@@ -479,7 +539,7 @@ public final class SpannerInstanceAdminProto {
               "Parent", "Filter", "PageSize", "PageToken",
             });
     internal_static_google_spanner_admin_instance_v1_ListInstanceConfigOperationsResponse_descriptor =
-        getDescriptor().getMessageTypes().get(10);
+        getDescriptor().getMessageTypes().get(11);
     internal_static_google_spanner_admin_instance_v1_ListInstanceConfigOperationsResponse_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_ListInstanceConfigOperationsResponse_descriptor,
@@ -487,7 +547,7 @@ public final class SpannerInstanceAdminProto {
               "Operations", "NextPageToken",
             });
     internal_static_google_spanner_admin_instance_v1_GetInstanceRequest_descriptor =
-        getDescriptor().getMessageTypes().get(11);
+        getDescriptor().getMessageTypes().get(12);
     internal_static_google_spanner_admin_instance_v1_GetInstanceRequest_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_GetInstanceRequest_descriptor,
@@ -495,7 +555,7 @@ public final class SpannerInstanceAdminProto {
               "Name", "FieldMask",
             });
     internal_static_google_spanner_admin_instance_v1_CreateInstanceRequest_descriptor =
-        getDescriptor().getMessageTypes().get(12);
+        getDescriptor().getMessageTypes().get(13);
     internal_static_google_spanner_admin_instance_v1_CreateInstanceRequest_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_CreateInstanceRequest_descriptor,
@@ -503,7 +563,7 @@ public final class SpannerInstanceAdminProto {
               "Parent", "InstanceId", "Instance",
             });
     internal_static_google_spanner_admin_instance_v1_ListInstancesRequest_descriptor =
-        getDescriptor().getMessageTypes().get(13);
+        getDescriptor().getMessageTypes().get(14);
     internal_static_google_spanner_admin_instance_v1_ListInstancesRequest_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_ListInstancesRequest_descriptor,
@@ -511,7 +571,7 @@ public final class SpannerInstanceAdminProto {
               "Parent", "PageSize", "PageToken", "Filter",
             });
     internal_static_google_spanner_admin_instance_v1_ListInstancesResponse_descriptor =
-        getDescriptor().getMessageTypes().get(14);
+        getDescriptor().getMessageTypes().get(15);
     internal_static_google_spanner_admin_instance_v1_ListInstancesResponse_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_ListInstancesResponse_descriptor,
@@ -519,7 +579,7 @@ public final class SpannerInstanceAdminProto {
               "Instances", "NextPageToken",
             });
     internal_static_google_spanner_admin_instance_v1_UpdateInstanceRequest_descriptor =
-        getDescriptor().getMessageTypes().get(15);
+        getDescriptor().getMessageTypes().get(16);
     internal_static_google_spanner_admin_instance_v1_UpdateInstanceRequest_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_UpdateInstanceRequest_descriptor,
@@ -527,7 +587,7 @@ public final class SpannerInstanceAdminProto {
               "Instance", "FieldMask",
             });
     internal_static_google_spanner_admin_instance_v1_DeleteInstanceRequest_descriptor =
-        getDescriptor().getMessageTypes().get(16);
+        getDescriptor().getMessageTypes().get(17);
     internal_static_google_spanner_admin_instance_v1_DeleteInstanceRequest_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_DeleteInstanceRequest_descriptor,
@@ -535,7 +595,7 @@ public final class SpannerInstanceAdminProto {
               "Name",
             });
     internal_static_google_spanner_admin_instance_v1_CreateInstanceMetadata_descriptor =
-        getDescriptor().getMessageTypes().get(17);
+        getDescriptor().getMessageTypes().get(18);
     internal_static_google_spanner_admin_instance_v1_CreateInstanceMetadata_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_CreateInstanceMetadata_descriptor,
@@ -543,7 +603,7 @@ public final class SpannerInstanceAdminProto {
               "Instance", "StartTime", "CancelTime", "EndTime",
             });
     internal_static_google_spanner_admin_instance_v1_UpdateInstanceMetadata_descriptor =
-        getDescriptor().getMessageTypes().get(18);
+        getDescriptor().getMessageTypes().get(19);
     internal_static_google_spanner_admin_instance_v1_UpdateInstanceMetadata_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_UpdateInstanceMetadata_descriptor,
@@ -551,7 +611,7 @@ public final class SpannerInstanceAdminProto {
               "Instance", "StartTime", "CancelTime", "EndTime",
             });
     internal_static_google_spanner_admin_instance_v1_CreateInstanceConfigMetadata_descriptor =
-        getDescriptor().getMessageTypes().get(19);
+        getDescriptor().getMessageTypes().get(20);
     internal_static_google_spanner_admin_instance_v1_CreateInstanceConfigMetadata_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_CreateInstanceConfigMetadata_descriptor,
@@ -559,7 +619,7 @@ public final class SpannerInstanceAdminProto {
               "InstanceConfig", "Progress", "CancelTime",
             });
     internal_static_google_spanner_admin_instance_v1_UpdateInstanceConfigMetadata_descriptor =
-        getDescriptor().getMessageTypes().get(20);
+        getDescriptor().getMessageTypes().get(21);
     internal_static_google_spanner_admin_instance_v1_UpdateInstanceConfigMetadata_fieldAccessorTable =
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_instance_v1_UpdateInstanceConfigMetadata_descriptor,
