@@ -17,6 +17,7 @@
 package com.google.cloud.spanner.admin.database.v1;
 
 import static com.google.cloud.spanner.admin.database.v1.DatabaseAdminClient.ListBackupOperationsPagedResponse;
+import static com.google.cloud.spanner.admin.database.v1.DatabaseAdminClient.ListBackupSchedulesPagedResponse;
 import static com.google.cloud.spanner.admin.database.v1.DatabaseAdminClient.ListBackupsPagedResponse;
 import static com.google.cloud.spanner.admin.database.v1.DatabaseAdminClient.ListDatabaseOperationsPagedResponse;
 import static com.google.cloud.spanner.admin.database.v1.DatabaseAdminClient.ListDatabaseRolesPagedResponse;
@@ -46,6 +47,9 @@ import com.google.protobuf.FieldMask;
 import com.google.protobuf.Timestamp;
 import com.google.spanner.admin.database.v1.Backup;
 import com.google.spanner.admin.database.v1.BackupName;
+import com.google.spanner.admin.database.v1.BackupSchedule;
+import com.google.spanner.admin.database.v1.CreateBackupScheduleEncryptionConfig;
+import com.google.spanner.admin.database.v1.CreateBackupScheduleRequest;
 import com.google.spanner.admin.database.v1.Database;
 import com.google.spanner.admin.database.v1.DatabaseDialect;
 import com.google.spanner.admin.database.v1.DatabaseName;
@@ -55,6 +59,7 @@ import com.google.spanner.admin.database.v1.EncryptionInfo;
 import com.google.spanner.admin.database.v1.GetDatabaseDdlResponse;
 import com.google.spanner.admin.database.v1.InstanceName;
 import com.google.spanner.admin.database.v1.ListBackupOperationsResponse;
+import com.google.spanner.admin.database.v1.ListBackupSchedulesResponse;
 import com.google.spanner.admin.database.v1.ListBackupsResponse;
 import com.google.spanner.admin.database.v1.ListDatabaseOperationsResponse;
 import com.google.spanner.admin.database.v1.ListDatabaseRolesResponse;
@@ -2369,6 +2374,307 @@ public class DatabaseAdminClientHttpJsonTest {
     try {
       String parent = "projects/project-9347/instances/instance-9347/databases/database-9347";
       client.listDatabaseRoles(parent);
+      Assert.fail("No exception raised");
+    } catch (InvalidArgumentException e) {
+      // Expected exception.
+    }
+  }
+
+  @Test
+  public void createBackupScheduleTest() throws Exception {
+    BackupSchedule expectedResponse =
+        BackupSchedule.newBuilder()
+            .setName("name3373707")
+            .setCreationSpecCron("creationSpecCron1870157032")
+            .setRetentionDuration("retentionDuration-149581102")
+            .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+            .build();
+    mockService.addResponse(expectedResponse);
+
+    CreateBackupScheduleRequest request =
+        CreateBackupScheduleRequest.newBuilder()
+            .setParent(DatabaseName.of("[PROJECT]", "[INSTANCE]", "[DATABASE]").toString())
+            .setBackupSchedule(BackupSchedule.newBuilder().build())
+            .setBackupScheduleId("backupScheduleId1704974708")
+            .build();
+
+    BackupSchedule actualResponse = client.createBackupSchedule(request);
+    Assert.assertEquals(expectedResponse, actualResponse);
+
+    List<String> actualRequests = mockService.getRequestPaths();
+    Assert.assertEquals(1, actualRequests.size());
+
+    String apiClientHeaderKey =
+        mockService
+            .getRequestHeaders()
+            .get(ApiClientHeaderProvider.getDefaultApiClientHeaderKey())
+            .iterator()
+            .next();
+    Assert.assertTrue(
+        GaxHttpJsonProperties.getDefaultApiClientHeaderPattern()
+            .matcher(apiClientHeaderKey)
+            .matches());
+  }
+
+  @Test
+  public void createBackupScheduleExceptionTest() throws Exception {
+    ApiException exception =
+        ApiExceptionFactory.createException(
+            new Exception(), FakeStatusCode.of(StatusCode.Code.INVALID_ARGUMENT), false);
+    mockService.addException(exception);
+
+    try {
+      CreateBackupScheduleRequest request =
+          CreateBackupScheduleRequest.newBuilder()
+              .setParent(DatabaseName.of("[PROJECT]", "[INSTANCE]", "[DATABASE]").toString())
+              .setBackupSchedule(BackupSchedule.newBuilder().build())
+              .setBackupScheduleId("backupScheduleId1704974708")
+              .build();
+      client.createBackupSchedule(request);
+      Assert.fail("No exception raised");
+    } catch (InvalidArgumentException e) {
+      // Expected exception.
+    }
+  }
+
+  @Test
+  public void updateBackupScheduleTest() throws Exception {
+    BackupSchedule expectedResponse =
+        BackupSchedule.newBuilder()
+            .setName("name3373707")
+            .setCreationSpecCron("creationSpecCron1870157032")
+            .setRetentionDuration("retentionDuration-149581102")
+            .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+            .build();
+    mockService.addResponse(expectedResponse);
+
+    BackupSchedule backupSchedule =
+        BackupSchedule.newBuilder()
+            .setName(
+                "projects/project-8764/instances/instance-8764/databases/database-8764/backupSchedules/backupSchedule-8764")
+            .setCreationSpecCron("creationSpecCron1870157032")
+            .setRetentionDuration("retentionDuration-149581102")
+            .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+            .build();
+    FieldMask updateMask = FieldMask.newBuilder().build();
+
+    BackupSchedule actualResponse = client.updateBackupSchedule(backupSchedule, updateMask);
+    Assert.assertEquals(expectedResponse, actualResponse);
+
+    List<String> actualRequests = mockService.getRequestPaths();
+    Assert.assertEquals(1, actualRequests.size());
+
+    String apiClientHeaderKey =
+        mockService
+            .getRequestHeaders()
+            .get(ApiClientHeaderProvider.getDefaultApiClientHeaderKey())
+            .iterator()
+            .next();
+    Assert.assertTrue(
+        GaxHttpJsonProperties.getDefaultApiClientHeaderPattern()
+            .matcher(apiClientHeaderKey)
+            .matches());
+  }
+
+  @Test
+  public void updateBackupScheduleExceptionTest() throws Exception {
+    ApiException exception =
+        ApiExceptionFactory.createException(
+            new Exception(), FakeStatusCode.of(StatusCode.Code.INVALID_ARGUMENT), false);
+    mockService.addException(exception);
+
+    try {
+      BackupSchedule backupSchedule =
+          BackupSchedule.newBuilder()
+              .setName(
+                  "projects/project-8764/instances/instance-8764/databases/database-8764/backupSchedules/backupSchedule-8764")
+              .setCreationSpecCron("creationSpecCron1870157032")
+              .setRetentionDuration("retentionDuration-149581102")
+              .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+              .build();
+      FieldMask updateMask = FieldMask.newBuilder().build();
+      client.updateBackupSchedule(backupSchedule, updateMask);
+      Assert.fail("No exception raised");
+    } catch (InvalidArgumentException e) {
+      // Expected exception.
+    }
+  }
+
+  @Test
+  public void getBackupScheduleTest() throws Exception {
+    BackupSchedule expectedResponse =
+        BackupSchedule.newBuilder()
+            .setName("name3373707")
+            .setCreationSpecCron("creationSpecCron1870157032")
+            .setRetentionDuration("retentionDuration-149581102")
+            .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+            .build();
+    mockService.addResponse(expectedResponse);
+
+    String name =
+        "projects/project-8764/instances/instance-8764/databases/database-8764/backupSchedules/backupSchedule-8764";
+
+    BackupSchedule actualResponse = client.getBackupSchedule(name);
+    Assert.assertEquals(expectedResponse, actualResponse);
+
+    List<String> actualRequests = mockService.getRequestPaths();
+    Assert.assertEquals(1, actualRequests.size());
+
+    String apiClientHeaderKey =
+        mockService
+            .getRequestHeaders()
+            .get(ApiClientHeaderProvider.getDefaultApiClientHeaderKey())
+            .iterator()
+            .next();
+    Assert.assertTrue(
+        GaxHttpJsonProperties.getDefaultApiClientHeaderPattern()
+            .matcher(apiClientHeaderKey)
+            .matches());
+  }
+
+  @Test
+  public void getBackupScheduleExceptionTest() throws Exception {
+    ApiException exception =
+        ApiExceptionFactory.createException(
+            new Exception(), FakeStatusCode.of(StatusCode.Code.INVALID_ARGUMENT), false);
+    mockService.addException(exception);
+
+    try {
+      String name =
+          "projects/project-8764/instances/instance-8764/databases/database-8764/backupSchedules/backupSchedule-8764";
+      client.getBackupSchedule(name);
+      Assert.fail("No exception raised");
+    } catch (InvalidArgumentException e) {
+      // Expected exception.
+    }
+  }
+
+  @Test
+  public void deleteBackupScheduleTest() throws Exception {
+    Empty expectedResponse = Empty.newBuilder().build();
+    mockService.addResponse(expectedResponse);
+
+    BackupName name = BackupName.of("[PROJECT]", "[INSTANCE]", "[BACKUP]");
+
+    client.deleteBackupSchedule(name);
+
+    List<String> actualRequests = mockService.getRequestPaths();
+    Assert.assertEquals(1, actualRequests.size());
+
+    String apiClientHeaderKey =
+        mockService
+            .getRequestHeaders()
+            .get(ApiClientHeaderProvider.getDefaultApiClientHeaderKey())
+            .iterator()
+            .next();
+    Assert.assertTrue(
+        GaxHttpJsonProperties.getDefaultApiClientHeaderPattern()
+            .matcher(apiClientHeaderKey)
+            .matches());
+  }
+
+  @Test
+  public void deleteBackupScheduleExceptionTest() throws Exception {
+    ApiException exception =
+        ApiExceptionFactory.createException(
+            new Exception(), FakeStatusCode.of(StatusCode.Code.INVALID_ARGUMENT), false);
+    mockService.addException(exception);
+
+    try {
+      BackupName name = BackupName.of("[PROJECT]", "[INSTANCE]", "[BACKUP]");
+      client.deleteBackupSchedule(name);
+      Assert.fail("No exception raised");
+    } catch (InvalidArgumentException e) {
+      // Expected exception.
+    }
+  }
+
+  @Test
+  public void deleteBackupScheduleTest2() throws Exception {
+    Empty expectedResponse = Empty.newBuilder().build();
+    mockService.addResponse(expectedResponse);
+
+    String name =
+        "projects/project-8764/instances/instance-8764/databases/database-8764/backupSchedules/backupSchedule-8764";
+
+    client.deleteBackupSchedule(name);
+
+    List<String> actualRequests = mockService.getRequestPaths();
+    Assert.assertEquals(1, actualRequests.size());
+
+    String apiClientHeaderKey =
+        mockService
+            .getRequestHeaders()
+            .get(ApiClientHeaderProvider.getDefaultApiClientHeaderKey())
+            .iterator()
+            .next();
+    Assert.assertTrue(
+        GaxHttpJsonProperties.getDefaultApiClientHeaderPattern()
+            .matcher(apiClientHeaderKey)
+            .matches());
+  }
+
+  @Test
+  public void deleteBackupScheduleExceptionTest2() throws Exception {
+    ApiException exception =
+        ApiExceptionFactory.createException(
+            new Exception(), FakeStatusCode.of(StatusCode.Code.INVALID_ARGUMENT), false);
+    mockService.addException(exception);
+
+    try {
+      String name =
+          "projects/project-8764/instances/instance-8764/databases/database-8764/backupSchedules/backupSchedule-8764";
+      client.deleteBackupSchedule(name);
+      Assert.fail("No exception raised");
+    } catch (InvalidArgumentException e) {
+      // Expected exception.
+    }
+  }
+
+  @Test
+  public void listBackupSchedulesTest() throws Exception {
+    BackupSchedule responsesElement = BackupSchedule.newBuilder().build();
+    ListBackupSchedulesResponse expectedResponse =
+        ListBackupSchedulesResponse.newBuilder()
+            .setNextPageToken("")
+            .addAllBackupSchedules(Arrays.asList(responsesElement))
+            .build();
+    mockService.addResponse(expectedResponse);
+
+    String parent = "projects/project-9347/instances/instance-9347/databases/database-9347";
+
+    ListBackupSchedulesPagedResponse pagedListResponse = client.listBackupSchedules(parent);
+
+    List<BackupSchedule> resources = Lists.newArrayList(pagedListResponse.iterateAll());
+
+    Assert.assertEquals(1, resources.size());
+    Assert.assertEquals(expectedResponse.getBackupSchedulesList().get(0), resources.get(0));
+
+    List<String> actualRequests = mockService.getRequestPaths();
+    Assert.assertEquals(1, actualRequests.size());
+
+    String apiClientHeaderKey =
+        mockService
+            .getRequestHeaders()
+            .get(ApiClientHeaderProvider.getDefaultApiClientHeaderKey())
+            .iterator()
+            .next();
+    Assert.assertTrue(
+        GaxHttpJsonProperties.getDefaultApiClientHeaderPattern()
+            .matcher(apiClientHeaderKey)
+            .matches());
+  }
+
+  @Test
+  public void listBackupSchedulesExceptionTest() throws Exception {
+    ApiException exception =
+        ApiExceptionFactory.createException(
+            new Exception(), FakeStatusCode.of(StatusCode.Code.INVALID_ARGUMENT), false);
+    mockService.addException(exception);
+
+    try {
+      String parent = "projects/project-9347/instances/instance-9347/databases/database-9347";
+      client.listBackupSchedules(parent);
       Assert.fail("No exception raised");
     } catch (InvalidArgumentException e) {
       // Expected exception.

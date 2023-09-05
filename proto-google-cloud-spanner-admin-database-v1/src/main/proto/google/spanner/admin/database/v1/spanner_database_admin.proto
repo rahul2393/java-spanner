@@ -396,6 +396,42 @@ service DatabaseAdmin {
     };
     option (google.api.method_signature) = "parent";
   }
+
+  rpc CreateBackupSchedule(CreateBackupScheduleRequest) returns (BackupSchedule) {
+    option (google.api.http) = {
+      post: "/v1/{parent=projects/*/instances/*/databases/*}/backups:createSchedule"
+      body: "*"
+    };
+  }
+
+  rpc UpdateBackupSchedule(UpdateBackupScheduleRequest) returns (BackupSchedule) {
+    option (google.api.http) = {
+      patch: "/v1/{backup_schedule.name=projects/*/instances/*/databases/*/backupSchedules/*}"
+      body: "backup_schedule"
+    };
+    option (google.api.method_signature) = "backup_schedule,update_mask";
+  }
+
+  rpc GetBackupSchedule(GetBackupScheduleRequest) returns (BackupSchedule) {
+    option (google.api.http) = {
+      get: "/v1/{name=projects/*/instances/*/databases/*/backupSchedules/*}"
+    };
+    option (google.api.method_signature) = "name";
+  }
+
+  rpc DeleteBackupSchedule(DeleteBackupRequest) returns (google.protobuf.Empty) {
+    option (google.api.http) = {
+      delete: "/v1/{name=projects/*/instances/*/databases/*/backupSchedules/*}"
+    };
+    option (google.api.method_signature) = "name";
+  }
+
+  rpc ListBackupSchedules(ListBackupSchedulesRequest) returns (ListBackupSchedulesResponse) {
+    option (google.api.http) = {
+      get: "/v1/{parent=projects/*/instances/*/databases/*}/backups:schedules"
+    };
+    option (google.api.method_signature) = "parent";
+  }
 }
 
 // Information about the database restore.

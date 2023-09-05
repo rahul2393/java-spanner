@@ -17,6 +17,7 @@
 package com.google.cloud.spanner.admin.database.v1.stub;
 
 import static com.google.cloud.spanner.admin.database.v1.DatabaseAdminClient.ListBackupOperationsPagedResponse;
+import static com.google.cloud.spanner.admin.database.v1.DatabaseAdminClient.ListBackupSchedulesPagedResponse;
 import static com.google.cloud.spanner.admin.database.v1.DatabaseAdminClient.ListBackupsPagedResponse;
 import static com.google.cloud.spanner.admin.database.v1.DatabaseAdminClient.ListDatabaseOperationsPagedResponse;
 import static com.google.cloud.spanner.admin.database.v1.DatabaseAdminClient.ListDatabaseRolesPagedResponse;
@@ -63,10 +64,12 @@ import com.google.iam.v1.TestIamPermissionsResponse;
 import com.google.longrunning.Operation;
 import com.google.protobuf.Empty;
 import com.google.spanner.admin.database.v1.Backup;
+import com.google.spanner.admin.database.v1.BackupSchedule;
 import com.google.spanner.admin.database.v1.CopyBackupMetadata;
 import com.google.spanner.admin.database.v1.CopyBackupRequest;
 import com.google.spanner.admin.database.v1.CreateBackupMetadata;
 import com.google.spanner.admin.database.v1.CreateBackupRequest;
+import com.google.spanner.admin.database.v1.CreateBackupScheduleRequest;
 import com.google.spanner.admin.database.v1.CreateDatabaseMetadata;
 import com.google.spanner.admin.database.v1.CreateDatabaseRequest;
 import com.google.spanner.admin.database.v1.Database;
@@ -74,11 +77,14 @@ import com.google.spanner.admin.database.v1.DatabaseRole;
 import com.google.spanner.admin.database.v1.DeleteBackupRequest;
 import com.google.spanner.admin.database.v1.DropDatabaseRequest;
 import com.google.spanner.admin.database.v1.GetBackupRequest;
+import com.google.spanner.admin.database.v1.GetBackupScheduleRequest;
 import com.google.spanner.admin.database.v1.GetDatabaseDdlRequest;
 import com.google.spanner.admin.database.v1.GetDatabaseDdlResponse;
 import com.google.spanner.admin.database.v1.GetDatabaseRequest;
 import com.google.spanner.admin.database.v1.ListBackupOperationsRequest;
 import com.google.spanner.admin.database.v1.ListBackupOperationsResponse;
+import com.google.spanner.admin.database.v1.ListBackupSchedulesRequest;
+import com.google.spanner.admin.database.v1.ListBackupSchedulesResponse;
 import com.google.spanner.admin.database.v1.ListBackupsRequest;
 import com.google.spanner.admin.database.v1.ListBackupsResponse;
 import com.google.spanner.admin.database.v1.ListDatabaseOperationsRequest;
@@ -90,6 +96,7 @@ import com.google.spanner.admin.database.v1.ListDatabasesResponse;
 import com.google.spanner.admin.database.v1.RestoreDatabaseMetadata;
 import com.google.spanner.admin.database.v1.RestoreDatabaseRequest;
 import com.google.spanner.admin.database.v1.UpdateBackupRequest;
+import com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest;
 import com.google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata;
 import com.google.spanner.admin.database.v1.UpdateDatabaseDdlRequest;
 import com.google.spanner.admin.database.v1.UpdateDatabaseMetadata;
@@ -192,6 +199,16 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
   private final PagedCallSettings<
           ListDatabaseRolesRequest, ListDatabaseRolesResponse, ListDatabaseRolesPagedResponse>
       listDatabaseRolesSettings;
+  private final UnaryCallSettings<CreateBackupScheduleRequest, BackupSchedule>
+      createBackupScheduleSettings;
+  private final UnaryCallSettings<UpdateBackupScheduleRequest, BackupSchedule>
+      updateBackupScheduleSettings;
+  private final UnaryCallSettings<GetBackupScheduleRequest, BackupSchedule>
+      getBackupScheduleSettings;
+  private final UnaryCallSettings<DeleteBackupRequest, Empty> deleteBackupScheduleSettings;
+  private final PagedCallSettings<
+          ListBackupSchedulesRequest, ListBackupSchedulesResponse, ListBackupSchedulesPagedResponse>
+      listBackupSchedulesSettings;
 
   private static final PagedListDescriptor<ListDatabasesRequest, ListDatabasesResponse, Database>
       LIST_DATABASES_PAGE_STR_DESC =
@@ -387,6 +404,46 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
             }
           };
 
+  private static final PagedListDescriptor<
+          ListBackupSchedulesRequest, ListBackupSchedulesResponse, BackupSchedule>
+      LIST_BACKUP_SCHEDULES_PAGE_STR_DESC =
+          new PagedListDescriptor<
+              ListBackupSchedulesRequest, ListBackupSchedulesResponse, BackupSchedule>() {
+            @Override
+            public String emptyToken() {
+              return "";
+            }
+
+            @Override
+            public ListBackupSchedulesRequest injectToken(
+                ListBackupSchedulesRequest payload, String token) {
+              return ListBackupSchedulesRequest.newBuilder(payload).setPageToken(token).build();
+            }
+
+            @Override
+            public ListBackupSchedulesRequest injectPageSize(
+                ListBackupSchedulesRequest payload, int pageSize) {
+              return ListBackupSchedulesRequest.newBuilder(payload).setPageSize(pageSize).build();
+            }
+
+            @Override
+            public Integer extractPageSize(ListBackupSchedulesRequest payload) {
+              return payload.getPageSize();
+            }
+
+            @Override
+            public String extractNextToken(ListBackupSchedulesResponse payload) {
+              return payload.getNextPageToken();
+            }
+
+            @Override
+            public Iterable<BackupSchedule> extractResources(ListBackupSchedulesResponse payload) {
+              return payload.getBackupSchedulesList() == null
+                  ? ImmutableList.<BackupSchedule>of()
+                  : payload.getBackupSchedulesList();
+            }
+          };
+
   private static final PagedListResponseFactory<
           ListDatabasesRequest, ListDatabasesResponse, ListDatabasesPagedResponse>
       LIST_DATABASES_PAGE_STR_FACT =
@@ -486,6 +543,27 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
                       PageContext.create(
                           callable, LIST_DATABASE_ROLES_PAGE_STR_DESC, request, context);
               return ListDatabaseRolesPagedResponse.createAsync(pageContext, futureResponse);
+            }
+          };
+
+  private static final PagedListResponseFactory<
+          ListBackupSchedulesRequest, ListBackupSchedulesResponse, ListBackupSchedulesPagedResponse>
+      LIST_BACKUP_SCHEDULES_PAGE_STR_FACT =
+          new PagedListResponseFactory<
+              ListBackupSchedulesRequest,
+              ListBackupSchedulesResponse,
+              ListBackupSchedulesPagedResponse>() {
+            @Override
+            public ApiFuture<ListBackupSchedulesPagedResponse> getFuturePagedResponse(
+                UnaryCallable<ListBackupSchedulesRequest, ListBackupSchedulesResponse> callable,
+                ListBackupSchedulesRequest request,
+                ApiCallContext context,
+                ApiFuture<ListBackupSchedulesResponse> futureResponse) {
+              PageContext<ListBackupSchedulesRequest, ListBackupSchedulesResponse, BackupSchedule>
+                  pageContext =
+                      PageContext.create(
+                          callable, LIST_BACKUP_SCHEDULES_PAGE_STR_DESC, request, context);
+              return ListBackupSchedulesPagedResponse.createAsync(pageContext, futureResponse);
             }
           };
 
@@ -638,6 +716,35 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
     return listDatabaseRolesSettings;
   }
 
+  /** Returns the object with the settings used for calls to createBackupSchedule. */
+  public UnaryCallSettings<CreateBackupScheduleRequest, BackupSchedule>
+      createBackupScheduleSettings() {
+    return createBackupScheduleSettings;
+  }
+
+  /** Returns the object with the settings used for calls to updateBackupSchedule. */
+  public UnaryCallSettings<UpdateBackupScheduleRequest, BackupSchedule>
+      updateBackupScheduleSettings() {
+    return updateBackupScheduleSettings;
+  }
+
+  /** Returns the object with the settings used for calls to getBackupSchedule. */
+  public UnaryCallSettings<GetBackupScheduleRequest, BackupSchedule> getBackupScheduleSettings() {
+    return getBackupScheduleSettings;
+  }
+
+  /** Returns the object with the settings used for calls to deleteBackupSchedule. */
+  public UnaryCallSettings<DeleteBackupRequest, Empty> deleteBackupScheduleSettings() {
+    return deleteBackupScheduleSettings;
+  }
+
+  /** Returns the object with the settings used for calls to listBackupSchedules. */
+  public PagedCallSettings<
+          ListBackupSchedulesRequest, ListBackupSchedulesResponse, ListBackupSchedulesPagedResponse>
+      listBackupSchedulesSettings() {
+    return listBackupSchedulesSettings;
+  }
+
   public DatabaseAdminStub createStub() throws IOException {
     if (getTransportChannelProvider()
         .getTransportName()
@@ -771,6 +878,11 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
     listDatabaseOperationsSettings = settingsBuilder.listDatabaseOperationsSettings().build();
     listBackupOperationsSettings = settingsBuilder.listBackupOperationsSettings().build();
     listDatabaseRolesSettings = settingsBuilder.listDatabaseRolesSettings().build();
+    createBackupScheduleSettings = settingsBuilder.createBackupScheduleSettings().build();
+    updateBackupScheduleSettings = settingsBuilder.updateBackupScheduleSettings().build();
+    getBackupScheduleSettings = settingsBuilder.getBackupScheduleSettings().build();
+    deleteBackupScheduleSettings = settingsBuilder.deleteBackupScheduleSettings().build();
+    listBackupSchedulesSettings = settingsBuilder.listBackupSchedulesSettings().build();
   }
 
   /** Builder for DatabaseAdminStubSettings. */
@@ -832,6 +944,19 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
     private final PagedCallSettings.Builder<
             ListDatabaseRolesRequest, ListDatabaseRolesResponse, ListDatabaseRolesPagedResponse>
         listDatabaseRolesSettings;
+    private final UnaryCallSettings.Builder<CreateBackupScheduleRequest, BackupSchedule>
+        createBackupScheduleSettings;
+    private final UnaryCallSettings.Builder<UpdateBackupScheduleRequest, BackupSchedule>
+        updateBackupScheduleSettings;
+    private final UnaryCallSettings.Builder<GetBackupScheduleRequest, BackupSchedule>
+        getBackupScheduleSettings;
+    private final UnaryCallSettings.Builder<DeleteBackupRequest, Empty>
+        deleteBackupScheduleSettings;
+    private final PagedCallSettings.Builder<
+            ListBackupSchedulesRequest,
+            ListBackupSchedulesResponse,
+            ListBackupSchedulesPagedResponse>
+        listBackupSchedulesSettings;
     private static final ImmutableMap<String, ImmutableSet<StatusCode.Code>>
         RETRYABLE_CODE_DEFINITIONS;
 
@@ -852,6 +977,7 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
           ImmutableSet.copyOf(
               Lists.<StatusCode.Code>newArrayList(
                   StatusCode.Code.UNAVAILABLE, StatusCode.Code.DEADLINE_EXCEEDED)));
+      definitions.put("no_retry_codes", ImmutableSet.copyOf(Lists.<StatusCode.Code>newArrayList()));
       RETRYABLE_CODE_DEFINITIONS = definitions.build();
     }
 
@@ -898,6 +1024,8 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
               .setTotalTimeout(Duration.ofMillis(30000L))
               .build();
       definitions.put("retry_policy_1_params", settings);
+      settings = RetrySettings.newBuilder().setRpcTimeoutMultiplier(1.0).build();
+      definitions.put("no_retry_params", settings);
       RETRY_PARAM_DEFINITIONS = definitions.build();
     }
 
@@ -936,6 +1064,12 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
       listBackupOperationsSettings =
           PagedCallSettings.newBuilder(LIST_BACKUP_OPERATIONS_PAGE_STR_FACT);
       listDatabaseRolesSettings = PagedCallSettings.newBuilder(LIST_DATABASE_ROLES_PAGE_STR_FACT);
+      createBackupScheduleSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
+      updateBackupScheduleSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
+      getBackupScheduleSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
+      deleteBackupScheduleSettings = UnaryCallSettings.newUnaryCallSettingsBuilder();
+      listBackupSchedulesSettings =
+          PagedCallSettings.newBuilder(LIST_BACKUP_SCHEDULES_PAGE_STR_FACT);
 
       unaryMethodSettingsBuilders =
           ImmutableList.<UnaryCallSettings.Builder<?, ?>>of(
@@ -958,7 +1092,12 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
               restoreDatabaseSettings,
               listDatabaseOperationsSettings,
               listBackupOperationsSettings,
-              listDatabaseRolesSettings);
+              listDatabaseRolesSettings,
+              createBackupScheduleSettings,
+              updateBackupScheduleSettings,
+              getBackupScheduleSettings,
+              deleteBackupScheduleSettings,
+              listBackupSchedulesSettings);
       initDefaults(this);
     }
 
@@ -991,6 +1130,11 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
       listDatabaseOperationsSettings = settings.listDatabaseOperationsSettings.toBuilder();
       listBackupOperationsSettings = settings.listBackupOperationsSettings.toBuilder();
       listDatabaseRolesSettings = settings.listDatabaseRolesSettings.toBuilder();
+      createBackupScheduleSettings = settings.createBackupScheduleSettings.toBuilder();
+      updateBackupScheduleSettings = settings.updateBackupScheduleSettings.toBuilder();
+      getBackupScheduleSettings = settings.getBackupScheduleSettings.toBuilder();
+      deleteBackupScheduleSettings = settings.deleteBackupScheduleSettings.toBuilder();
+      listBackupSchedulesSettings = settings.listBackupSchedulesSettings.toBuilder();
 
       unaryMethodSettingsBuilders =
           ImmutableList.<UnaryCallSettings.Builder<?, ?>>of(
@@ -1013,7 +1157,12 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
               restoreDatabaseSettings,
               listDatabaseOperationsSettings,
               listBackupOperationsSettings,
-              listDatabaseRolesSettings);
+              listDatabaseRolesSettings,
+              createBackupScheduleSettings,
+              updateBackupScheduleSettings,
+              getBackupScheduleSettings,
+              deleteBackupScheduleSettings,
+              listBackupSchedulesSettings);
     }
 
     private static Builder createDefault() {
@@ -1142,6 +1291,31 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
           .listDatabaseRolesSettings()
           .setRetryableCodes(RETRYABLE_CODE_DEFINITIONS.get("retry_policy_0_codes"))
           .setRetrySettings(RETRY_PARAM_DEFINITIONS.get("retry_policy_0_params"));
+
+      builder
+          .createBackupScheduleSettings()
+          .setRetryableCodes(RETRYABLE_CODE_DEFINITIONS.get("no_retry_codes"))
+          .setRetrySettings(RETRY_PARAM_DEFINITIONS.get("no_retry_params"));
+
+      builder
+          .updateBackupScheduleSettings()
+          .setRetryableCodes(RETRYABLE_CODE_DEFINITIONS.get("no_retry_codes"))
+          .setRetrySettings(RETRY_PARAM_DEFINITIONS.get("no_retry_params"));
+
+      builder
+          .getBackupScheduleSettings()
+          .setRetryableCodes(RETRYABLE_CODE_DEFINITIONS.get("no_retry_codes"))
+          .setRetrySettings(RETRY_PARAM_DEFINITIONS.get("no_retry_params"));
+
+      builder
+          .deleteBackupScheduleSettings()
+          .setRetryableCodes(RETRYABLE_CODE_DEFINITIONS.get("no_retry_codes"))
+          .setRetrySettings(RETRY_PARAM_DEFINITIONS.get("no_retry_params"));
+
+      builder
+          .listBackupSchedulesSettings()
+          .setRetryableCodes(RETRYABLE_CODE_DEFINITIONS.get("no_retry_codes"))
+          .setRetrySettings(RETRY_PARAM_DEFINITIONS.get("no_retry_params"));
 
       builder
           .createDatabaseOperationSettings()
@@ -1468,6 +1642,38 @@ public class DatabaseAdminStubSettings extends StubSettings<DatabaseAdminStubSet
             ListDatabaseRolesRequest, ListDatabaseRolesResponse, ListDatabaseRolesPagedResponse>
         listDatabaseRolesSettings() {
       return listDatabaseRolesSettings;
+    }
+
+    /** Returns the builder for the settings used for calls to createBackupSchedule. */
+    public UnaryCallSettings.Builder<CreateBackupScheduleRequest, BackupSchedule>
+        createBackupScheduleSettings() {
+      return createBackupScheduleSettings;
+    }
+
+    /** Returns the builder for the settings used for calls to updateBackupSchedule. */
+    public UnaryCallSettings.Builder<UpdateBackupScheduleRequest, BackupSchedule>
+        updateBackupScheduleSettings() {
+      return updateBackupScheduleSettings;
+    }
+
+    /** Returns the builder for the settings used for calls to getBackupSchedule. */
+    public UnaryCallSettings.Builder<GetBackupScheduleRequest, BackupSchedule>
+        getBackupScheduleSettings() {
+      return getBackupScheduleSettings;
+    }
+
+    /** Returns the builder for the settings used for calls to deleteBackupSchedule. */
+    public UnaryCallSettings.Builder<DeleteBackupRequest, Empty> deleteBackupScheduleSettings() {
+      return deleteBackupScheduleSettings;
+    }
+
+    /** Returns the builder for the settings used for calls to listBackupSchedules. */
+    public PagedCallSettings.Builder<
+            ListBackupSchedulesRequest,
+            ListBackupSchedulesResponse,
+            ListBackupSchedulesPagedResponse>
+        listBackupSchedulesSettings() {
+      return listBackupSchedulesSettings;
     }
 
     @Override
