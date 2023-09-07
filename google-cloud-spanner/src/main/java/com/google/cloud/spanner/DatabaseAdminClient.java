@@ -29,6 +29,8 @@ import com.google.spanner.admin.database.v1.CreateDatabaseRequest;
 import com.google.spanner.admin.database.v1.RestoreDatabaseMetadata;
 import com.google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata;
 import com.google.spanner.admin.database.v1.UpdateDatabaseMetadata;
+import com.google.spanner.admin.database.v1.CreateBackupScheduleRequest;
+import com.google.spanner.admin.database.v1.BackupSchedule;
 import java.util.List;
 import javax.annotation.Nullable;
 
@@ -597,4 +599,6 @@ public interface DatabaseAdminClient {
    */
   Iterable<String> testBackupIAMPermissions(
       String instanceId, String backupId, Iterable<String> permissions);
+
+  BackupSchedule createBackupSchedule(CreateBackupScheduleRequest request);
 }

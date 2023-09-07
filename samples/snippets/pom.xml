@@ -45,7 +45,14 @@
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-spanner</artifactId>
+      <version>6.45.4-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>com.google.api.grpc</groupId>
+      <artifactId>proto-google-cloud-spanner-admin-database-v1</artifactId>
+      <version>6.45.4-SNAPSHOT</version>
+    </dependency>
+
     <!-- [END spanner_install_with_bom] -->
 
     <dependency>

@@ -267,6 +267,11 @@ class DatabaseAdminClientImpl implements DatabaseAdminClient {
   }
 
   @Override
+  public final BackupSchedule createBackupSchedule(CreateBackupScheduleRequest request) {
+    return rpc.createBackupSchedule(request);
+  }
+
+  @Override
   public final Page<Operation> listDatabaseOperations(String instanceId, ListOption... options) {
     final String instanceName = getInstanceName(instanceId);
     final Options listOptions = Options.fromListOptions(options);

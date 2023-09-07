@@ -135,6 +135,8 @@ import com.google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata;
 import com.google.spanner.admin.database.v1.UpdateDatabaseDdlRequest;
 import com.google.spanner.admin.database.v1.UpdateDatabaseMetadata;
 import com.google.spanner.admin.database.v1.UpdateDatabaseRequest;
+import com.google.spanner.admin.database.v1.CreateBackupScheduleRequest;
+import com.google.spanner.admin.database.v1.BackupSchedule;
 import com.google.spanner.admin.instance.v1.CreateInstanceConfigMetadata;
 import com.google.spanner.admin.instance.v1.CreateInstanceConfigRequest;
 import com.google.spanner.admin.instance.v1.CreateInstanceMetadata;
@@ -1492,6 +1494,15 @@ public class GapicSpannerRpc implements SpannerRpc {
           databaseAdminStub.deleteBackupCallable().call(request, context);
           return null;
         });
+  }
+
+  @Override
+  public BackupSchedule createBackupSchedule(CreateBackupScheduleRequest request) {
+    acquireAdministrativeRequestsRateLimiter();
+    final GrpcCallContext context =
+        newCallContext(
+            null, request.getParent(), request, DatabaseAdminGrpc.getCreateBackupScheduleMethod());
+    return get(databaseAdminStub.createBackupScheduleCallable().futureCall(request, context));
   }
 
   @Override

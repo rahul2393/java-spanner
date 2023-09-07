@@ -39,6 +39,8 @@ import com.google.protobuf.Empty;
 import com.google.protobuf.FieldMask;
 import com.google.spanner.admin.database.v1.Backup;
 import com.google.spanner.admin.database.v1.CopyBackupMetadata;
+import com.google.spanner.admin.database.v1.CreateBackupScheduleRequest;
+import com.google.spanner.admin.database.v1.BackupSchedule;
 import com.google.spanner.admin.database.v1.CreateBackupMetadata;
 import com.google.spanner.admin.database.v1.CreateDatabaseMetadata;
 import com.google.spanner.admin.database.v1.Database;
@@ -307,6 +309,8 @@ public interface SpannerRpc extends ServiceRpc {
    * @param backupName Required. The fully qualified name of the backup to delete.
    */
   void deleteBackup(String backupName);
+
+  BackupSchedule createBackupSchedule(CreateBackupScheduleRequest request);
 
   Paginated<Operation> listDatabaseOperations(
       String instanceName, int pageSize, @Nullable String filter, @Nullable String pageToken);
