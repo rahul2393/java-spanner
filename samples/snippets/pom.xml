@@ -26,8 +26,6 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <opencensus.version>0.31.1</opencensus.version>
   </properties>
-
-
   <!-- [START spanner_install_with_bom] -->
   <dependencyManagement>
     <dependencies>
@@ -45,6 +43,12 @@
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>google-cloud-spanner</artifactId>
+      <version>6.54.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.api.grpc</groupId>
+      <artifactId>proto-google-cloud-spanner-admin-database-v1</artifactId>
+      <version>6.54.1-SNAPSHOT</version>
     </dependency>
     <!-- [END spanner_install_with_bom] -->
 
