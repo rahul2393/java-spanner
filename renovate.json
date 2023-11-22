@@ -10,10 +10,7 @@
     ":maintainLockFilesDisabled",
     ":autodetectPinVersions"
   ],
-  "ignorePaths": [
-    ".kokoro/requirements.txt",
-    ".github/workflows/**"
-  ],
+  "ignorePaths": [".kokoro/requirements.txt"],
   "packageRules": [
     {
       "packagePatterns": [

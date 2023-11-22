@@ -943,6 +943,245 @@ public final class DatabaseAdminGrpc {
     return getListDatabaseRolesMethod;
   }
 
+  private static volatile io.grpc.MethodDescriptor<
+          com.google.spanner.admin.database.v1.CreateBackupScheduleRequest,
+          com.google.spanner.admin.database.v1.BackupSchedule>
+      getCreateBackupScheduleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "CreateBackupSchedule",
+      requestType = com.google.spanner.admin.database.v1.CreateBackupScheduleRequest.class,
+      responseType = com.google.spanner.admin.database.v1.BackupSchedule.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<
+          com.google.spanner.admin.database.v1.CreateBackupScheduleRequest,
+          com.google.spanner.admin.database.v1.BackupSchedule>
+      getCreateBackupScheduleMethod() {
+    io.grpc.MethodDescriptor<
+            com.google.spanner.admin.database.v1.CreateBackupScheduleRequest,
+            com.google.spanner.admin.database.v1.BackupSchedule>
+        getCreateBackupScheduleMethod;
+    if ((getCreateBackupScheduleMethod = DatabaseAdminGrpc.getCreateBackupScheduleMethod) == null) {
+      synchronized (DatabaseAdminGrpc.class) {
+        if ((getCreateBackupScheduleMethod = DatabaseAdminGrpc.getCreateBackupScheduleMethod)
+            == null) {
+          DatabaseAdminGrpc.getCreateBackupScheduleMethod =
+              getCreateBackupScheduleMethod =
+                  io.grpc.MethodDescriptor
+                      .<com.google.spanner.admin.database.v1.CreateBackupScheduleRequest,
+                          com.google.spanner.admin.database.v1.BackupSchedule>
+                          newBuilder()
+                      .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+                      .setFullMethodName(
+                          generateFullMethodName(SERVICE_NAME, "CreateBackupSchedule"))
+                      .setSampledToLocalTracing(true)
+                      .setRequestMarshaller(
+                          io.grpc.protobuf.ProtoUtils.marshaller(
+                              com.google.spanner.admin.database.v1.CreateBackupScheduleRequest
+                                  .getDefaultInstance()))
+                      .setResponseMarshaller(
+                          io.grpc.protobuf.ProtoUtils.marshaller(
+                              com.google.spanner.admin.database.v1.BackupSchedule
+                                  .getDefaultInstance()))
+                      .setSchemaDescriptor(
+                          new DatabaseAdminMethodDescriptorSupplier("CreateBackupSchedule"))
+                      .build();
+        }
+      }
+    }
+    return getCreateBackupScheduleMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<
+          com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest,
+          com.google.spanner.admin.database.v1.BackupSchedule>
+      getUpdateBackupScheduleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "UpdateBackupSchedule",
+      requestType = com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest.class,
+      responseType = com.google.spanner.admin.database.v1.BackupSchedule.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<
+          com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest,
+          com.google.spanner.admin.database.v1.BackupSchedule>
+      getUpdateBackupScheduleMethod() {
+    io.grpc.MethodDescriptor<
+            com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest,
+            com.google.spanner.admin.database.v1.BackupSchedule>
+        getUpdateBackupScheduleMethod;
+    if ((getUpdateBackupScheduleMethod = DatabaseAdminGrpc.getUpdateBackupScheduleMethod) == null) {
+      synchronized (DatabaseAdminGrpc.class) {
+        if ((getUpdateBackupScheduleMethod = DatabaseAdminGrpc.getUpdateBackupScheduleMethod)
+            == null) {
+          DatabaseAdminGrpc.getUpdateBackupScheduleMethod =
+              getUpdateBackupScheduleMethod =
+                  io.grpc.MethodDescriptor
+                      .<com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest,
+                          com.google.spanner.admin.database.v1.BackupSchedule>
+                          newBuilder()
+                      .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+                      .setFullMethodName(
+                          generateFullMethodName(SERVICE_NAME, "UpdateBackupSchedule"))
+                      .setSampledToLocalTracing(true)
+                      .setRequestMarshaller(
+                          io.grpc.protobuf.ProtoUtils.marshaller(
+                              com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest
+                                  .getDefaultInstance()))
+                      .setResponseMarshaller(
+                          io.grpc.protobuf.ProtoUtils.marshaller(
+                              com.google.spanner.admin.database.v1.BackupSchedule
+                                  .getDefaultInstance()))
+                      .setSchemaDescriptor(
+                          new DatabaseAdminMethodDescriptorSupplier("UpdateBackupSchedule"))
+                      .build();
+        }
+      }
+    }
+    return getUpdateBackupScheduleMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<
+          com.google.spanner.admin.database.v1.GetBackupScheduleRequest,
+          com.google.spanner.admin.database.v1.BackupSchedule>
+      getGetBackupScheduleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "GetBackupSchedule",
+      requestType = com.google.spanner.admin.database.v1.GetBackupScheduleRequest.class,
+      responseType = com.google.spanner.admin.database.v1.BackupSchedule.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<
+          com.google.spanner.admin.database.v1.GetBackupScheduleRequest,
+          com.google.spanner.admin.database.v1.BackupSchedule>
+      getGetBackupScheduleMethod() {
+    io.grpc.MethodDescriptor<
+            com.google.spanner.admin.database.v1.GetBackupScheduleRequest,
+            com.google.spanner.admin.database.v1.BackupSchedule>
+        getGetBackupScheduleMethod;
+    if ((getGetBackupScheduleMethod = DatabaseAdminGrpc.getGetBackupScheduleMethod) == null) {
+      synchronized (DatabaseAdminGrpc.class) {
+        if ((getGetBackupScheduleMethod = DatabaseAdminGrpc.getGetBackupScheduleMethod) == null) {
+          DatabaseAdminGrpc.getGetBackupScheduleMethod =
+              getGetBackupScheduleMethod =
+                  io.grpc.MethodDescriptor
+                      .<com.google.spanner.admin.database.v1.GetBackupScheduleRequest,
+                          com.google.spanner.admin.database.v1.BackupSchedule>
+                          newBuilder()
+                      .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+                      .setFullMethodName(generateFullMethodName(SERVICE_NAME, "GetBackupSchedule"))
+                      .setSampledToLocalTracing(true)
+                      .setRequestMarshaller(
+                          io.grpc.protobuf.ProtoUtils.marshaller(
+                              com.google.spanner.admin.database.v1.GetBackupScheduleRequest
+                                  .getDefaultInstance()))
+                      .setResponseMarshaller(
+                          io.grpc.protobuf.ProtoUtils.marshaller(
+                              com.google.spanner.admin.database.v1.BackupSchedule
+                                  .getDefaultInstance()))
+                      .setSchemaDescriptor(
+                          new DatabaseAdminMethodDescriptorSupplier("GetBackupSchedule"))
+                      .build();
+        }
+      }
+    }
+    return getGetBackupScheduleMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<
+          com.google.spanner.admin.database.v1.DeleteBackupRequest, com.google.protobuf.Empty>
+      getDeleteBackupScheduleMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "DeleteBackupSchedule",
+      requestType = com.google.spanner.admin.database.v1.DeleteBackupRequest.class,
+      responseType = com.google.protobuf.Empty.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<
+          com.google.spanner.admin.database.v1.DeleteBackupRequest, com.google.protobuf.Empty>
+      getDeleteBackupScheduleMethod() {
+    io.grpc.MethodDescriptor<
+            com.google.spanner.admin.database.v1.DeleteBackupRequest, com.google.protobuf.Empty>
+        getDeleteBackupScheduleMethod;
+    if ((getDeleteBackupScheduleMethod = DatabaseAdminGrpc.getDeleteBackupScheduleMethod) == null) {
+      synchronized (DatabaseAdminGrpc.class) {
+        if ((getDeleteBackupScheduleMethod = DatabaseAdminGrpc.getDeleteBackupScheduleMethod)
+            == null) {
+          DatabaseAdminGrpc.getDeleteBackupScheduleMethod =
+              getDeleteBackupScheduleMethod =
+                  io.grpc.MethodDescriptor
+                      .<com.google.spanner.admin.database.v1.DeleteBackupRequest,
+                          com.google.protobuf.Empty>
+                          newBuilder()
+                      .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+                      .setFullMethodName(
+                          generateFullMethodName(SERVICE_NAME, "DeleteBackupSchedule"))
+                      .setSampledToLocalTracing(true)
+                      .setRequestMarshaller(
+                          io.grpc.protobuf.ProtoUtils.marshaller(
+                              com.google.spanner.admin.database.v1.DeleteBackupRequest
+                                  .getDefaultInstance()))
+                      .setResponseMarshaller(
+                          io.grpc.protobuf.ProtoUtils.marshaller(
+                              com.google.protobuf.Empty.getDefaultInstance()))
+                      .setSchemaDescriptor(
+                          new DatabaseAdminMethodDescriptorSupplier("DeleteBackupSchedule"))
+                      .build();
+        }
+      }
+    }
+    return getDeleteBackupScheduleMethod;
+  }
+
+  private static volatile io.grpc.MethodDescriptor<
+          com.google.spanner.admin.database.v1.ListBackupSchedulesRequest,
+          com.google.spanner.admin.database.v1.ListBackupSchedulesResponse>
+      getListBackupSchedulesMethod;
+
+  @io.grpc.stub.annotations.RpcMethod(
+      fullMethodName = SERVICE_NAME + '/' + "ListBackupSchedules",
+      requestType = com.google.spanner.admin.database.v1.ListBackupSchedulesRequest.class,
+      responseType = com.google.spanner.admin.database.v1.ListBackupSchedulesResponse.class,
+      methodType = io.grpc.MethodDescriptor.MethodType.UNARY)
+  public static io.grpc.MethodDescriptor<
+          com.google.spanner.admin.database.v1.ListBackupSchedulesRequest,
+          com.google.spanner.admin.database.v1.ListBackupSchedulesResponse>
+      getListBackupSchedulesMethod() {
+    io.grpc.MethodDescriptor<
+            com.google.spanner.admin.database.v1.ListBackupSchedulesRequest,
+            com.google.spanner.admin.database.v1.ListBackupSchedulesResponse>
+        getListBackupSchedulesMethod;
+    if ((getListBackupSchedulesMethod = DatabaseAdminGrpc.getListBackupSchedulesMethod) == null) {
+      synchronized (DatabaseAdminGrpc.class) {
+        if ((getListBackupSchedulesMethod = DatabaseAdminGrpc.getListBackupSchedulesMethod)
+            == null) {
+          DatabaseAdminGrpc.getListBackupSchedulesMethod =
+              getListBackupSchedulesMethod =
+                  io.grpc.MethodDescriptor
+                      .<com.google.spanner.admin.database.v1.ListBackupSchedulesRequest,
+                          com.google.spanner.admin.database.v1.ListBackupSchedulesResponse>
+                          newBuilder()
+                      .setType(io.grpc.MethodDescriptor.MethodType.UNARY)
+                      .setFullMethodName(
+                          generateFullMethodName(SERVICE_NAME, "ListBackupSchedules"))
+                      .setSampledToLocalTracing(true)
+                      .setRequestMarshaller(
+                          io.grpc.protobuf.ProtoUtils.marshaller(
+                              com.google.spanner.admin.database.v1.ListBackupSchedulesRequest
+                                  .getDefaultInstance()))
+                      .setResponseMarshaller(
+                          io.grpc.protobuf.ProtoUtils.marshaller(
+                              com.google.spanner.admin.database.v1.ListBackupSchedulesResponse
+                                  .getDefaultInstance()))
+                      .setSchemaDescriptor(
+                          new DatabaseAdminMethodDescriptorSupplier("ListBackupSchedules"))
+                      .build();
+        }
+      }
+    }
+    return getListBackupSchedulesMethod;
+  }
+
   /** Creates a new async stub that supports all call types for the service */
   public static DatabaseAdminStub newStub(io.grpc.Channel channel) {
     io.grpc.stub.AbstractStub.StubFactory<DatabaseAdminStub> factory =
@@ -1408,6 +1647,51 @@ public final class DatabaseAdminGrpc {
             responseObserver) {
       io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(
           getListDatabaseRolesMethod(), responseObserver);
+    }
+
+    /** */
+    default void createBackupSchedule(
+        com.google.spanner.admin.database.v1.CreateBackupScheduleRequest request,
+        io.grpc.stub.StreamObserver<com.google.spanner.admin.database.v1.BackupSchedule>
+            responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(
+          getCreateBackupScheduleMethod(), responseObserver);
+    }
+
+    /** */
+    default void updateBackupSchedule(
+        com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest request,
+        io.grpc.stub.StreamObserver<com.google.spanner.admin.database.v1.BackupSchedule>
+            responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(
+          getUpdateBackupScheduleMethod(), responseObserver);
+    }
+
+    /** */
+    default void getBackupSchedule(
+        com.google.spanner.admin.database.v1.GetBackupScheduleRequest request,
+        io.grpc.stub.StreamObserver<com.google.spanner.admin.database.v1.BackupSchedule>
+            responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(
+          getGetBackupScheduleMethod(), responseObserver);
+    }
+
+    /** */
+    default void deleteBackupSchedule(
+        com.google.spanner.admin.database.v1.DeleteBackupRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(
+          getDeleteBackupScheduleMethod(), responseObserver);
+    }
+
+    /** */
+    default void listBackupSchedules(
+        com.google.spanner.admin.database.v1.ListBackupSchedulesRequest request,
+        io.grpc.stub.StreamObserver<
+                com.google.spanner.admin.database.v1.ListBackupSchedulesResponse>
+            responseObserver) {
+      io.grpc.stub.ServerCalls.asyncUnimplementedUnaryCall(
+          getListBackupSchedulesMethod(), responseObserver);
     }
   }
 
@@ -1904,6 +2188,61 @@ public final class DatabaseAdminGrpc {
           request,
           responseObserver);
     }
+
+    /** */
+    public void createBackupSchedule(
+        com.google.spanner.admin.database.v1.CreateBackupScheduleRequest request,
+        io.grpc.stub.StreamObserver<com.google.spanner.admin.database.v1.BackupSchedule>
+            responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getCreateBackupScheduleMethod(), getCallOptions()),
+          request,
+          responseObserver);
+    }
+
+    /** */
+    public void updateBackupSchedule(
+        com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest request,
+        io.grpc.stub.StreamObserver<com.google.spanner.admin.database.v1.BackupSchedule>
+            responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getUpdateBackupScheduleMethod(), getCallOptions()),
+          request,
+          responseObserver);
+    }
+
+    /** */
+    public void getBackupSchedule(
+        com.google.spanner.admin.database.v1.GetBackupScheduleRequest request,
+        io.grpc.stub.StreamObserver<com.google.spanner.admin.database.v1.BackupSchedule>
+            responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getGetBackupScheduleMethod(), getCallOptions()),
+          request,
+          responseObserver);
+    }
+
+    /** */
+    public void deleteBackupSchedule(
+        com.google.spanner.admin.database.v1.DeleteBackupRequest request,
+        io.grpc.stub.StreamObserver<com.google.protobuf.Empty> responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getDeleteBackupScheduleMethod(), getCallOptions()),
+          request,
+          responseObserver);
+    }
+
+    /** */
+    public void listBackupSchedules(
+        com.google.spanner.admin.database.v1.ListBackupSchedulesRequest request,
+        io.grpc.stub.StreamObserver<
+                com.google.spanner.admin.database.v1.ListBackupSchedulesResponse>
+            responseObserver) {
+      io.grpc.stub.ClientCalls.asyncUnaryCall(
+          getChannel().newCall(getListBackupSchedulesMethod(), getCallOptions()),
+          request,
+          responseObserver);
+    }
   }
 
   /**
@@ -2311,6 +2650,41 @@ public final class DatabaseAdminGrpc {
         com.google.spanner.admin.database.v1.ListDatabaseRolesRequest request) {
       return io.grpc.stub.ClientCalls.blockingUnaryCall(
           getChannel(), getListDatabaseRolesMethod(), getCallOptions(), request);
+    }
+
+    /** */
+    public com.google.spanner.admin.database.v1.BackupSchedule createBackupSchedule(
+        com.google.spanner.admin.database.v1.CreateBackupScheduleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getCreateBackupScheduleMethod(), getCallOptions(), request);
+    }
+
+    /** */
+    public com.google.spanner.admin.database.v1.BackupSchedule updateBackupSchedule(
+        com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getUpdateBackupScheduleMethod(), getCallOptions(), request);
+    }
+
+    /** */
+    public com.google.spanner.admin.database.v1.BackupSchedule getBackupSchedule(
+        com.google.spanner.admin.database.v1.GetBackupScheduleRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getGetBackupScheduleMethod(), getCallOptions(), request);
+    }
+
+    /** */
+    public com.google.protobuf.Empty deleteBackupSchedule(
+        com.google.spanner.admin.database.v1.DeleteBackupRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getDeleteBackupScheduleMethod(), getCallOptions(), request);
+    }
+
+    /** */
+    public com.google.spanner.admin.database.v1.ListBackupSchedulesResponse listBackupSchedules(
+        com.google.spanner.admin.database.v1.ListBackupSchedulesRequest request) {
+      return io.grpc.stub.ClientCalls.blockingUnaryCall(
+          getChannel(), getListBackupSchedulesMethod(), getCallOptions(), request);
     }
   }
 
@@ -2733,6 +3107,48 @@ public final class DatabaseAdminGrpc {
       return io.grpc.stub.ClientCalls.futureUnaryCall(
           getChannel().newCall(getListDatabaseRolesMethod(), getCallOptions()), request);
     }
+
+    /** */
+    public com.google.common.util.concurrent.ListenableFuture<
+            com.google.spanner.admin.database.v1.BackupSchedule>
+        createBackupSchedule(
+            com.google.spanner.admin.database.v1.CreateBackupScheduleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getCreateBackupScheduleMethod(), getCallOptions()), request);
+    }
+
+    /** */
+    public com.google.common.util.concurrent.ListenableFuture<
+            com.google.spanner.admin.database.v1.BackupSchedule>
+        updateBackupSchedule(
+            com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getUpdateBackupScheduleMethod(), getCallOptions()), request);
+    }
+
+    /** */
+    public com.google.common.util.concurrent.ListenableFuture<
+            com.google.spanner.admin.database.v1.BackupSchedule>
+        getBackupSchedule(com.google.spanner.admin.database.v1.GetBackupScheduleRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getGetBackupScheduleMethod(), getCallOptions()), request);
+    }
+
+    /** */
+    public com.google.common.util.concurrent.ListenableFuture<com.google.protobuf.Empty>
+        deleteBackupSchedule(com.google.spanner.admin.database.v1.DeleteBackupRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getDeleteBackupScheduleMethod(), getCallOptions()), request);
+    }
+
+    /** */
+    public com.google.common.util.concurrent.ListenableFuture<
+            com.google.spanner.admin.database.v1.ListBackupSchedulesResponse>
+        listBackupSchedules(
+            com.google.spanner.admin.database.v1.ListBackupSchedulesRequest request) {
+      return io.grpc.stub.ClientCalls.futureUnaryCall(
+          getChannel().newCall(getListBackupSchedulesMethod(), getCallOptions()), request);
+    }
   }
 
   private static final int METHODID_LIST_DATABASES = 0;
@@ -2755,6 +3171,11 @@ public final class DatabaseAdminGrpc {
   private static final int METHODID_LIST_DATABASE_OPERATIONS = 17;
   private static final int METHODID_LIST_BACKUP_OPERATIONS = 18;
   private static final int METHODID_LIST_DATABASE_ROLES = 19;
+  private static final int METHODID_CREATE_BACKUP_SCHEDULE = 20;
+  private static final int METHODID_UPDATE_BACKUP_SCHEDULE = 21;
+  private static final int METHODID_GET_BACKUP_SCHEDULE = 22;
+  private static final int METHODID_DELETE_BACKUP_SCHEDULE = 23;
+  private static final int METHODID_LIST_BACKUP_SCHEDULES = 24;
 
   private static final class MethodHandlers<Req, Resp>
       implements io.grpc.stub.ServerCalls.UnaryMethod<Req, Resp>,
@@ -2887,6 +3308,36 @@ public final class DatabaseAdminGrpc {
               (com.google.spanner.admin.database.v1.ListDatabaseRolesRequest) request,
               (io.grpc.stub.StreamObserver<
                       com.google.spanner.admin.database.v1.ListDatabaseRolesResponse>)
+                  responseObserver);
+          break;
+        case METHODID_CREATE_BACKUP_SCHEDULE:
+          serviceImpl.createBackupSchedule(
+              (com.google.spanner.admin.database.v1.CreateBackupScheduleRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.spanner.admin.database.v1.BackupSchedule>)
+                  responseObserver);
+          break;
+        case METHODID_UPDATE_BACKUP_SCHEDULE:
+          serviceImpl.updateBackupSchedule(
+              (com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.spanner.admin.database.v1.BackupSchedule>)
+                  responseObserver);
+          break;
+        case METHODID_GET_BACKUP_SCHEDULE:
+          serviceImpl.getBackupSchedule(
+              (com.google.spanner.admin.database.v1.GetBackupScheduleRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.spanner.admin.database.v1.BackupSchedule>)
+                  responseObserver);
+          break;
+        case METHODID_DELETE_BACKUP_SCHEDULE:
+          serviceImpl.deleteBackupSchedule(
+              (com.google.spanner.admin.database.v1.DeleteBackupRequest) request,
+              (io.grpc.stub.StreamObserver<com.google.protobuf.Empty>) responseObserver);
+          break;
+        case METHODID_LIST_BACKUP_SCHEDULES:
+          serviceImpl.listBackupSchedules(
+              (com.google.spanner.admin.database.v1.ListBackupSchedulesRequest) request,
+              (io.grpc.stub.StreamObserver<
+                      com.google.spanner.admin.database.v1.ListBackupSchedulesResponse>)
                   responseObserver);
           break;
         default:
@@ -3032,6 +3483,40 @@ public final class DatabaseAdminGrpc {
                     com.google.spanner.admin.database.v1.ListDatabaseRolesRequest,
                     com.google.spanner.admin.database.v1.ListDatabaseRolesResponse>(
                     service, METHODID_LIST_DATABASE_ROLES)))
+        .addMethod(
+            getCreateBackupScheduleMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+                new MethodHandlers<
+                    com.google.spanner.admin.database.v1.CreateBackupScheduleRequest,
+                    com.google.spanner.admin.database.v1.BackupSchedule>(
+                    service, METHODID_CREATE_BACKUP_SCHEDULE)))
+        .addMethod(
+            getUpdateBackupScheduleMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+                new MethodHandlers<
+                    com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest,
+                    com.google.spanner.admin.database.v1.BackupSchedule>(
+                    service, METHODID_UPDATE_BACKUP_SCHEDULE)))
+        .addMethod(
+            getGetBackupScheduleMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+                new MethodHandlers<
+                    com.google.spanner.admin.database.v1.GetBackupScheduleRequest,
+                    com.google.spanner.admin.database.v1.BackupSchedule>(
+                    service, METHODID_GET_BACKUP_SCHEDULE)))
+        .addMethod(
+            getDeleteBackupScheduleMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+                new MethodHandlers<
+                    com.google.spanner.admin.database.v1.DeleteBackupRequest,
+                    com.google.protobuf.Empty>(service, METHODID_DELETE_BACKUP_SCHEDULE)))
+        .addMethod(
+            getListBackupSchedulesMethod(),
+            io.grpc.stub.ServerCalls.asyncUnaryCall(
+                new MethodHandlers<
+                    com.google.spanner.admin.database.v1.ListBackupSchedulesRequest,
+                    com.google.spanner.admin.database.v1.ListBackupSchedulesResponse>(
+                    service, METHODID_LIST_BACKUP_SCHEDULES)))
         .build();
   }
 
@@ -3103,6 +3588,11 @@ public final class DatabaseAdminGrpc {
                       .addMethod(getListDatabaseOperationsMethod())
                       .addMethod(getListBackupOperationsMethod())
                       .addMethod(getListDatabaseRolesMethod())
+                      .addMethod(getCreateBackupScheduleMethod())
+                      .addMethod(getUpdateBackupScheduleMethod())
+                      .addMethod(getGetBackupScheduleMethod())
+                      .addMethod(getDeleteBackupScheduleMethod())
+                      .addMethod(getListBackupSchedulesMethod())
                       .build();
         }
       }

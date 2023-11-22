@@ -43,10 +43,12 @@ import com.google.protobuf.FieldMask;
 import com.google.protobuf.Timestamp;
 import com.google.spanner.admin.database.v1.Backup;
 import com.google.spanner.admin.database.v1.BackupName;
+import com.google.spanner.admin.database.v1.BackupSchedule;
 import com.google.spanner.admin.database.v1.CopyBackupMetadata;
 import com.google.spanner.admin.database.v1.CopyBackupRequest;
 import com.google.spanner.admin.database.v1.CreateBackupMetadata;
 import com.google.spanner.admin.database.v1.CreateBackupRequest;
+import com.google.spanner.admin.database.v1.CreateBackupScheduleRequest;
 import com.google.spanner.admin.database.v1.CreateDatabaseMetadata;
 import com.google.spanner.admin.database.v1.CreateDatabaseRequest;
 import com.google.spanner.admin.database.v1.Database;
@@ -55,12 +57,15 @@ import com.google.spanner.admin.database.v1.DatabaseRole;
 import com.google.spanner.admin.database.v1.DeleteBackupRequest;
 import com.google.spanner.admin.database.v1.DropDatabaseRequest;
 import com.google.spanner.admin.database.v1.GetBackupRequest;
+import com.google.spanner.admin.database.v1.GetBackupScheduleRequest;
 import com.google.spanner.admin.database.v1.GetDatabaseDdlRequest;
 import com.google.spanner.admin.database.v1.GetDatabaseDdlResponse;
 import com.google.spanner.admin.database.v1.GetDatabaseRequest;
 import com.google.spanner.admin.database.v1.InstanceName;
 import com.google.spanner.admin.database.v1.ListBackupOperationsRequest;
 import com.google.spanner.admin.database.v1.ListBackupOperationsResponse;
+import com.google.spanner.admin.database.v1.ListBackupSchedulesRequest;
+import com.google.spanner.admin.database.v1.ListBackupSchedulesResponse;
 import com.google.spanner.admin.database.v1.ListBackupsRequest;
 import com.google.spanner.admin.database.v1.ListBackupsResponse;
 import com.google.spanner.admin.database.v1.ListDatabaseOperationsRequest;
@@ -72,6 +77,7 @@ import com.google.spanner.admin.database.v1.ListDatabasesResponse;
 import com.google.spanner.admin.database.v1.RestoreDatabaseMetadata;
 import com.google.spanner.admin.database.v1.RestoreDatabaseRequest;
 import com.google.spanner.admin.database.v1.UpdateBackupRequest;
+import com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest;
 import com.google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata;
 import com.google.spanner.admin.database.v1.UpdateDatabaseDdlRequest;
 import com.google.spanner.admin.database.v1.UpdateDatabaseMetadata;
@@ -3813,6 +3819,455 @@ public class DatabaseAdminClient implements BackgroundResource {
     return stub.listDatabaseRolesCallable();
   }
 
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   CreateBackupScheduleRequest request =
+   *       CreateBackupScheduleRequest.newBuilder()
+   *           .setParent(DatabaseName.of("[PROJECT]", "[INSTANCE]", "[DATABASE]").toString())
+   *           .setBackupSchedule(BackupSchedule.newBuilder().build())
+   *           .setBackupScheduleId("backupScheduleId1704974708")
+   *           .build();
+   *   BackupSchedule response = databaseAdminClient.createBackupSchedule(request);
+   * }
+   * }</pre>
+   *
+   * @param request The request object containing all of the parameters for the API call.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final BackupSchedule createBackupSchedule(CreateBackupScheduleRequest request) {
+    return createBackupScheduleCallable().call(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   CreateBackupScheduleRequest request =
+   *       CreateBackupScheduleRequest.newBuilder()
+   *           .setParent(DatabaseName.of("[PROJECT]", "[INSTANCE]", "[DATABASE]").toString())
+   *           .setBackupSchedule(BackupSchedule.newBuilder().build())
+   *           .setBackupScheduleId("backupScheduleId1704974708")
+   *           .build();
+   *   ApiFuture<BackupSchedule> future =
+   *       databaseAdminClient.createBackupScheduleCallable().futureCall(request);
+   *   // Do something.
+   *   BackupSchedule response = future.get();
+   * }
+   * }</pre>
+   */
+  public final UnaryCallable<CreateBackupScheduleRequest, BackupSchedule>
+      createBackupScheduleCallable() {
+    return stub.createBackupScheduleCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   BackupSchedule backupSchedule = BackupSchedule.newBuilder().build();
+   *   FieldMask updateMask = FieldMask.newBuilder().build();
+   *   BackupSchedule response =
+   *       databaseAdminClient.updateBackupSchedule(backupSchedule, updateMask);
+   * }
+   * }</pre>
+   *
+   * @param backupSchedule Required.
+   * @param updateMask Required.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final BackupSchedule updateBackupSchedule(
+      BackupSchedule backupSchedule, FieldMask updateMask) {
+    UpdateBackupScheduleRequest request =
+        UpdateBackupScheduleRequest.newBuilder()
+            .setBackupSchedule(backupSchedule)
+            .setUpdateMask(updateMask)
+            .build();
+    return updateBackupSchedule(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   UpdateBackupScheduleRequest request =
+   *       UpdateBackupScheduleRequest.newBuilder()
+   *           .setBackupSchedule(BackupSchedule.newBuilder().build())
+   *           .setUpdateMask(FieldMask.newBuilder().build())
+   *           .build();
+   *   BackupSchedule response = databaseAdminClient.updateBackupSchedule(request);
+   * }
+   * }</pre>
+   *
+   * @param request The request object containing all of the parameters for the API call.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final BackupSchedule updateBackupSchedule(UpdateBackupScheduleRequest request) {
+    return updateBackupScheduleCallable().call(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   UpdateBackupScheduleRequest request =
+   *       UpdateBackupScheduleRequest.newBuilder()
+   *           .setBackupSchedule(BackupSchedule.newBuilder().build())
+   *           .setUpdateMask(FieldMask.newBuilder().build())
+   *           .build();
+   *   ApiFuture<BackupSchedule> future =
+   *       databaseAdminClient.updateBackupScheduleCallable().futureCall(request);
+   *   // Do something.
+   *   BackupSchedule response = future.get();
+   * }
+   * }</pre>
+   */
+  public final UnaryCallable<UpdateBackupScheduleRequest, BackupSchedule>
+      updateBackupScheduleCallable() {
+    return stub.updateBackupScheduleCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   String name = "name3373707";
+   *   BackupSchedule response = databaseAdminClient.getBackupSchedule(name);
+   * }
+   * }</pre>
+   *
+   * @param name Required. The id of the backup schedule. Values are of the form:
+   *     `projects/&lt;project&gt;/instances/&lt;instance&gt;/databases/&lt;database&gt;/backupSchedules/&lt;backupSchedule&gt;`
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final BackupSchedule getBackupSchedule(String name) {
+    GetBackupScheduleRequest request = GetBackupScheduleRequest.newBuilder().setName(name).build();
+    return getBackupSchedule(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   GetBackupScheduleRequest request =
+   *       GetBackupScheduleRequest.newBuilder().setName("name3373707").build();
+   *   BackupSchedule response = databaseAdminClient.getBackupSchedule(request);
+   * }
+   * }</pre>
+   *
+   * @param request The request object containing all of the parameters for the API call.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final BackupSchedule getBackupSchedule(GetBackupScheduleRequest request) {
+    return getBackupScheduleCallable().call(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   GetBackupScheduleRequest request =
+   *       GetBackupScheduleRequest.newBuilder().setName("name3373707").build();
+   *   ApiFuture<BackupSchedule> future =
+   *       databaseAdminClient.getBackupScheduleCallable().futureCall(request);
+   *   // Do something.
+   *   BackupSchedule response = future.get();
+   * }
+   * }</pre>
+   */
+  public final UnaryCallable<GetBackupScheduleRequest, BackupSchedule> getBackupScheduleCallable() {
+    return stub.getBackupScheduleCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   BackupName name = BackupName.of("[PROJECT]", "[INSTANCE]", "[BACKUP]");
+   *   databaseAdminClient.deleteBackupSchedule(name);
+   * }
+   * }</pre>
+   *
+   * @param name Required. Name of the backup to delete. Values are of the form
+   *     `projects/&lt;project&gt;/instances/&lt;instance&gt;/backups/&lt;backup&gt;`.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final void deleteBackupSchedule(BackupName name) {
+    DeleteBackupRequest request =
+        DeleteBackupRequest.newBuilder().setName(name == null ? null : name.toString()).build();
+    deleteBackupSchedule(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   String name = BackupName.of("[PROJECT]", "[INSTANCE]", "[BACKUP]").toString();
+   *   databaseAdminClient.deleteBackupSchedule(name);
+   * }
+   * }</pre>
+   *
+   * @param name Required. Name of the backup to delete. Values are of the form
+   *     `projects/&lt;project&gt;/instances/&lt;instance&gt;/backups/&lt;backup&gt;`.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final void deleteBackupSchedule(String name) {
+    DeleteBackupRequest request = DeleteBackupRequest.newBuilder().setName(name).build();
+    deleteBackupSchedule(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   DeleteBackupRequest request =
+   *       DeleteBackupRequest.newBuilder()
+   *           .setName(BackupName.of("[PROJECT]", "[INSTANCE]", "[BACKUP]").toString())
+   *           .build();
+   *   databaseAdminClient.deleteBackupSchedule(request);
+   * }
+   * }</pre>
+   *
+   * @param request The request object containing all of the parameters for the API call.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final void deleteBackupSchedule(DeleteBackupRequest request) {
+    deleteBackupScheduleCallable().call(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   DeleteBackupRequest request =
+   *       DeleteBackupRequest.newBuilder()
+   *           .setName(BackupName.of("[PROJECT]", "[INSTANCE]", "[BACKUP]").toString())
+   *           .build();
+   *   ApiFuture<Empty> future =
+   *       databaseAdminClient.deleteBackupScheduleCallable().futureCall(request);
+   *   // Do something.
+   *   future.get();
+   * }
+   * }</pre>
+   */
+  public final UnaryCallable<DeleteBackupRequest, Empty> deleteBackupScheduleCallable() {
+    return stub.deleteBackupScheduleCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   String parent = "parent-995424086";
+   *   for (BackupSchedule element : databaseAdminClient.listBackupSchedules(parent).iterateAll()) {
+   *     // doThingsWith(element);
+   *   }
+   * }
+   * }</pre>
+   *
+   * @param parent Required. The name of the database of which the backup schedules are to be
+   *     listed. Values are of the form:
+   *     `projects/&lt;project&gt;/instances/&lt;instance&gt;/databases/&lt;database&gt;`
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final ListBackupSchedulesPagedResponse listBackupSchedules(String parent) {
+    ListBackupSchedulesRequest request =
+        ListBackupSchedulesRequest.newBuilder().setParent(parent).build();
+    return listBackupSchedules(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   ListBackupSchedulesRequest request =
+   *       ListBackupSchedulesRequest.newBuilder()
+   *           .setParent("parent-995424086")
+   *           .setPageSize(883849137)
+   *           .setPageToken("pageToken873572522")
+   *           .build();
+   *   for (BackupSchedule element : databaseAdminClient.listBackupSchedules(request).iterateAll()) {
+   *     // doThingsWith(element);
+   *   }
+   * }
+   * }</pre>
+   *
+   * @param request The request object containing all of the parameters for the API call.
+   * @throws com.google.api.gax.rpc.ApiException if the remote call fails
+   */
+  public final ListBackupSchedulesPagedResponse listBackupSchedules(
+      ListBackupSchedulesRequest request) {
+    return listBackupSchedulesPagedCallable().call(request);
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   ListBackupSchedulesRequest request =
+   *       ListBackupSchedulesRequest.newBuilder()
+   *           .setParent("parent-995424086")
+   *           .setPageSize(883849137)
+   *           .setPageToken("pageToken873572522")
+   *           .build();
+   *   ApiFuture<BackupSchedule> future =
+   *       databaseAdminClient.listBackupSchedulesPagedCallable().futureCall(request);
+   *   // Do something.
+   *   for (BackupSchedule element : future.get().iterateAll()) {
+   *     // doThingsWith(element);
+   *   }
+   * }
+   * }</pre>
+   */
+  public final UnaryCallable<ListBackupSchedulesRequest, ListBackupSchedulesPagedResponse>
+      listBackupSchedulesPagedCallable() {
+    return stub.listBackupSchedulesPagedCallable();
+  }
+
+  // AUTO-GENERATED DOCUMENTATION AND METHOD.
+  /**
+   * Sample code:
+   *
+   * <pre>{@code
+   * // This snippet has been automatically generated and should be regarded as a code template only.
+   * // It will require modifications to work:
+   * // - It may require correct/in-range values for request initialization.
+   * // - It may require specifying regional endpoints when creating the service client as shown in
+   * // https://cloud.google.com/java/docs/setup#configure_endpoints_for_the_client_library
+   * try (DatabaseAdminClient databaseAdminClient = DatabaseAdminClient.create()) {
+   *   ListBackupSchedulesRequest request =
+   *       ListBackupSchedulesRequest.newBuilder()
+   *           .setParent("parent-995424086")
+   *           .setPageSize(883849137)
+   *           .setPageToken("pageToken873572522")
+   *           .build();
+   *   while (true) {
+   *     ListBackupSchedulesResponse response =
+   *         databaseAdminClient.listBackupSchedulesCallable().call(request);
+   *     for (BackupSchedule element : response.getBackupSchedulesList()) {
+   *       // doThingsWith(element);
+   *     }
+   *     String nextPageToken = response.getNextPageToken();
+   *     if (!Strings.isNullOrEmpty(nextPageToken)) {
+   *       request = request.toBuilder().setPageToken(nextPageToken).build();
+   *     } else {
+   *       break;
+   *     }
+   *   }
+   * }
+   * }</pre>
+   */
+  public final UnaryCallable<ListBackupSchedulesRequest, ListBackupSchedulesResponse>
+      listBackupSchedulesCallable() {
+    return stub.listBackupSchedulesCallable();
+  }
+
   @Override
   public final void close() {
     stub.close();
@@ -4233,6 +4688,90 @@ public class DatabaseAdminClient implements BackgroundResource {
     protected ListDatabaseRolesFixedSizeCollection createCollection(
         List<ListDatabaseRolesPage> pages, int collectionSize) {
       return new ListDatabaseRolesFixedSizeCollection(pages, collectionSize);
+    }
+  }
+
+  public static class ListBackupSchedulesPagedResponse
+      extends AbstractPagedListResponse<
+          ListBackupSchedulesRequest,
+          ListBackupSchedulesResponse,
+          BackupSchedule,
+          ListBackupSchedulesPage,
+          ListBackupSchedulesFixedSizeCollection> {
+
+    public static ApiFuture<ListBackupSchedulesPagedResponse> createAsync(
+        PageContext<ListBackupSchedulesRequest, ListBackupSchedulesResponse, BackupSchedule>
+            context,
+        ApiFuture<ListBackupSchedulesResponse> futureResponse) {
+      ApiFuture<ListBackupSchedulesPage> futurePage =
+          ListBackupSchedulesPage.createEmptyPage().createPageAsync(context, futureResponse);
+      return ApiFutures.transform(
+          futurePage,
+          input -> new ListBackupSchedulesPagedResponse(input),
+          MoreExecutors.directExecutor());
+    }
+
+    private ListBackupSchedulesPagedResponse(ListBackupSchedulesPage page) {
+      super(page, ListBackupSchedulesFixedSizeCollection.createEmptyCollection());
+    }
+  }
+
+  public static class ListBackupSchedulesPage
+      extends AbstractPage<
+          ListBackupSchedulesRequest,
+          ListBackupSchedulesResponse,
+          BackupSchedule,
+          ListBackupSchedulesPage> {
+
+    private ListBackupSchedulesPage(
+        PageContext<ListBackupSchedulesRequest, ListBackupSchedulesResponse, BackupSchedule>
+            context,
+        ListBackupSchedulesResponse response) {
+      super(context, response);
+    }
+
+    private static ListBackupSchedulesPage createEmptyPage() {
+      return new ListBackupSchedulesPage(null, null);
+    }
+
+    @Override
+    protected ListBackupSchedulesPage createPage(
+        PageContext<ListBackupSchedulesRequest, ListBackupSchedulesResponse, BackupSchedule>
+            context,
+        ListBackupSchedulesResponse response) {
+      return new ListBackupSchedulesPage(context, response);
+    }
+
+    @Override
+    public ApiFuture<ListBackupSchedulesPage> createPageAsync(
+        PageContext<ListBackupSchedulesRequest, ListBackupSchedulesResponse, BackupSchedule>
+            context,
+        ApiFuture<ListBackupSchedulesResponse> futureResponse) {
+      return super.createPageAsync(context, futureResponse);
+    }
+  }
+
+  public static class ListBackupSchedulesFixedSizeCollection
+      extends AbstractFixedSizeCollection<
+          ListBackupSchedulesRequest,
+          ListBackupSchedulesResponse,
+          BackupSchedule,
+          ListBackupSchedulesPage,
+          ListBackupSchedulesFixedSizeCollection> {
+
+    private ListBackupSchedulesFixedSizeCollection(
+        List<ListBackupSchedulesPage> pages, int collectionSize) {
+      super(pages, collectionSize);
+    }
+
+    private static ListBackupSchedulesFixedSizeCollection createEmptyCollection() {
+      return new ListBackupSchedulesFixedSizeCollection(null, 0);
+    }
+
+    @Override
+    protected ListBackupSchedulesFixedSizeCollection createCollection(
+        List<ListBackupSchedulesPage> pages, int collectionSize) {
+      return new ListBackupSchedulesFixedSizeCollection(pages, collectionSize);
     }
   }
 }
