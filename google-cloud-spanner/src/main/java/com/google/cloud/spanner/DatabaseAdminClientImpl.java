@@ -582,4 +582,39 @@ class DatabaseAdminClientImpl implements DatabaseAdminClient {
     InstanceId instance = new InstanceId(projectId, instanceId);
     return new BackupId(instance, backupId).getName();
   }
+
+  @Override
+  public final BackupSchedule createBackupSchedule(CreateBackupScheduleRequest request) {
+    return rpc.createBackupSchedule(request);
+  }
+
+  @Override
+  public Page<BackupSchedule> listBackupSchedules(ListBackupSchedulesRequest request) {
+    PageFetcher<BackupSchedule, com.google.spanner.admin.database.v1.BackupSchedule> pageFetcher =
+        new PageFetcher<BackupSchedule, com.google.spanner.admin.database.v1.BackupSchedule>() {
+          @Override
+          public Paginated<com.google.spanner.admin.database.v1.BackupSchedule> getNextPage(
+              String nextPageToken) {
+            return rpc.listBackupSchedules(request);
+          }
+
+          @Override
+          public BackupSchedule fromProto(
+              com.google.spanner.admin.database.v1.BackupSchedule proto) {
+            return proto;
+          }
+        };
+    if (!request.getPageToken().isEmpty()) {
+      pageFetcher.setNextPageToken(request.getPageToken());
+    }
+    return pageFetcher.getNextPage();
+  }
+
+  @Override
+  public BackupSchedule updateBackupSchedule(UpdateBackupScheduleRequest request) {
+    return null;
+  }
+
+  @Override
+  public void deleteBackupSchedule(DeleteBackupScheduleRequest request) {}
 }

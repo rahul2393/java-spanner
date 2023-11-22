@@ -104,10 +104,12 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.google.protobuf.Message;
 import com.google.protobuf.Timestamp;
 import com.google.spanner.admin.database.v1.Backup;
+import com.google.spanner.admin.database.v1.BackupSchedule;
 import com.google.spanner.admin.database.v1.CopyBackupMetadata;
 import com.google.spanner.admin.database.v1.CopyBackupRequest;
 import com.google.spanner.admin.database.v1.CreateBackupMetadata;
 import com.google.spanner.admin.database.v1.CreateBackupRequest;
+import com.google.spanner.admin.database.v1.CreateBackupScheduleRequest;
 import com.google.spanner.admin.database.v1.CreateDatabaseMetadata;
 import com.google.spanner.admin.database.v1.CreateDatabaseRequest;
 import com.google.spanner.admin.database.v1.Database;
@@ -120,6 +122,8 @@ import com.google.spanner.admin.database.v1.GetDatabaseDdlRequest;
 import com.google.spanner.admin.database.v1.GetDatabaseRequest;
 import com.google.spanner.admin.database.v1.ListBackupOperationsRequest;
 import com.google.spanner.admin.database.v1.ListBackupOperationsResponse;
+import com.google.spanner.admin.database.v1.ListBackupSchedulesRequest;
+import com.google.spanner.admin.database.v1.ListBackupSchedulesResponse;
 import com.google.spanner.admin.database.v1.ListBackupsRequest;
 import com.google.spanner.admin.database.v1.ListBackupsResponse;
 import com.google.spanner.admin.database.v1.ListDatabaseOperationsRequest;
@@ -1869,6 +1873,30 @@ public class GapicSpannerRpc implements SpannerRpc {
         newCallContext(null, resource, request, InstanceAdminGrpc.getTestIamPermissionsMethod());
     return runWithRetryOnAdministrativeRequestsExceeded(
         () -> get(instanceAdminStub.testIamPermissionsCallable().futureCall(request, context)));
+  }
+
+  @Override
+  public BackupSchedule createBackupSchedule(CreateBackupScheduleRequest request) {
+    acquireAdministrativeRequestsRateLimiter();
+    final GrpcCallContext context =
+        newCallContext(
+            null, request.getParent(), request, DatabaseAdminGrpc.getCreateBackupScheduleMethod());
+    return get(databaseAdminStub.createBackupScheduleCallable().futureCall(request, context));
+  }
+
+  @Override
+  public Paginated<BackupSchedule> listBackupSchedules(ListBackupSchedulesRequest request)
+      throws SpannerException {
+    acquireAdministrativeRequestsRateLimiter();
+    final GrpcCallContext context =
+        newCallContext(
+            null, request.getParent(), request, DatabaseAdminGrpc.getListBackupSchedulesMethod());
+    ListBackupSchedulesResponse response =
+        runWithRetryOnAdministrativeRequestsExceeded(
+            () ->
+                get(databaseAdminStub.listBackupSchedulesCallable().futureCall(request, context)));
+
+    return new Paginated<>(response.getBackupSchedulesList(), response.getNextPageToken());
   }
 
   /** Gets the result of an async RPC call, handling any exceptions encountered. */

@@ -22,11 +22,16 @@ import com.google.cloud.Policy;
 import com.google.cloud.Timestamp;
 import com.google.cloud.spanner.Options.ListOption;
 import com.google.longrunning.Operation;
+import com.google.spanner.admin.database.v1.BackupSchedule;
 import com.google.spanner.admin.database.v1.CopyBackupMetadata;
 import com.google.spanner.admin.database.v1.CreateBackupMetadata;
+import com.google.spanner.admin.database.v1.CreateBackupScheduleRequest;
 import com.google.spanner.admin.database.v1.CreateDatabaseMetadata;
 import com.google.spanner.admin.database.v1.CreateDatabaseRequest;
+import com.google.spanner.admin.database.v1.DeleteBackupScheduleRequest;
+import com.google.spanner.admin.database.v1.ListBackupSchedulesRequest;
 import com.google.spanner.admin.database.v1.RestoreDatabaseMetadata;
+import com.google.spanner.admin.database.v1.UpdateBackupScheduleRequest;
 import com.google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata;
 import com.google.spanner.admin.database.v1.UpdateDatabaseMetadata;
 import java.util.List;
@@ -597,4 +602,12 @@ public interface DatabaseAdminClient {
    */
   Iterable<String> testBackupIAMPermissions(
       String instanceId, String backupId, Iterable<String> permissions);
+
+  BackupSchedule createBackupSchedule(CreateBackupScheduleRequest request);
+
+  Page<BackupSchedule> listBackupSchedules(ListBackupSchedulesRequest request);
+
+  BackupSchedule updateBackupSchedule(UpdateBackupScheduleRequest request);
+
+  void deleteBackupSchedule(DeleteBackupScheduleRequest request);
 }

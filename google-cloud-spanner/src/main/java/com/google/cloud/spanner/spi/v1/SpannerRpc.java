@@ -38,11 +38,14 @@ import com.google.longrunning.Operation;
 import com.google.protobuf.Empty;
 import com.google.protobuf.FieldMask;
 import com.google.spanner.admin.database.v1.Backup;
+import com.google.spanner.admin.database.v1.BackupSchedule;
 import com.google.spanner.admin.database.v1.CopyBackupMetadata;
 import com.google.spanner.admin.database.v1.CreateBackupMetadata;
+import com.google.spanner.admin.database.v1.CreateBackupScheduleRequest;
 import com.google.spanner.admin.database.v1.CreateDatabaseMetadata;
 import com.google.spanner.admin.database.v1.Database;
 import com.google.spanner.admin.database.v1.DatabaseRole;
+import com.google.spanner.admin.database.v1.ListBackupSchedulesRequest;
 import com.google.spanner.admin.database.v1.RestoreDatabaseMetadata;
 import com.google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata;
 import com.google.spanner.admin.database.v1.UpdateDatabaseMetadata;
@@ -497,4 +500,9 @@ public interface SpannerRpc extends ServiceRpc {
   void shutdown();
 
   boolean isClosed();
+
+  BackupSchedule createBackupSchedule(CreateBackupScheduleRequest request);
+
+  Paginated<BackupSchedule> listBackupSchedules(ListBackupSchedulesRequest request)
+      throws SpannerException;
 }
