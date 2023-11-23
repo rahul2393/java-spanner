@@ -2194,6 +2194,8 @@ public class DatabaseAdminClientTest {
             .setCreationSpecCron("creationSpecCron1870157032")
             .setRetentionDuration("retentionDuration-149581102")
             .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+            .setOptionalDummyField("optionalDummyField-148781902")
+            .setRequiredDummyField("requiredDummyField1167630897")
             .build();
     mockDatabaseAdmin.addResponse(expectedResponse);
 
@@ -2248,6 +2250,8 @@ public class DatabaseAdminClientTest {
             .setCreationSpecCron("creationSpecCron1870157032")
             .setRetentionDuration("retentionDuration-149581102")
             .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+            .setOptionalDummyField("optionalDummyField-148781902")
+            .setRequiredDummyField("requiredDummyField1167630897")
             .build();
     mockDatabaseAdmin.addResponse(expectedResponse);
 
@@ -2293,6 +2297,8 @@ public class DatabaseAdminClientTest {
             .setCreationSpecCron("creationSpecCron1870157032")
             .setRetentionDuration("retentionDuration-149581102")
             .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+            .setOptionalDummyField("optionalDummyField-148781902")
+            .setRequiredDummyField("requiredDummyField1167630897")
             .build();
     mockDatabaseAdmin.addResponse(expectedResponse);
 

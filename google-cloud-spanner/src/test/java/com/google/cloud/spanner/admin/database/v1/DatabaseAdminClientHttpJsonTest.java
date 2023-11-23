@@ -2388,6 +2388,8 @@ public class DatabaseAdminClientHttpJsonTest {
             .setCreationSpecCron("creationSpecCron1870157032")
             .setRetentionDuration("retentionDuration-149581102")
             .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+            .setOptionalDummyField("optionalDummyField-148781902")
+            .setRequiredDummyField("requiredDummyField1167630897")
             .build();
     mockService.addResponse(expectedResponse);
 
@@ -2445,6 +2447,8 @@ public class DatabaseAdminClientHttpJsonTest {
             .setCreationSpecCron("creationSpecCron1870157032")
             .setRetentionDuration("retentionDuration-149581102")
             .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+            .setOptionalDummyField("optionalDummyField-148781902")
+            .setRequiredDummyField("requiredDummyField1167630897")
             .build();
     mockService.addResponse(expectedResponse);
 
@@ -2455,6 +2459,8 @@ public class DatabaseAdminClientHttpJsonTest {
             .setCreationSpecCron("creationSpecCron1870157032")
             .setRetentionDuration("retentionDuration-149581102")
             .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+            .setOptionalDummyField("optionalDummyField-148781902")
+            .setRequiredDummyField("requiredDummyField1167630897")
             .build();
     FieldMask updateMask = FieldMask.newBuilder().build();
 
@@ -2491,6 +2497,8 @@ public class DatabaseAdminClientHttpJsonTest {
               .setCreationSpecCron("creationSpecCron1870157032")
               .setRetentionDuration("retentionDuration-149581102")
               .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+              .setOptionalDummyField("optionalDummyField-148781902")
+              .setRequiredDummyField("requiredDummyField1167630897")
               .build();
       FieldMask updateMask = FieldMask.newBuilder().build();
       client.updateBackupSchedule(backupSchedule, updateMask);
@@ -2508,6 +2516,8 @@ public class DatabaseAdminClientHttpJsonTest {
             .setCreationSpecCron("creationSpecCron1870157032")
             .setRetentionDuration("retentionDuration-149581102")
             .setEncryptionConfig(CreateBackupScheduleEncryptionConfig.newBuilder().build())
+            .setOptionalDummyField("optionalDummyField-148781902")
+            .setRequiredDummyField("requiredDummyField1167630897")
             .build();
     mockService.addResponse(expectedResponse);
 

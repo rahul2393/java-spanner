@@ -244,26 +244,28 @@ public final class BackupProto {
           + "BackupSchedulesResponse\022J\n\020backup_schedu"
           + "les\030\001 \003(\01320.google.spanner.admin.databas"
           + "e.v1.BackupSchedule\022\027\n\017next_page_token\030\002"
-          + " \001(\t\"\305\001\n\016BackupSchedule\022\014\n\004name\030\001 \001(\t\022 \n"
+          + " \001(\t\"\215\002\n\016BackupSchedule\022\014\n\004name\030\001 \001(\t\022 \n"
           + "\022creation_spec_cron\030\002 \001(\tB\004\342A\001\002\022\032\n\022reten"
           + "tion_duration\030\003 \001(\t\022g\n\021encryption_config"
           + "\030\004 \001(\0132F.google.spanner.admin.database.v"
           + "1.CreateBackupScheduleEncryptionConfigB\004"
-          + "\342A\001\001\"\276\002\n$CreateBackupScheduleEncryptionC"
-          + "onfig\022n\n\017encryption_type\030\001 \001(\0162U.google."
-          + "spanner.admin.database.v1.CreateBackupSc"
-          + "heduleEncryptionConfig.EncryptionType\022\025\n"
-          + "\rkms_key_names\030\002 \003(\t\"\216\001\n\016EncryptionType\022"
-          + "\037\n\033ENCRYPTION_TYPE_UNSPECIFIED\020\000\022\033\n\027USE_"
-          + "DATABASE_ENCRYPTION\020\001\022\035\n\031GOOGLE_DEFAULT_"
-          + "ENCRYPTION\020\002\022\037\n\033CUSTOMER_MANAGED_ENCRYPT"
-          + "ION\020\003B\375\001\n$com.google.spanner.admin.datab"
-          + "ase.v1B\013BackupProtoP\001ZFcloud.google.com/"
-          + "go/spanner/admin/database/apiv1/database"
-          + "pb;databasepb\252\002&Google.Cloud.Spanner.Adm"
-          + "in.Database.V1\312\002&Google\\Cloud\\Spanner\\Ad"
-          + "min\\Database\\V1\352\002+Google::Cloud::Spanner"
-          + "::Admin::Database::V1b\006proto3"
+          + "\342A\001\001\022\"\n\024optional_dummy_field\030\005 \001(\tB\004\342A\001\001"
+          + "\022\"\n\024required_dummy_field\030\006 \001(\tB\004\342A\001\002\"\276\002\n"
+          + "$CreateBackupScheduleEncryptionConfig\022n\n"
+          + "\017encryption_type\030\001 \001(\0162U.google.spanner."
+          + "admin.database.v1.CreateBackupScheduleEn"
+          + "cryptionConfig.EncryptionType\022\025\n\rkms_key"
+          + "_names\030\002 \003(\t\"\216\001\n\016EncryptionType\022\037\n\033ENCRY"
+          + "PTION_TYPE_UNSPECIFIED\020\000\022\033\n\027USE_DATABASE"
+          + "_ENCRYPTION\020\001\022\035\n\031GOOGLE_DEFAULT_ENCRYPTI"
+          + "ON\020\002\022\037\n\033CUSTOMER_MANAGED_ENCRYPTION\020\003B\375\001"
+          + "\n$com.google.spanner.admin.database.v1B\013"
+          + "BackupProtoP\001ZFcloud.google.com/go/spann"
+          + "er/admin/database/apiv1/databasepb;datab"
+          + "asepb\252\002&Google.Cloud.Spanner.Admin.Datab"
+          + "ase.V1\312\002&Google\\Cloud\\Spanner\\Admin\\Data"
+          + "base\\V1\352\002+Google::Cloud::Spanner::Admin:"
+          + ":Database::V1b\006proto3"
     };
     descriptor =
         com.google.protobuf.Descriptors.FileDescriptor.internalBuildGeneratedFileFrom(
@@ -461,7 +463,12 @@ public final class BackupProto {
         new com.google.protobuf.GeneratedMessageV3.FieldAccessorTable(
             internal_static_google_spanner_admin_database_v1_BackupSchedule_descriptor,
             new java.lang.String[] {
-              "Name", "CreationSpecCron", "RetentionDuration", "EncryptionConfig",
+              "Name",
+              "CreationSpecCron",
+              "RetentionDuration",
+              "EncryptionConfig",
+              "OptionalDummyField",
+              "RequiredDummyField",
             });
     internal_static_google_spanner_admin_database_v1_CreateBackupScheduleEncryptionConfig_descriptor =
         getDescriptor().getMessageTypes().get(22);

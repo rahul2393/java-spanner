@@ -33,6 +33,8 @@ public final class BackupSchedule extends com.google.protobuf.GeneratedMessageV3
     name_ = "";
     creationSpecCron_ = "";
     retentionDuration_ = "";
+    optionalDummyField_ = "";
+    requiredDummyField_ = "";
   }
 
   @java.lang.Override
@@ -275,6 +277,84 @@ public final class BackupSchedule extends com.google.protobuf.GeneratedMessageV3
         : encryptionConfig_;
   }
 
+  public static final int OPTIONAL_DUMMY_FIELD_FIELD_NUMBER = 5;
+
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object optionalDummyField_ = "";
+  /**
+   * <code>string optional_dummy_field = 5 [(.google.api.field_behavior) = OPTIONAL];</code>
+   *
+   * @return The optionalDummyField.
+   */
+  @java.lang.Override
+  public java.lang.String getOptionalDummyField() {
+    java.lang.Object ref = optionalDummyField_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      optionalDummyField_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string optional_dummy_field = 5 [(.google.api.field_behavior) = OPTIONAL];</code>
+   *
+   * @return The bytes for optionalDummyField.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString getOptionalDummyFieldBytes() {
+    java.lang.Object ref = optionalDummyField_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
+      optionalDummyField_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
+  public static final int REQUIRED_DUMMY_FIELD_FIELD_NUMBER = 6;
+
+  @SuppressWarnings("serial")
+  private volatile java.lang.Object requiredDummyField_ = "";
+  /**
+   * <code>string required_dummy_field = 6 [(.google.api.field_behavior) = REQUIRED];</code>
+   *
+   * @return The requiredDummyField.
+   */
+  @java.lang.Override
+  public java.lang.String getRequiredDummyField() {
+    java.lang.Object ref = requiredDummyField_;
+    if (ref instanceof java.lang.String) {
+      return (java.lang.String) ref;
+    } else {
+      com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+      java.lang.String s = bs.toStringUtf8();
+      requiredDummyField_ = s;
+      return s;
+    }
+  }
+  /**
+   * <code>string required_dummy_field = 6 [(.google.api.field_behavior) = REQUIRED];</code>
+   *
+   * @return The bytes for requiredDummyField.
+   */
+  @java.lang.Override
+  public com.google.protobuf.ByteString getRequiredDummyFieldBytes() {
+    java.lang.Object ref = requiredDummyField_;
+    if (ref instanceof java.lang.String) {
+      com.google.protobuf.ByteString b =
+          com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
+      requiredDummyField_ = b;
+      return b;
+    } else {
+      return (com.google.protobuf.ByteString) ref;
+    }
+  }
+
   private byte memoizedIsInitialized = -1;
 
   @java.lang.Override
@@ -301,6 +381,12 @@ public final class BackupSchedule extends com.google.protobuf.GeneratedMessageV3
     if (encryptionConfig_ != null) {
       output.writeMessage(4, getEncryptionConfig());
     }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(optionalDummyField_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 5, optionalDummyField_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(requiredDummyField_)) {
+      com.google.protobuf.GeneratedMessageV3.writeString(output, 6, requiredDummyField_);
+    }
     getUnknownFields().writeTo(output);
   }
 
@@ -321,6 +407,12 @@ public final class BackupSchedule extends com.google.protobuf.GeneratedMessageV3
     }
     if (encryptionConfig_ != null) {
       size += com.google.protobuf.CodedOutputStream.computeMessageSize(4, getEncryptionConfig());
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(optionalDummyField_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(5, optionalDummyField_);
+    }
+    if (!com.google.protobuf.GeneratedMessageV3.isStringEmpty(requiredDummyField_)) {
+      size += com.google.protobuf.GeneratedMessageV3.computeStringSize(6, requiredDummyField_);
     }
     size += getUnknownFields().getSerializedSize();
     memoizedSize = size;
@@ -345,6 +437,8 @@ public final class BackupSchedule extends com.google.protobuf.GeneratedMessageV3
     if (hasEncryptionConfig()) {
       if (!getEncryptionConfig().equals(other.getEncryptionConfig())) return false;
     }
+    if (!getOptionalDummyField().equals(other.getOptionalDummyField())) return false;
+    if (!getRequiredDummyField().equals(other.getRequiredDummyField())) return false;
     if (!getUnknownFields().equals(other.getUnknownFields())) return false;
     return true;
   }
@@ -366,6 +460,10 @@ public final class BackupSchedule extends com.google.protobuf.GeneratedMessageV3
       hash = (37 * hash) + ENCRYPTION_CONFIG_FIELD_NUMBER;
       hash = (53 * hash) + getEncryptionConfig().hashCode();
     }
+    hash = (37 * hash) + OPTIONAL_DUMMY_FIELD_FIELD_NUMBER;
+    hash = (53 * hash) + getOptionalDummyField().hashCode();
+    hash = (37 * hash) + REQUIRED_DUMMY_FIELD_FIELD_NUMBER;
+    hash = (53 * hash) + getRequiredDummyField().hashCode();
     hash = (29 * hash) + getUnknownFields().hashCode();
     memoizedHashCode = hash;
     return hash;
@@ -505,6 +603,8 @@ public final class BackupSchedule extends com.google.protobuf.GeneratedMessageV3
         encryptionConfigBuilder_.dispose();
         encryptionConfigBuilder_ = null;
       }
+      optionalDummyField_ = "";
+      requiredDummyField_ = "";
       return this;
     }
 
@@ -553,6 +653,12 @@ public final class BackupSchedule extends com.google.protobuf.GeneratedMessageV3
       if (((from_bitField0_ & 0x00000008) != 0)) {
         result.encryptionConfig_ =
             encryptionConfigBuilder_ == null ? encryptionConfig_ : encryptionConfigBuilder_.build();
+      }
+      if (((from_bitField0_ & 0x00000010) != 0)) {
+        result.optionalDummyField_ = optionalDummyField_;
+      }
+      if (((from_bitField0_ & 0x00000020) != 0)) {
+        result.requiredDummyField_ = requiredDummyField_;
       }
     }
 
@@ -620,6 +726,16 @@ public final class BackupSchedule extends com.google.protobuf.GeneratedMessageV3
       if (other.hasEncryptionConfig()) {
         mergeEncryptionConfig(other.getEncryptionConfig());
       }
+      if (!other.getOptionalDummyField().isEmpty()) {
+        optionalDummyField_ = other.optionalDummyField_;
+        bitField0_ |= 0x00000010;
+        onChanged();
+      }
+      if (!other.getRequiredDummyField().isEmpty()) {
+        requiredDummyField_ = other.requiredDummyField_;
+        bitField0_ |= 0x00000020;
+        onChanged();
+      }
       this.mergeUnknownFields(other.getUnknownFields());
       onChanged();
       return this;
@@ -671,6 +787,18 @@ public final class BackupSchedule extends com.google.protobuf.GeneratedMessageV3
                 bitField0_ |= 0x00000008;
                 break;
               } // case 34
+            case 42:
+              {
+                optionalDummyField_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
+            case 50:
+              {
+                requiredDummyField_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 50
             default:
               {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
@@ -1233,6 +1361,158 @@ public final class BackupSchedule extends com.google.protobuf.GeneratedMessageV3
         encryptionConfig_ = null;
       }
       return encryptionConfigBuilder_;
+    }
+
+    private java.lang.Object optionalDummyField_ = "";
+    /**
+     * <code>string optional_dummy_field = 5 [(.google.api.field_behavior) = OPTIONAL];</code>
+     *
+     * @return The optionalDummyField.
+     */
+    public java.lang.String getOptionalDummyField() {
+      java.lang.Object ref = optionalDummyField_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        optionalDummyField_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string optional_dummy_field = 5 [(.google.api.field_behavior) = OPTIONAL];</code>
+     *
+     * @return The bytes for optionalDummyField.
+     */
+    public com.google.protobuf.ByteString getOptionalDummyFieldBytes() {
+      java.lang.Object ref = optionalDummyField_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
+        optionalDummyField_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string optional_dummy_field = 5 [(.google.api.field_behavior) = OPTIONAL];</code>
+     *
+     * @param value The optionalDummyField to set.
+     * @return This builder for chaining.
+     */
+    public Builder setOptionalDummyField(java.lang.String value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      optionalDummyField_ = value;
+      bitField0_ |= 0x00000010;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string optional_dummy_field = 5 [(.google.api.field_behavior) = OPTIONAL];</code>
+     *
+     * @return This builder for chaining.
+     */
+    public Builder clearOptionalDummyField() {
+      optionalDummyField_ = getDefaultInstance().getOptionalDummyField();
+      bitField0_ = (bitField0_ & ~0x00000010);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string optional_dummy_field = 5 [(.google.api.field_behavior) = OPTIONAL];</code>
+     *
+     * @param value The bytes for optionalDummyField to set.
+     * @return This builder for chaining.
+     */
+    public Builder setOptionalDummyFieldBytes(com.google.protobuf.ByteString value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      checkByteStringIsUtf8(value);
+      optionalDummyField_ = value;
+      bitField0_ |= 0x00000010;
+      onChanged();
+      return this;
+    }
+
+    private java.lang.Object requiredDummyField_ = "";
+    /**
+     * <code>string required_dummy_field = 6 [(.google.api.field_behavior) = REQUIRED];</code>
+     *
+     * @return The requiredDummyField.
+     */
+    public java.lang.String getRequiredDummyField() {
+      java.lang.Object ref = requiredDummyField_;
+      if (!(ref instanceof java.lang.String)) {
+        com.google.protobuf.ByteString bs = (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        requiredDummyField_ = s;
+        return s;
+      } else {
+        return (java.lang.String) ref;
+      }
+    }
+    /**
+     * <code>string required_dummy_field = 6 [(.google.api.field_behavior) = REQUIRED];</code>
+     *
+     * @return The bytes for requiredDummyField.
+     */
+    public com.google.protobuf.ByteString getRequiredDummyFieldBytes() {
+      java.lang.Object ref = requiredDummyField_;
+      if (ref instanceof String) {
+        com.google.protobuf.ByteString b =
+            com.google.protobuf.ByteString.copyFromUtf8((java.lang.String) ref);
+        requiredDummyField_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+    /**
+     * <code>string required_dummy_field = 6 [(.google.api.field_behavior) = REQUIRED];</code>
+     *
+     * @param value The requiredDummyField to set.
+     * @return This builder for chaining.
+     */
+    public Builder setRequiredDummyField(java.lang.String value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      requiredDummyField_ = value;
+      bitField0_ |= 0x00000020;
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string required_dummy_field = 6 [(.google.api.field_behavior) = REQUIRED];</code>
+     *
+     * @return This builder for chaining.
+     */
+    public Builder clearRequiredDummyField() {
+      requiredDummyField_ = getDefaultInstance().getRequiredDummyField();
+      bitField0_ = (bitField0_ & ~0x00000020);
+      onChanged();
+      return this;
+    }
+    /**
+     * <code>string required_dummy_field = 6 [(.google.api.field_behavior) = REQUIRED];</code>
+     *
+     * @param value The bytes for requiredDummyField to set.
+     * @return This builder for chaining.
+     */
+    public Builder setRequiredDummyFieldBytes(com.google.protobuf.ByteString value) {
+      if (value == null) {
+        throw new NullPointerException();
+      }
+      checkByteStringIsUtf8(value);
+      requiredDummyField_ = value;
+      bitField0_ |= 0x00000020;
+      onChanged();
+      return this;
     }
 
     @java.lang.Override

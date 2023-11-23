@@ -682,6 +682,10 @@ message BackupSchedule {
   // An encryption info describing the encryption type and key resources
   // in Cloud KMS used to encrypt/decrypt the backup created by this schedule.
   CreateBackupScheduleEncryptionConfig encryption_config = 4 [(google.api.field_behavior) = OPTIONAL];
+
+  string optional_dummy_field = 5 [(google.api.field_behavior) = OPTIONAL];
+
+  string required_dummy_field = 6 [(google.api.field_behavior) = REQUIRED];
 }
 
 message CreateBackupScheduleEncryptionConfig {

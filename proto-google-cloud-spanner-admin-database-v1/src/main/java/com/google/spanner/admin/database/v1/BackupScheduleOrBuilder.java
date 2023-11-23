@@ -144,4 +144,30 @@ public interface BackupScheduleOrBuilder
    */
   com.google.spanner.admin.database.v1.CreateBackupScheduleEncryptionConfigOrBuilder
       getEncryptionConfigOrBuilder();
+
+  /**
+   * <code>string optional_dummy_field = 5 [(.google.api.field_behavior) = OPTIONAL];</code>
+   *
+   * @return The optionalDummyField.
+   */
+  java.lang.String getOptionalDummyField();
+  /**
+   * <code>string optional_dummy_field = 5 [(.google.api.field_behavior) = OPTIONAL];</code>
+   *
+   * @return The bytes for optionalDummyField.
+   */
+  com.google.protobuf.ByteString getOptionalDummyFieldBytes();
+
+  /**
+   * <code>string required_dummy_field = 6 [(.google.api.field_behavior) = REQUIRED];</code>
+   *
+   * @return The requiredDummyField.
+   */
+  java.lang.String getRequiredDummyField();
+  /**
+   * <code>string required_dummy_field = 6 [(.google.api.field_behavior) = REQUIRED];</code>
+   *
+   * @return The bytes for requiredDummyField.
+   */
+  com.google.protobuf.ByteString getRequiredDummyFieldBytes();
 }
