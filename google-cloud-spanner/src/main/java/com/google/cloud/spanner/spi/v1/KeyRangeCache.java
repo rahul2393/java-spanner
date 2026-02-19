@@ -26,6 +26,9 @@ import com.google.spanner.v1.Group;
 import com.google.spanner.v1.Range;
 import com.google.spanner.v1.RoutingHint;
 import com.google.spanner.v1.Tablet;
+import io.opentelemetry.api.common.AttributeKey;
+import io.opentelemetry.api.common.Attributes;
+import io.opentelemetry.api.trace.Span;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -121,7 +124,21 @@ public final class KeyRangeCache {
     hintBuilder.setKey(targetRange.startKey);
     hintBuilder.setLimitKey(targetRange.limitKey);
 
-    return targetRange.group.fillRoutingHint(preferLeader, directedReadOptions, hintBuilder);
+    ChannelEndpoint endpoint =
+        targetRange.group.fillRoutingHint(preferLeader, directedReadOptions, hintBuilder);
+
+    Span span = Span.current();
+    if (span.isRecording()) {
+      span.addEvent(
+          "lar.server_host_routing",
+          Attributes.of(
+              AttributeKey.booleanKey("prefer_leader"), preferLeader,
+              AttributeKey.stringKey("range_mode"), rangeMode.name(),
+              AttributeKey.stringKey("selected_address"),
+                  endpoint != null ? endpoint.getAddress() : "none",
+              AttributeKey.longKey("cache_size"), (long) ranges.size()));
+    }
+    return endpoint;
   }
 
   public void clear() {

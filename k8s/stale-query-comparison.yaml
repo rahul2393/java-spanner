@@ -1,0 +1,87 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: spanner-ns
+  name: irahul-stale-query-classic
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: irahul-stale-query-classic
+  template:
+    metadata:
+      labels:
+        app: irahul-stale-query-classic
+    spec:
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
+      containers:
+        - name: stale-query
+          image: us-west1-docker.pkg.dev/outbound-flight/spanner-box/irahul-client:latest
+          command: ["java"]
+          args:
+            - -XX:-TieredCompilation
+            - -XX:CompileThreshold=1000
+            - -jar
+            - /app/main.jar
+          resources:
+            requests:
+              memory: "400Mi"
+              cpu: "0.4"
+            limits:
+              memory: "400Mi"
+              cpu: "0.4"
+          env:
+            - name: PROBE_TYPE
+              value: "stale_query"
+            - name: QPS
+              value: "10"
+            - name: ENDPOINT
+              value: "http://10.128.2.132:15000"
+            - name: OTEL_SERVICE_NAME
+              value: "irahul-jbypass-classic"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: spanner-ns
+  name: irahul-stale-query-bypass
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: irahul-stale-query-bypass
+  template:
+    metadata:
+      labels:
+        app: irahul-stale-query-bypass
+    spec:
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
+      containers:
+        - name: stale-query
+          image: us-west1-docker.pkg.dev/outbound-flight/spanner-box/irahul-client:latest
+          command: ["java"]
+          args:
+            - -XX:-TieredCompilation
+            - -XX:CompileThreshold=1000
+            - -jar
+            - /app/main.jar
+          resources:
+            requests:
+              memory: "400Mi"
+              cpu: "0.4"
+            limits:
+              memory: "400Mi"
+              cpu: "0.4"
+          env:
+            - name: PROBE_TYPE
+              value: "stale_query"
+            - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
+              value: "true"
+            - name: QPS
+              value: "10"
+            - name: ENDPOINT
+              value: "http://10.128.2.132:15000"
+            - name: OTEL_SERVICE_NAME
+              value: "irahul-jbypass-bypass"

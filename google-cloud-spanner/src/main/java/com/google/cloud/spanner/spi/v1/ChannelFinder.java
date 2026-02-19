@@ -25,6 +25,9 @@ import com.google.spanner.v1.ReadRequest;
 import com.google.spanner.v1.RoutingHint;
 import com.google.spanner.v1.TransactionOptions;
 import com.google.spanner.v1.TransactionSelector;
+import io.opentelemetry.api.common.AttributeKey;
+import io.opentelemetry.api.common.Attributes;
+import io.opentelemetry.api.trace.Span;
 import java.util.Objects;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -51,10 +54,12 @@ public final class ChannelFinder {
   public void update(CacheUpdate update) {
     synchronized (updateLock) {
       long currentId = databaseId.get();
+      boolean cacheCleared = false;
       if (currentId != update.getDatabaseId()) {
         if (currentId != 0) {
           recipeCache.clear();
           rangeCache.clear();
+          cacheCleared = true;
         }
         databaseId.set(update.getDatabaseId());
       }
@@ -62,6 +67,21 @@ public final class ChannelFinder {
         recipeCache.addRecipes(update.getKeyRecipes());
       }
       rangeCache.addRanges(update);
+
+      Span span = Span.current();
+      if (span.isRecording()) {
+        span.addEvent(
+            "lar.cache_update",
+            Attributes.of(
+                AttributeKey.booleanKey("cache_cleared"), cacheCleared,
+                AttributeKey.longKey("recipes_count"),
+                    (long)
+                        (update.hasKeyRecipes()
+                            ? update.getKeyRecipes().getRecipeCount()
+                            : 0),
+                AttributeKey.longKey("ranges_count"), (long) update.getRangeCount(),
+                AttributeKey.longKey("groups_count"), (long) update.getGroupCount()));
+      }
     }
   }
 
@@ -70,12 +90,46 @@ public final class ChannelFinder {
   }
 
   public ChannelEndpoint findServer(ReadRequest.Builder reqBuilder, boolean preferLeader) {
+    Span span = Span.current();
+    long findStart = System.nanoTime();
+
+    long ssKeyStart = System.nanoTime();
     recipeCache.computeKeys(reqBuilder);
-    return fillRoutingHint(
-        preferLeader,
-        KeyRangeCache.RangeMode.COVERING_SPLIT,
-        reqBuilder.getDirectedReadOptions(),
-        reqBuilder.getRoutingHintBuilder());
+    long ssKeyDurationUs = (System.nanoTime() - ssKeyStart) / 1000;
+
+    if (span.isRecording()) {
+      span.addEvent(
+          "lar.sskey_generation",
+          Attributes.of(
+              AttributeKey.longKey("duration_us"), ssKeyDurationUs,
+              AttributeKey.stringKey("operation_type"), "read"));
+    }
+
+    long rangeLookupStart = System.nanoTime();
+    ChannelEndpoint endpoint =
+        fillRoutingHint(
+            preferLeader,
+            KeyRangeCache.RangeMode.COVERING_SPLIT,
+            reqBuilder.getDirectedReadOptions(),
+            reqBuilder.getRoutingHintBuilder());
+    long rangeLookupDurationUs = (System.nanoTime() - rangeLookupStart) / 1000;
+    long totalDurationUs = (System.nanoTime() - findStart) / 1000;
+
+    if (span.isRecording()) {
+      span.addEvent(
+          "lar.range_cache_lookup",
+          Attributes.of(
+              AttributeKey.longKey("duration_us"), rangeLookupDurationUs,
+              AttributeKey.booleanKey("cache_hit"), endpoint != null));
+      span.addEvent(
+          "lar.find_server",
+          Attributes.of(
+              AttributeKey.longKey("duration_us"), totalDurationUs,
+              AttributeKey.stringKey("result"), endpoint != null ? "hit" : "miss",
+              AttributeKey.stringKey("target_address"),
+                  endpoint != null ? endpoint.getAddress() : "default"));
+    }
+    return endpoint;
   }
 
   public ChannelEndpoint findServer(ExecuteSqlRequest.Builder reqBuilder) {
@@ -83,18 +137,55 @@ public final class ChannelFinder {
   }
 
   public ChannelEndpoint findServer(ExecuteSqlRequest.Builder reqBuilder, boolean preferLeader) {
+    Span span = Span.current();
+    long findStart = System.nanoTime();
+
+    long ssKeyStart = System.nanoTime();
     recipeCache.computeKeys(reqBuilder);
-    return fillRoutingHint(
-        preferLeader,
-        KeyRangeCache.RangeMode.PICK_RANDOM,
-        reqBuilder.getDirectedReadOptions(),
-        reqBuilder.getRoutingHintBuilder());
+    long ssKeyDurationUs = (System.nanoTime() - ssKeyStart) / 1000;
+
+    if (span.isRecording()) {
+      span.addEvent(
+          "lar.sskey_generation",
+          Attributes.of(
+              AttributeKey.longKey("duration_us"), ssKeyDurationUs,
+              AttributeKey.stringKey("operation_type"), "query"));
+    }
+
+    long rangeLookupStart = System.nanoTime();
+    ChannelEndpoint endpoint =
+        fillRoutingHint(
+            preferLeader,
+            KeyRangeCache.RangeMode.PICK_RANDOM,
+            reqBuilder.getDirectedReadOptions(),
+            reqBuilder.getRoutingHintBuilder());
+    long rangeLookupDurationUs = (System.nanoTime() - rangeLookupStart) / 1000;
+    long totalDurationUs = (System.nanoTime() - findStart) / 1000;
+
+    if (span.isRecording()) {
+      span.addEvent(
+          "lar.range_cache_lookup",
+          Attributes.of(
+              AttributeKey.longKey("duration_us"), rangeLookupDurationUs,
+              AttributeKey.booleanKey("cache_hit"), endpoint != null));
+      span.addEvent(
+          "lar.find_server",
+          Attributes.of(
+              AttributeKey.longKey("duration_us"), totalDurationUs,
+              AttributeKey.stringKey("result"), endpoint != null ? "hit" : "miss",
+              AttributeKey.stringKey("target_address"),
+                  endpoint != null ? endpoint.getAddress() : "default"));
+    }
+    return endpoint;
   }
 
   public ChannelEndpoint findServer(BeginTransactionRequest.Builder reqBuilder) {
     if (!reqBuilder.hasMutationKey()) {
       return null;
     }
+    Span span = Span.current();
+    long findStart = System.nanoTime();
+
     TargetRange target = recipeCache.mutationToTargetRange(reqBuilder.getMutationKey());
     if (target == null) {
       return null;
@@ -104,11 +195,25 @@ public final class ChannelFinder {
     if (!target.limit.isEmpty()) {
       hintBuilder.setLimitKey(target.limit);
     }
-    return fillRoutingHint(
-        preferLeader(reqBuilder.getOptions()),
-        KeyRangeCache.RangeMode.COVERING_SPLIT,
-        DirectedReadOptions.getDefaultInstance(),
-        hintBuilder);
+    ChannelEndpoint endpoint =
+        fillRoutingHint(
+            preferLeader(reqBuilder.getOptions()),
+            KeyRangeCache.RangeMode.COVERING_SPLIT,
+            DirectedReadOptions.getDefaultInstance(),
+            hintBuilder);
+    long totalDurationUs = (System.nanoTime() - findStart) / 1000;
+
+    if (span.isRecording()) {
+      span.addEvent(
+          "lar.find_server",
+          Attributes.of(
+              AttributeKey.longKey("duration_us"), totalDurationUs,
+              AttributeKey.stringKey("operation_type"), "begin_transaction",
+              AttributeKey.stringKey("result"), endpoint != null ? "hit" : "miss",
+              AttributeKey.stringKey("target_address"),
+                  endpoint != null ? endpoint.getAddress() : "default"));
+    }
+    return endpoint;
   }
 
   private ChannelEndpoint fillRoutingHint(

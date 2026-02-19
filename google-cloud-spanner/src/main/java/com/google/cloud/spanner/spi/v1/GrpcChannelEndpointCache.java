@@ -25,6 +25,9 @@ import com.google.cloud.spanner.SpannerExceptionFactory;
 import com.google.common.annotations.VisibleForTesting;
 import io.grpc.ConnectivityState;
 import io.grpc.ManagedChannel;
+import io.opentelemetry.api.common.AttributeKey;
+import io.opentelemetry.api.common.Attributes;
+import io.opentelemetry.api.trace.Span;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
@@ -76,19 +79,32 @@ class GrpcChannelEndpointCache implements ChannelEndpointCache {
           ErrorCode.FAILED_PRECONDITION, "ChannelEndpointCache has been shut down");
     }
 
-    return servers.computeIfAbsent(
-        address,
-        addr -> {
-          try {
-            // Create a new provider with the same config but different endpoint.
-            // This is thread-safe as withEndpoint() returns a new provider instance.
-            TransportChannelProvider newProvider = baseProvider.withEndpoint(addr);
-            return new GrpcChannelEndpoint(addr, newProvider);
-          } catch (IOException e) {
-            throw SpannerExceptionFactory.newSpannerException(
-                ErrorCode.INTERNAL, "Failed to create channel for address: " + addr, e);
-          }
-        });
+    boolean[] cacheMiss = {false};
+    ChannelEndpoint result =
+        servers.computeIfAbsent(
+            address,
+            addr -> {
+              cacheMiss[0] = true;
+              try {
+                // Create a new provider with the same config but different endpoint.
+                // This is thread-safe as withEndpoint() returns a new provider instance.
+                TransportChannelProvider newProvider = baseProvider.withEndpoint(addr);
+                return new GrpcChannelEndpoint(addr, newProvider);
+              } catch (IOException e) {
+                throw SpannerExceptionFactory.newSpannerException(
+                    ErrorCode.INTERNAL, "Failed to create channel for address: " + addr, e);
+              }
+            });
+
+    if (cacheMiss[0]) {
+      Span span = Span.current();
+      if (span.isRecording()) {
+        span.addEvent(
+            "lar.endpoint_cache_miss",
+            Attributes.of(AttributeKey.stringKey("address"), address));
+      }
+    }
+    return result;
   }
 
   @Override

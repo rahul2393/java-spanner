@@ -37,6 +37,9 @@ import io.grpc.ForwardingClientCallListener.SimpleForwardingClientCallListener;
 import io.grpc.ManagedChannel;
 import io.grpc.Metadata;
 import io.grpc.MethodDescriptor;
+import io.opentelemetry.api.common.AttributeKey;
+import io.opentelemetry.api.common.Attributes;
+import io.opentelemetry.api.trace.Span;
 import java.io.IOException;
 import java.lang.ref.SoftReference;
 import java.util.Map;
@@ -334,8 +337,11 @@ final class KeyAwareChannel extends ManagedChannel {
         if (responseListener == null || headers == null) {
           throw new IllegalStateException("start must be called before sendMessage");
         }
+        Span span = Span.current();
+        long routingStart = System.nanoTime();
         ChannelEndpoint endpoint = null;
         ChannelFinder finder = null;
+        String routingSource = "default";
 
         if (message instanceof ReadRequest) {
           ReadRequest.Builder reqBuilder = ((ReadRequest) message).toBuilder();
@@ -343,6 +349,7 @@ final class KeyAwareChannel extends ManagedChannel {
           RoutingDecision routing = routeFromRequest(reqBuilder);
           finder = routing.finder;
           endpoint = routing.endpoint;
+          routingSource = routing.source;
           message = (RequestT) reqBuilder.build();
         } else if (message instanceof ExecuteSqlRequest) {
           ExecuteSqlRequest.Builder reqBuilder = ((ExecuteSqlRequest) message).toBuilder();
@@ -350,6 +357,7 @@ final class KeyAwareChannel extends ManagedChannel {
           RoutingDecision routing = routeFromRequest(reqBuilder);
           finder = routing.finder;
           endpoint = routing.endpoint;
+          routingSource = routing.source;
           message = (RequestT) reqBuilder.build();
         } else if (message instanceof BeginTransactionRequest) {
           BeginTransactionRequest.Builder reqBuilder =
@@ -358,6 +366,9 @@ final class KeyAwareChannel extends ManagedChannel {
           if (databaseId != null && reqBuilder.hasMutationKey()) {
             finder = parentChannel.getOrCreateChannelFinder(databaseId);
             endpoint = finder.findServer(reqBuilder);
+            if (endpoint != null) {
+              routingSource = "key_based";
+            }
           }
           if (reqBuilder.hasOptions() && reqBuilder.getOptions().hasReadOnly()) {
             isReadOnlyBegin = true;
@@ -371,12 +382,18 @@ final class KeyAwareChannel extends ManagedChannel {
           if (!request.getTransactionId().isEmpty()) {
             endpoint = parentChannel.affinityEndpoint(request.getTransactionId());
             transactionIdToClear = request.getTransactionId();
+            if (endpoint != null) {
+              routingSource = "affinity";
+            }
           }
         } else if (message instanceof RollbackRequest) {
           RollbackRequest request = (RollbackRequest) message;
           if (!request.getTransactionId().isEmpty()) {
             endpoint = parentChannel.affinityEndpoint(request.getTransactionId());
             transactionIdToClear = request.getTransactionId();
+            if (endpoint != null) {
+              routingSource = "affinity";
+            }
           }
         } else {
           throw new IllegalStateException(
@@ -389,6 +406,17 @@ final class KeyAwareChannel extends ManagedChannel {
         }
         selectedEndpoint = endpoint;
         this.channelFinder = finder;
+
+        long routingDurationUs = (System.nanoTime() - routingStart) / 1000;
+        if (span.isRecording()) {
+          span.addEvent(
+              "lar.routing_decision",
+              Attributes.of(
+                  AttributeKey.longKey("duration_us"), routingDurationUs,
+                  AttributeKey.stringKey("routing_source"), routingSource,
+                  AttributeKey.stringKey("target_address"), endpoint.getAddress(),
+                  AttributeKey.stringKey("method"), methodDescriptor.getFullMethodName()));
+        }
 
         delegate = endpoint.getChannel().newCall(methodDescriptor, callOptions);
         if (pendingMessageCompression != null) {
@@ -536,6 +564,10 @@ final class KeyAwareChannel extends ManagedChannel {
       // Skip affinity for read-only transactions so each read routes independently.
       boolean isReadOnly = parentChannel.isReadOnlyTransaction(transactionId);
       ChannelEndpoint endpoint = isReadOnly ? null : parentChannel.affinityEndpoint(transactionId);
+      String source = "default";
+      if (endpoint != null) {
+        source = "affinity";
+      }
       ChannelFinder finder = null;
       if (databaseId != null) {
         finder = parentChannel.getOrCreateChannelFinder(databaseId);
@@ -547,8 +579,11 @@ final class KeyAwareChannel extends ManagedChannel {
                 ? finder.findServer(reqBuilder, preferLeaderOverride)
                 : finder.findServer(reqBuilder);
         endpoint = routed;
+        if (endpoint != null) {
+          source = "key_based";
+        }
       }
-      return new RoutingDecision(finder, endpoint);
+      return new RoutingDecision(finder, endpoint, source);
     }
 
     private RoutingDecision routeFromRequest(ExecuteSqlRequest.Builder reqBuilder) {
@@ -557,6 +592,10 @@ final class KeyAwareChannel extends ManagedChannel {
       // Skip affinity for read-only transactions so each query routes independently.
       boolean isReadOnly = parentChannel.isReadOnlyTransaction(transactionId);
       ChannelEndpoint endpoint = isReadOnly ? null : parentChannel.affinityEndpoint(transactionId);
+      String source = "default";
+      if (endpoint != null) {
+        source = "affinity";
+      }
       ChannelFinder finder = null;
       if (databaseId != null) {
         finder = parentChannel.getOrCreateChannelFinder(databaseId);
@@ -568,18 +607,24 @@ final class KeyAwareChannel extends ManagedChannel {
                 ? finder.findServer(reqBuilder, preferLeaderOverride)
                 : finder.findServer(reqBuilder);
         endpoint = routed;
+        if (endpoint != null) {
+          source = "key_based";
+        }
       }
-      return new RoutingDecision(finder, endpoint);
+      return new RoutingDecision(finder, endpoint, source);
     }
   }
 
   private static final class RoutingDecision {
     @Nullable private final ChannelFinder finder;
     @Nullable private final ChannelEndpoint endpoint;
+    private final String source;
 
-    private RoutingDecision(@Nullable ChannelFinder finder, @Nullable ChannelEndpoint endpoint) {
+    private RoutingDecision(
+        @Nullable ChannelFinder finder, @Nullable ChannelEndpoint endpoint, String source) {
       this.finder = finder;
       this.endpoint = endpoint;
+      this.source = source;
     }
   }
 
@@ -617,8 +662,25 @@ final class KeyAwareChannel extends ManagedChannel {
           // Track the read-only transaction so subsequent reads skip affinity
           // and route independently based on key-based routing.
           call.parentChannel.trackReadOnlyTransaction(transactionId, call.readOnlyIsStrong);
+          Span span = Span.current();
+          if (span.isRecording()) {
+            span.addEvent(
+                "lar.affinity_track_readonly",
+                Attributes.of(
+                    AttributeKey.booleanKey("prefer_leader"), call.readOnlyIsStrong));
+          }
         } else if (!call.parentChannel.isReadOnlyTransaction(transactionId)) {
           call.maybeRecordAffinity(transactionId);
+          Span span = Span.current();
+          if (span.isRecording()) {
+            span.addEvent(
+                "lar.affinity_recorded",
+                Attributes.of(
+                    AttributeKey.stringKey("target_address"),
+                    call.selectedEndpoint != null
+                        ? call.selectedEndpoint.getAddress()
+                        : "unknown"));
+          }
         }
       }
       super.onMessage(message);
