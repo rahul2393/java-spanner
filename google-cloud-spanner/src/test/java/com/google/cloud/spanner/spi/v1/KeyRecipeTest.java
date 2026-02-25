@@ -76,6 +76,61 @@ public class KeyRecipeTest {
     assertTrue(target.limit.isEmpty());
   }
 
+  @Test
+  public void queryParamsCaseInsensitiveFallback() throws Exception {
+    com.google.spanner.v1.KeyRecipe recipeProto =
+        createRecipe(
+            "part { tag: 1 }\n"
+                + "part {\n"
+                + "  order: ASCENDING\n"
+                + "  null_order: NULLS_FIRST\n"
+                + "  type { code: STRING }\n"
+                + "  identifier: \"id\"\n"
+                + "}\n");
+
+    Struct params =
+        parseStruct(
+            "fields {\n"
+                + "  key: \"Id\"\n"
+                + "  value { string_value: \"foo\" }\n"
+                + "}\n");
+
+    KeyRecipe recipe = KeyRecipe.create(recipeProto);
+    TargetRange target = recipe.queryParamsToTargetRange(params);
+    assertEquals(expectedKey("foo"), target.start);
+    assertTrue(target.limit.isEmpty());
+  }
+
+  @Test
+  public void queryParamsCaseInsensitiveFallbackAmbiguous() throws Exception {
+    com.google.spanner.v1.KeyRecipe recipeProto =
+        createRecipe(
+            "part { tag: 1 }\n"
+                + "part {\n"
+                + "  order: ASCENDING\n"
+                + "  null_order: NULLS_FIRST\n"
+                + "  type { code: STRING }\n"
+                + "  identifier: \"ID\"\n"
+                + "}\n");
+
+    Struct params =
+        parseStruct(
+            "fields {\n"
+                + "  key: \"Id\"\n"
+                + "  value { string_value: \"foo\" }\n"
+                + "}\n"
+                + "fields {\n"
+                + "  key: \"id\"\n"
+                + "  value { string_value: \"bar\" }\n"
+                + "}\n");
+
+    KeyRecipe recipe = KeyRecipe.create(recipeProto);
+    TargetRange target = recipe.queryParamsToTargetRange(params);
+    assertEquals(expectedTagOnlyKey(), target.start);
+    assertTrue(target.approximate);
+    assertTrue(!target.limit.isEmpty());
+  }
+
   private static com.google.spanner.v1.KeyRecipe createRecipe(String text)
       throws TextFormat.ParseException {
     com.google.spanner.v1.KeyRecipe.Builder builder = com.google.spanner.v1.KeyRecipe.newBuilder();
@@ -94,6 +149,12 @@ public class KeyRecipeTest {
     SsFormat.appendCompositeTag(out, 1);
     SsFormat.appendNotNullMarkerNullOrderedFirst(out);
     SsFormat.appendStringIncreasing(out, value);
+    return ByteString.copyFrom(out.toByteArray());
+  }
+
+  private static ByteString expectedTagOnlyKey() {
+    UnsynchronizedByteArrayOutputStream out = new UnsynchronizedByteArrayOutputStream();
+    SsFormat.appendCompositeTag(out, 1);
     return ByteString.copyFrom(out.toByteArray());
   }
 }

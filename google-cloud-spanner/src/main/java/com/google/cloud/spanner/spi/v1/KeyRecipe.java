@@ -30,7 +30,10 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Base64;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
@@ -780,9 +783,30 @@ public final class KeyRecipe {
   }
 
   public TargetRange queryParamsToTargetRange(Struct in) {
+    final Map<String, Value> fields = in.getFieldsMap();
+    final Map<String, String> foldedToOriginal = new HashMap<>();
+    for (String fieldName : fields.keySet()) {
+      String folded = fieldName.toLowerCase(Locale.ROOT);
+      String existing = foldedToOriginal.get(folded);
+      if (existing == null) {
+        foldedToOriginal.put(folded, fieldName);
+      } else if (!existing.equals(fieldName)) {
+        // Multiple params differ only in case. Mark as ambiguous.
+        foldedToOriginal.put(folded, "");
+      }
+    }
+
     return encodeKeyInternal(
         (index, identifier) -> {
-          return in.getFieldsMap().get(identifier);
+          Value value = fields.get(identifier);
+          if (value != null) {
+            return value;
+          }
+          String fallback = foldedToOriginal.get(identifier.toLowerCase(Locale.ROOT));
+          if (fallback == null || fallback.isEmpty()) {
+            return null;
+          }
+          return fields.get(fallback);
         },
         KeyType.FULL_KEY);
   }

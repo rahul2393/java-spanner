@@ -40,7 +40,7 @@ spec:
             - name: QPS
               value: "10"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: strong-read
@@ -50,7 +50,7 @@ spec:
             - name: QPS
               value: "10"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: stale-query
@@ -60,7 +60,7 @@ spec:
             - name: QPS
               value: "10"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: strong-query
@@ -70,7 +70,7 @@ spec:
             - name: QPS
               value: "10"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -112,7 +112,7 @@ spec:
             - name: PROBE_TYPE
               value: "read_write"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: occ
@@ -120,7 +120,7 @@ spec:
             - name: PROBE_TYPE
               value: "rr_occ_dml"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: dml
@@ -128,21 +128,21 @@ spec:
             - name: PROBE_TYPE
               value: "dml"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
         - <<: *container-template
           name: blind-dml
           env:
             - name: PROBE_TYPE
               value: "blind_dml"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
         - <<: *container-template
           name: multi-blind-dml
           env:
             - name: PROBE_TYPE
               value: "multi_blind_dml"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -188,7 +188,7 @@ spec:
             - name: QPS
               value: "10"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: strong-read
@@ -200,7 +200,7 @@ spec:
             - name: QPS
               value: "10"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: stale-query
@@ -212,7 +212,7 @@ spec:
             - name: QPS
               value: "10"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: strong-query
@@ -224,7 +224,7 @@ spec:
             - name: QPS
               value: "10"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -268,7 +268,7 @@ spec:
             - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
               value: "true"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: occ
@@ -278,7 +278,7 @@ spec:
             - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
               value: "true"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: dml
@@ -288,7 +288,7 @@ spec:
             - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
               value: "true"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: blind-dml
@@ -298,7 +298,7 @@ spec:
             - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
               value: "true"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
 
         - <<: *container-template
           name: multi-blind-dml
@@ -308,4 +308,4 @@ spec:
             - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
               value: "true"
             - name: ENDPOINT
-              value: "http://10.128.2.132:15000"
+              value: "http://10.142.15.195:15000"
