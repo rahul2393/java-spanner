@@ -55,6 +55,8 @@ import com.google.spanner.v1.RequestOptions;
 import com.google.spanner.v1.Transaction;
 import com.google.spanner.v1.TransactionOptions;
 import com.google.spanner.v1.TransactionSelector;
+import java.util.Collections;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.atomic.AtomicLong;
@@ -202,9 +204,18 @@ abstract class AbstractReadContext
       // of a channel hint. GAX will automatically choose a hint when used
       // with a multiplexed session to perform a round-robin channel selection. We are
       // passing a hint here to prefer random channel selection instead of doing GAX round-robin.
+      // Also signal unbind so the grpc-gcp affinity map entry is cleaned up once the call
+      // completes. The retry path (prepareRetryOnDifferentGrpcChannel) does NOT carry this
+      // flag, so resumed streams will re-bind to a fresh key without early unbind.
       this.channelHint =
           getChannelHintOptions(
               session.getOptions(), ThreadLocalRandom.current().nextLong(Long.MAX_VALUE));
+      if (this.channelHint != null) {
+        Map<SpannerRpc.Option, Object> mutable = new EnumMap<>(SpannerRpc.Option.class);
+        mutable.putAll(this.channelHint);
+        mutable.put(SpannerRpc.Option.UNBIND_CHANNEL_HINT, Boolean.TRUE);
+        this.channelHint = Collections.unmodifiableMap(mutable);
+      }
     }
 
     @Override

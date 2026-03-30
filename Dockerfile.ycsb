@@ -1,0 +1,54 @@
+FROM maven:3.9-eclipse-temurin-17 AS build
+
+WORKDIR /workspace
+
+# Build java-spanner locally and then build YCSB cloudspanner binding against
+# that local artifact so benchmark runs use your local Spanner jar.
+COPY . .
+
+RUN mvn -pl google-cloud-spanner -am install \
+    -DskipTests \
+    -Dclirr.skip \
+    -Dmaven.javadoc.skip=true \
+    -Dcheckstyle.skip=true
+RUN mvn -f ycsb/pom.xml -pl cloudspanner -am package \
+    -DskipTests \
+    -Dcheckstyle.skip=true
+RUN mkdir -p /out/lib /out/bin /out/cloudspanner-binding/lib /out/cloudspanner-binding/conf /out/cloudspanner/conf /out/workloads
+RUN CORE_JAR="$(find ycsb/core/target -maxdepth 1 -type f -name 'core-*.jar' ! -name '*-tests.jar' ! -name 'original-*' | head -n 1)" \
+    && test -n "${CORE_JAR}" \
+    && echo "Found core jar: ${CORE_JAR}" \
+    && cp "${CORE_JAR}" /out/lib/core.jar
+RUN YCSB_BINDING_JAR="$(find ycsb/cloudspanner/target -maxdepth 1 -type f -name 'cloudspanner-binding-*.jar' ! -name '*-tests.jar' ! -name 'original-*' | head -n 1)" \
+    && test -n "${YCSB_BINDING_JAR}" \
+    && echo "Found cloudspanner binding jar: ${YCSB_BINDING_JAR}" \
+    && cp "${YCSB_BINDING_JAR}" /out/cloudspanner-binding/lib/cloudspanner-binding.jar
+RUN mvn -f ycsb/core/pom.xml dependency:copy-dependencies \
+    -DincludeScope=runtime \
+    -DoutputDirectory=/out/lib \
+    -DskipTests
+RUN cp -r ycsb/bin/. /out/bin/
+RUN cp -r ycsb/cloudspanner/conf/. /out/cloudspanner-binding/conf/
+RUN cp -r ycsb/cloudspanner/conf/. /out/cloudspanner/conf/
+RUN cp -r ycsb/workloads/. /out/workloads/
+RUN cp ycsb/LICENSE.txt /out/LICENSE.txt
+RUN cp ycsb/NOTICE.txt /out/NOTICE.txt
+
+FROM hengyunabc/arthas:latest AS arthas
+
+FROM eclipse-temurin:17-jdk
+
+WORKDIR /ycsb
+
+RUN apt-get update && apt-get install -y python3 python-is-python3 && rm -rf /var/lib/apt/lists/*
+
+COPY --from=build /out/lib /ycsb/lib
+COPY --from=build /out/bin /ycsb/bin
+COPY --from=build /out/cloudspanner-binding /ycsb/cloudspanner-binding
+COPY --from=build /out/cloudspanner /ycsb/cloudspanner
+COPY --from=build /out/workloads /ycsb/workloads
+COPY --from=build /out/LICENSE.txt /ycsb/LICENSE.txt
+COPY --from=build /out/NOTICE.txt /ycsb/NOTICE.txt
+COPY --from=arthas /opt/arthas /opt/arthas
+
+ENTRYPOINT ["/ycsb/bin/ycsb"]

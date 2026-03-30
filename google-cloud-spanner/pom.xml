@@ -192,6 +192,7 @@
     <dependency>
       <groupId>com.google.cloud</groupId>
       <artifactId>grpc-gcp</artifactId>
+      <version>1.9.2</version>
       <exclusions>
          <exclusion>
             <groupId>io.opentelemetry</groupId>

@@ -1,0 +1,311 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: spanner-ns
+  name: jclient-read-classic
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jclient-read-classic
+  template:
+    metadata:
+      labels:
+        app: jclient-read-classic
+    spec:
+      # for the Stackdriver metrics
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
+
+      containers:
+        - &container-template
+          name: stale-read
+          image: us-west1-docker.pkg.dev/outbound-flight/spanner-box/irahul-client:latest
+          command: ["java"]
+          args:
+            - -XX:-TieredCompilation
+            - -XX:CompileThreshold=1000
+            - -jar
+            - /app/main.jar
+          resources:
+            requests:
+              memory: "400Mi"
+              cpu: "0.4"
+            limits:
+              memory: "400Mi"
+              cpu: "0.4"
+          env:
+            - name: PROBE_TYPE
+              value: "stale_read"
+            - name: QPS
+              value: "10"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: strong-read
+          env:
+            - name: PROBE_TYPE
+              value: "strong_read"
+            - name: QPS
+              value: "10"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: stale-query
+          env:
+            - name: PROBE_TYPE
+              value: "stale_query"
+            - name: QPS
+              value: "10"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: strong-query
+          env:
+            - name: PROBE_TYPE
+              value: "strong_query"
+            - name: QPS
+              value: "10"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: spanner-ns
+  name: jclient-write-classic
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jclient-write-classic
+  template:
+    metadata:
+      labels:
+        app: jclient-write-classic
+    spec:
+      # for the Stackdriver metrics
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
+
+      containers:
+        - &container-template
+          name: read-write
+          image: us-west1-docker.pkg.dev/outbound-flight/spanner-box/irahul-client:latest
+          command: ["java"]
+          args:
+            - -XX:-TieredCompilation
+            - -XX:CompileThreshold=1000
+            - -jar
+            - /app/main.jar
+          resources:
+            requests:
+              memory: "400Mi"
+              cpu: "0.4"
+            limits:
+              memory: "400Mi"
+              cpu: "0.4"
+          env:
+            - name: PROBE_TYPE
+              value: "read_write"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: occ
+          env:
+            - name: PROBE_TYPE
+              value: "rr_occ_dml"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: dml
+          env:
+            - name: PROBE_TYPE
+              value: "dml"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+        - <<: *container-template
+          name: blind-dml
+          env:
+            - name: PROBE_TYPE
+              value: "blind_dml"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+        - <<: *container-template
+          name: multi-blind-dml
+          env:
+            - name: PROBE_TYPE
+              value: "multi_blind_dml"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: spanner-ns
+  name: jclient-read-bypass
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: jclient-read-bypass
+  template:
+    metadata:
+      labels:
+        app: jclient-read-bypass
+    spec:
+      # for the Stackdriver metrics
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
+
+      containers:
+        - &container-template
+          name: stale-read
+          image: us-west1-docker.pkg.dev/outbound-flight/spanner-box/irahul-client:latest
+          command: ["java"]
+          args:
+            - -XX:-TieredCompilation
+            - -XX:CompileThreshold=1000
+            - -jar
+            - /app/main.jar
+          resources:
+            requests:
+              memory: "400Mi"
+              cpu: "0.4"
+            limits:
+              memory: "400Mi"
+              cpu: "0.4"
+          env:
+            - name: PROBE_TYPE
+              value: "stale_read"
+            - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
+              value: "true"
+            - name: QPS
+              value: "10"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: strong-read
+          env:
+            - name: PROBE_TYPE
+              value: "strong_read"
+            - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
+              value: "true"
+            - name: QPS
+              value: "10"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: stale-query
+          env:
+            - name: PROBE_TYPE
+              value: "stale_query"
+            - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
+              value: "true"
+            - name: QPS
+              value: "10"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: strong-query
+          env:
+            - name: PROBE_TYPE
+              value: "strong_query"
+            - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
+              value: "true"
+            - name: QPS
+              value: "10"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: spanner-ns
+  name: jclient-write-bypass
+spec:
+  replicas: 0
+  selector:
+    matchLabels:
+      app: jclient-write-bypass
+  template:
+    metadata:
+      labels:
+        app: jclient-write-bypass
+    spec:
+      # for the Stackdriver metrics
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
+
+      containers:
+        - &container-template
+          name: read-write
+          image: us-west1-docker.pkg.dev/outbound-flight/spanner-box/irahul-client:latest
+          command: ["java"]
+          args:
+            - -XX:-TieredCompilation
+            - -XX:CompileThreshold=1000
+            - -jar
+            - /app/main.jar
+          resources:
+            requests:
+              memory: "400Mi"
+              cpu: "0.4"
+            limits:
+              memory: "400Mi"
+              cpu: "0.4"
+          env:
+            - name: PROBE_TYPE
+              value: "read_write"
+            - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
+              value: "true"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: occ
+          env:
+            - name: PROBE_TYPE
+              value: "rr_occ_dml"
+            - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
+              value: "true"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: dml
+          env:
+            - name: PROBE_TYPE
+              value: "dml"
+            - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
+              value: "true"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: blind-dml
+          env:
+            - name: PROBE_TYPE
+              value: "blind_dml"
+            - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
+              value: "true"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
+
+        - <<: *container-template
+          name: multi-blind-dml
+          env:
+            - name: PROBE_TYPE
+              value: "multi_blind_dml"
+            - name: GOOGLE_SPANNER_EXPERIMENTAL_LOCATION_API
+              value: "true"
+            - name: ENDPOINT
+              value: "http://10.142.15.195:15000"
